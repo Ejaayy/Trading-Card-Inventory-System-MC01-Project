@@ -3,8 +3,6 @@ https://www.mermaidchart.com/app/projects/bf7d6599-8639-46c6-b055-21a148b0eb20/d
 a64c70a4b5da/share/invite/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkb2N1bWVudElEIjoiZDgyNjNlYjEtOTg2Mi00ZmVjLTk2
 OTMtYTY0YzcwYTRiNWRhIiwiYWNjZXNzIjoiRWRpdCIsImlhdCI6MTc0OTIxOTIwMH0.HuTk718L8Sj7BMqDyclB91Dcl9yI4Z6Xia6AkGZCVFE
 
-classDiagram
-
     class Main {
 
         +main() static void
