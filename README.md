@@ -2,6 +2,7 @@
 
 ## 📌 Update Log
 - **2025-06-04**: Created Repo for MC01
+- **2025-06-06**: Started the UML Diagram for the project
 
 ## 📋 Overview
 The Trading Card Inventory System (TCIS) is a command-line application that helps card collectors manage their collections efficiently. It supports tracking of card details, managing binders and decks, and performing basic trades—all while adhering to object-based programming principles.
