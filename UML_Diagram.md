@@ -18,7 +18,7 @@ https://www.mermaidchart.com/app/projects/bf7d6599-8639-46c6-b055-21a148b0eb20/d
     class Card {
 
         %% Attributes / Properties
-            -name : String %% Primary Key
+            -name : String %% Primary Key / Unique Identifier
             -count : int
             -rarity : String
                 %% common
@@ -60,6 +60,10 @@ https://www.mermaidchart.com/app/projects/bf7d6599-8639-46c6-b055-21a148b0eb20/d
         + deleteBinder(Binder binder) void
         + createBinder(String name) void
         + addCard(Card card) void
+        + tradeCard(Card outgoing, Card incoming) void
+        + compareCard(Card card1, Card card2) card
+        + viewBinder() void
+
        
     }
 
@@ -72,22 +76,26 @@ https://www.mermaidchart.com/app/projects/bf7d6599-8639-46c6-b055-21a148b0eb20/d
         %% Methods
         +Binder()
             %% this.cards = new Card[20]
-        
-        
-
 
     }
 
     class ManageDeck{
-        
+        %%Attributes / Properties
+        -decks : ArrayList<Deck>
+
+        %%Methods
+        +createDeck() : void
+        +deleteDeck(Deck deck): void
     }
 
     class Deck{
         %% Attributes / Properties
+        -name String
         -cards : Card[]
         
         %% Methods
         +Deck()
+            %% this.cards = new Card[10]
         +addCard(Card card) void
         +removeCard(Card card) void
         +viewDeck() void
