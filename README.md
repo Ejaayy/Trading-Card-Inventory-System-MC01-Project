@@ -1,4 +1,4 @@
-# Trading Card Inventory System (TCIS)
+# Trading com.TradingCardInventoryClasses.Card Inventory System (TCIS)
 
 ## 📌 Update Log
 - **2025-06-04**: Created Repo for MC01
@@ -6,12 +6,12 @@
 - **2025-06-10**: Merged Intellij Files to Repo, Made come some of the classes
 
 ## 📋 Overview
-The Trading Card Inventory System (TCIS) is a command-line application that helps card collectors manage their collections efficiently. It supports tracking of card details, managing binders and decks, and performing basic trades—all while adhering to object-based programming principles.
+The Trading com.TradingCardInventoryClasses.Card Inventory System (TCIS) is a command-line application that helps card collectors manage their collections efficiently. It supports tracking of card details, managing binders and decks, and performing basic trades—all while adhering to object-based programming principles.
 
 ## ✨ Features
-- **Add Card**: Add new cards with details like name, rarity, variant, and base value.
-- **Increase/Decrease Card Count**: Manage the quantity of each card.
-- **View Collection**: Display all cards sorted alphabetically.
+- **Add com.TradingCardInventoryClasses.Card**: Add new cards with details like name, rarity, variant, and base value.
+- **Increase/Decrease com.TradingCardInventoryClasses.Card Count**: Manage the quantity of each card.
+- **View com.TradingCardInventoryClasses.Collection**: Display all cards sorted alphabetically.
 - **Manage Binders**:
   - Create, delete binders
   - Add/remove cards
@@ -19,7 +19,7 @@ The Trading Card Inventory System (TCIS) is a command-line application that help
 - **Manage Decks**:
   - Create, delete decks
   - Add/remove cards (max 1 copy per deck)
-- **Card Details**: View full details of any card.
+- **com.TradingCardInventoryClasses.Card Details**: View full details of any card.
 
 ## 🔧 Technical Info
 - Language: Java

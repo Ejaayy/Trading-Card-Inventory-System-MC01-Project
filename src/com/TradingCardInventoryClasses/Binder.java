@@ -1,3 +1,5 @@
+package com.TradingCardInventoryClasses;
+
 public class Binder {
 
     // Properties / Attributes

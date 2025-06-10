@@ -1,3 +1,5 @@
+package com.TradingCardInventoryClasses;
+
 public class Deck {
 
     // Properties / Attributes

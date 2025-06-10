@@ -1,3 +1,5 @@
+package com.TradingCardInventoryClasses;
+
 public class Card {
 
     // Properties / Attributes
@@ -8,7 +10,13 @@ public class Card {
     private float value;
 
     // Methods
-
+    public void displayCard(){
+        System.out.println("Name: " + this.name);
+        System.out.println("Count: " + this.count);
+        System.out.println("Rarity: " + this.rarity);
+        System.out.println("Variant: " + this.variant);
+        System.out.println("Value: " + this.value);
+    }
 
     // Getters and Setters
     public String getName() {
