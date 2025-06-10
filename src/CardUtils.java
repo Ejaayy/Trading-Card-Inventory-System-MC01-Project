@@ -4,7 +4,7 @@ public class CardUtils {
 
     // Methods
     public float calculatedAdjustedValue(Card card){
-        //TODO
+        //TODO hotdog
     }
 
     public boolean isTradeFair(Card card1, Card card2){
