@@ -5,6 +5,7 @@
 - **2025-06-06**: Started the UML Diagram for the project
 - **2025-06-10**: Merged Intellij Files to Repo, Made come some of the classes
 - **2025-06-10**: Finished Classes, Finished Menus, Organized into a package
+- **2025-06-11**: Finished Classes, Finished Menus, Organized into a package
 
 ## 📋 Overview
 The Trading com.TradingCardInventoryClasses.Card Inventory System (TCIS) is a command-line application that helps card collectors manage their collections efficiently. It supports tracking of card details, managing binders and decks, and performing basic trades—all while adhering to object-based programming principles.
