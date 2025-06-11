@@ -25,6 +25,7 @@ public class ManageBinder {
         System.out.print("Enter Choice: ");
         input = scanner.nextInt();
         System.out.println("\n-------------------------------------------");
+
         return input;
     }
 
@@ -76,6 +77,7 @@ public class ManageBinder {
     public int getCount(){
         return this.binders.size();
     }
+
     public void tradeCard(Card outgoing, Card incoming){
 
     }

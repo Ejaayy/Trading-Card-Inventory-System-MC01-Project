@@ -35,6 +35,9 @@ public class Collection {
             switch (input) {
                 case 1:
                     //Add card method
+                    Card card = new Card();
+
+
                     break;
                 case 2:
                     //Increase / Decrease Card Count

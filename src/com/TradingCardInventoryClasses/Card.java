@@ -18,6 +18,10 @@ public class Card {
         System.out.println("Value: " + this.value);
     }
 
+    public void inputCard(){
+
+    }
+
     // Getters and Setters
     public String getName() {
         return this.name;

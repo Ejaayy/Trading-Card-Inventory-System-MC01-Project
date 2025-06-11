@@ -46,6 +46,7 @@ public class Menu {
         System.out.print("Enter Choice: ");
         input = scanner.nextInt();
         System.out.println("\n-------------------------------------------");
+
         return input;
     }
 
