@@ -9,6 +9,11 @@ public class ManageBinder {
     private ArrayList<Binder> binders;
 
     // Methods
+
+    public ManageBinder(){
+        this.binders = new ArrayList<>();
+    }
+
     public int manageBinderMenuTemplate(){
         int input = 0;
         Scanner scanner = new Scanner(System.in);

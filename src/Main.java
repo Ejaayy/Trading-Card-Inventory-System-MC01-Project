@@ -1,4 +1,3 @@
-import java.util.Scanner;
 import com.TradingCardInventoryClasses.*;
 
 public class Main {

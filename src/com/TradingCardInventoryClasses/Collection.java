@@ -1,7 +1,9 @@
 package com.TradingCardInventoryClasses;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import com.TradingCardInventoryClasses.Options.*;
 
 public class Collection {
 
@@ -9,6 +11,9 @@ public class Collection {
     private List<Card> collection;
 
     //Methods
+    public Collection() {
+        this.collection = new ArrayList<>();
+    }
 
     public int collectionMenuTemplate(){
         int input = 0;
@@ -35,9 +40,7 @@ public class Collection {
             switch (input) {
                 case 1:
                     //Add card method
-                    Card card = new Card();
-
-
+                    addCard();
                     break;
                 case 2:
                     //Increase / Decrease Card Count
@@ -52,8 +55,50 @@ public class Collection {
         }
     }
 
-    public void addCard(Card card){
+    public void addCard(){
         //TODO
+        Scanner scanner = new Scanner(System.in);
+
+        //Input Card Name
+        System.out.print("Enter Card name: ");
+        String cardName = scanner.nextLine();
+
+        //Add here a search loop to find if the card exists already
+        //TODO
+
+        // Input Rarity
+        Rarity rarity = null;
+        while (rarity == null) {
+            System.out.print("Enter Rarity (common, uncommon, rare, legendary): ");
+            String rarityInput = scanner.nextLine().trim().toUpperCase();
+            try {
+                rarity = Rarity.valueOf(rarityInput);
+            } catch (IllegalArgumentException e) {
+                System.out.println("Invalid rarity. Try again.");
+            }
+        }
+
+        // Input Variant (only if rare or legendary)
+        Variant variant = Variant.NORMAL;  // default
+        if (rarity == Rarity.RARE || rarity == Rarity.LEGENDARY) {
+            while (true) {
+                System.out.print("Enter Variant (normal, extended_art, full_art, alt_art): ");
+                String variantInput = scanner.nextLine().trim().toUpperCase();
+                try {
+                    variant = Variant.valueOf(variantInput);
+                    break;
+                } catch (IllegalArgumentException e) {
+                    System.out.println("Invalid variant. Try again.");
+                }
+            }
+        }
+
+        //Input Value
+        System.out.print("Enter Value: ");
+        double value = scanner.nextDouble();
+
+        Card card = new Card(cardName, rarity, variant, value);
+        this.collection.add(card);
     }
 
     public Card getCard(String name){

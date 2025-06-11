@@ -1,28 +1,36 @@
 package com.TradingCardInventoryClasses;
+import com.TradingCardInventoryClasses.Options.*;
 
 public class Card {
 
     // Properties / Attributes
     private String name;
     private int count;
-    private String rarity;
-    private String variant;
-    private float value;
+    private Rarity rarity;
+    private Variant variant;
+    private double baseValue;
+    private double actualValue;
 
     // Methods
+
+    public Card(String name, Rarity rarity, Variant variant, double baseValue) {
+        this.name = name;
+        this.rarity = rarity;
+        this.variant = variant;
+        this.baseValue = baseValue;
+        this.count = 1;
+    }
+
     public void displayCard(){
         System.out.println("Name: " + this.name);
         System.out.println("Count: " + this.count);
         System.out.println("Rarity: " + this.rarity);
         System.out.println("Variant: " + this.variant);
-        System.out.println("Value: " + this.value);
-    }
-
-    public void inputCard(){
-
+        System.out.println("Value: " + this.actualValue);
     }
 
     // Getters and Setters
+
     public String getName() {
         return this.name;
     }
@@ -31,16 +39,16 @@ public class Card {
         return this.count;
     }
 
-    public String getRarity() {
+    public Rarity getRarity() {
         return this.rarity;
     }
 
-    public String getVariant() {
+    public Variant getVariant() {
         return this.variant;
     }
 
-    public float getValue() {
-        return this.value;
+    public double getValue() {
+        return this.actualValue;
     }
 
     public void setName(String name) {
@@ -51,15 +59,4 @@ public class Card {
         this.count = count;
     }
 
-    public void setRarity(String rarity) {
-        this.rarity = rarity;
-    }
-
-    public void setVariant(String variant) {
-        this.variant = variant;
-    }
-
-    public void setValue(float value) {
-        this.value = value;
-    }
 }

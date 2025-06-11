@@ -8,6 +8,10 @@ public class ManageDeck {
     private ArrayList<Deck> decks; //since no limit
 
     // Methods
+    public ManageDeck(){
+        this.decks = new ArrayList<>();
+    }
+
     public int manageDeckMenuTemplate(){
         int input = 0;
         Scanner scanner = new Scanner(System.in);
