@@ -1,4 +1,4 @@
-# Trading com.TradingCardInventoryClasses.Card Inventory System (TCIS)
+# Trading Card Inventory System (TCIS)
 
 ## 📌 Update Log
 - **2025-06-04**: Created Repo for MC01
