@@ -18,15 +18,8 @@ public class Card {
         this.rarity = rarity;
         this.variant = variant;
         this.baseValue = baseValue;
+        this.actualValue = baseValue * variant.getMultiplier();
         this.count = 1;
-    }
-
-    public void displayCard(){
-        System.out.println("Name: " + this.name);
-        System.out.println("Count: " + this.count);
-        System.out.println("Rarity: " + this.rarity);
-        System.out.println("Variant: " + this.variant);
-        System.out.println("Value: " + this.actualValue);
     }
 
     // Getters and Setters
@@ -47,8 +40,12 @@ public class Card {
         return this.variant;
     }
 
-    public double getValue() {
+    public double getActualValue() {
         return this.actualValue;
+    }
+
+    public double getBaseValue(){
+        return this.baseValue;
     }
 
     public void setName(String name) {
@@ -59,4 +56,11 @@ public class Card {
         this.count = count;
     }
 
+    public void setActualValue(double actualValue) {
+        this.actualValue = actualValue;
+    }
+
+    public void setBaseValue(double baseValue) {
+        this.baseValue = baseValue;
+    }
 }

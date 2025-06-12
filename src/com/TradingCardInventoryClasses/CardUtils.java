@@ -14,4 +14,17 @@ public class CardUtils {
         //TODO
         return false;
     }
+
+    public void viewCard(Card card){
+
+        System.out.println("───────────────────────────────");
+        System.out.printf("Name         : %s%n", card.getName());
+        System.out.printf("Rarity       : %s%n", card.getRarity());
+        System.out.printf("Variant      : %s%n", card.getVariant());
+        System.out.printf("Base Value   : $%.2f%n", card.getBaseValue());
+        System.out.printf("Actual Value : $%.2f%n", card.getActualValue());
+        System.out.printf("Count        : %d%n", card.getCount());
+        System.out.println("───────────────────────────────\n");
+
+    }
 }

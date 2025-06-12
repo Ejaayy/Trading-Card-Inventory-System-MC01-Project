@@ -47,6 +47,7 @@ public class Collection {
                     break;
                 case 3:
                     //Display Card / Collection
+                    displayCollection();
                     break;
                 case 4:
                     running = false;
@@ -101,9 +102,14 @@ public class Collection {
         this.collection.add(card);
     }
 
-    public Card getCard(String name){
-        //TODO
-        return collection.get(0);
+    public void displayCollection(){
+        CardUtils cardutils = new CardUtils();
+
+        for (int i = 0; i < collection.size(); i++){
+            Card card = this.collection.get(i);
+            cardutils.viewCard(card);
+        }
+
     }
 
     public void increaseCardCount(String name){
@@ -114,13 +120,18 @@ public class Collection {
         //TODO
     }
 
+    public List<Card> sortCardsByName(){
+        //TODO
+        return this.collection;
+    }
+
     public List<Card> getAllCards(){
         return this.collection;
     }
 
-    public List<Card> sortCardsByName(){
+    public Card getCard(String name){
         //TODO
-        return this.collection;
+        return collection.get(0);
     }
 
 }
