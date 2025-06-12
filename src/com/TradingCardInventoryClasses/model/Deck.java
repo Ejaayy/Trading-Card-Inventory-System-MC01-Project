@@ -1,4 +1,4 @@
-package com.TradingCardInventoryClasses;
+package com.TradingCardInventoryClasses.model;
 
 public class Deck {
 

@@ -1,4 +1,6 @@
-package com.TradingCardInventoryClasses;
+package com.TradingCardInventoryClasses.utils;
+
+import com.TradingCardInventoryClasses.model.Card;
 
 public class CardUtils {
 

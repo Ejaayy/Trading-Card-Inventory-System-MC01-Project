@@ -1,9 +1,11 @@
-package com.TradingCardInventoryClasses;
+package com.TradingCardInventoryClasses.model;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import com.TradingCardInventoryClasses.Options.*;
+
+import com.TradingCardInventoryClasses.utils.CardUtils;
+import com.TradingCardInventoryClasses.options.*;
 
 public class Collection {
 
@@ -100,6 +102,11 @@ public class Collection {
 
         Card card = new Card(cardName, rarity, variant, value);
         this.collection.add(card);
+    }
+
+    public void display(){
+
+
     }
 
     public void displayCollection(){

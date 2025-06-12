@@ -1,5 +1,5 @@
-package com.TradingCardInventoryClasses;
-import com.TradingCardInventoryClasses.Options.*;
+package com.TradingCardInventoryClasses.model;
+import com.TradingCardInventoryClasses.options.*;
 
 public class Card {
 

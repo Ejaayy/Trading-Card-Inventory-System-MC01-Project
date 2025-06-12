@@ -6,14 +6,15 @@
 - **2025-06-10**: Merged Intellij Files to Repo, Made come some of the classes
 - **2025-06-10**: Finished Classes, Finished Menus, Organized into a package
 - **2025-06-11**: Changes to Card Class, Add Card Method in Collection Class, New Package for default Options
+- **2025-06-12**: Sorted Packages, View Collection Feature
 
 ## 📋 Overview
-The Trading com.TradingCardInventoryClasses.Card Inventory System (TCIS) is a command-line application that helps card collectors manage their collections efficiently. It supports tracking of card details, managing binders and decks, and performing basic trades—all while adhering to object-based programming principles.
+The Trading com.TradingCardInventoryClasses.model.Card Inventory System (TCIS) is a command-line application that helps card collectors manage their collections efficiently. It supports tracking of card details, managing binders and decks, and performing basic trades—all while adhering to object-based programming principles.
 
 ## ✨ Features
-- **Add com.TradingCardInventoryClasses.Card**: Add new cards with details like name, rarity, variant, and base value.
-- **Increase/Decrease com.TradingCardInventoryClasses.Card Count**: Manage the quantity of each card.
-- **View com.TradingCardInventoryClasses.Collection**: Display all cards sorted alphabetically.
+- **Add com.TradingCardInventoryClasses.model.Card**: Add new cards with details like name, rarity, variant, and base value.
+- **Increase/Decrease com.TradingCardInventoryClasses.model.Card Count**: Manage the quantity of each card.
+- **View com.TradingCardInventoryClasses.model.Collection**: Display all cards sorted alphabetically.
 - **Manage Binders**:
   - Create, delete binders
   - Add/remove cards
@@ -21,7 +22,7 @@ The Trading com.TradingCardInventoryClasses.Card Inventory System (TCIS) is a co
 - **Manage Decks**:
   - Create, delete decks
   - Add/remove cards (max 1 copy per deck)
-- **com.TradingCardInventoryClasses.Card Details**: View full details of any card.
+- **com.TradingCardInventoryClasses.model.Card Details**: View full details of any card.
 
 ## 🔧 Technical Info
 - Language: Java

@@ -1,4 +1,4 @@
-import com.TradingCardInventoryClasses.*;
+package com.TradingCardInventoryClasses.main;
 
 public class Main {
     public static void main(String[] args){
