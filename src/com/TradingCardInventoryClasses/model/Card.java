@@ -52,8 +52,8 @@ public class Card {
         this.name = name;
     }
 
-    public void setCount(int count) {
-        this.count = count;
+    public void incrementCount(int count) {
+        this.count += count;
     }
 
     public void setActualValue(double actualValue) {

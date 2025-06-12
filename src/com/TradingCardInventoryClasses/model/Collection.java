@@ -7,10 +7,13 @@ import java.util.Scanner;
 import com.TradingCardInventoryClasses.utils.CardUtils;
 import com.TradingCardInventoryClasses.options.*;
 
+import static java.lang.constant.ConstantDescs.NULL;
+
 public class Collection {
 
     // Properties / Attributes
     private List<Card> collection;
+    CardUtils cardUtils = new CardUtils();
 
     //Methods
     public Collection() {
@@ -49,7 +52,7 @@ public class Collection {
                     break;
                 case 3:
                     //Display Card / Collection
-                    displayCollection();
+                    display();
                     break;
                 case 4:
                     running = false;
@@ -67,54 +70,105 @@ public class Collection {
         String cardName = scanner.nextLine();
 
         //Add here a search loop to find if the card exists already
-        //TODO
+        Card foundCard = cardUtils.searchCard(collection, cardName);
 
-        // Input Rarity
-        Rarity rarity = null;
-        while (rarity == null) {
-            System.out.print("Enter Rarity (common, uncommon, rare, legendary): ");
-            String rarityInput = scanner.nextLine().trim().toUpperCase();
-            try {
-                rarity = Rarity.valueOf(rarityInput);
-            } catch (IllegalArgumentException e) {
-                System.out.println("Invalid rarity. Try again.");
+        if(foundCard != null){
+            System.out.println("Card already Exists! Would you like to increase the card count? [Y/N]: ");
+            String response = scanner.nextLine();
+            if (response.equals("Y")){
+                foundCard.incrementCount(1);
             }
         }
-
-        // Input Variant (only if rare or legendary)
-        Variant variant = Variant.NORMAL;  // default
-        if (rarity == Rarity.RARE || rarity == Rarity.LEGENDARY) {
-            while (true) {
-                System.out.print("Enter Variant (normal, extended_art, full_art, alt_art): ");
-                String variantInput = scanner.nextLine().trim().toUpperCase();
+        else{
+            // Input Rarity
+            Rarity rarity = null;
+            while (rarity == null) {
+                System.out.print("Enter Rarity (common, uncommon, rare, legendary): ");
+                String rarityInput = scanner.nextLine().trim().toUpperCase();
                 try {
-                    variant = Variant.valueOf(variantInput);
-                    break;
+                    rarity = Rarity.valueOf(rarityInput);
                 } catch (IllegalArgumentException e) {
-                    System.out.println("Invalid variant. Try again.");
+                    System.out.println("Invalid rarity. Try again.");
                 }
             }
+
+            // Input Variant (only if rare or legendary)
+            Variant variant = Variant.NORMAL;  // default
+            if (rarity == Rarity.RARE || rarity == Rarity.LEGENDARY) {
+                while (true) {
+                    System.out.print("Enter Variant (normal, extended_art, full_art, alt_art): ");
+                    String variantInput = scanner.nextLine().trim().toUpperCase();
+                    try {
+                        variant = Variant.valueOf(variantInput);
+                        break;
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("Invalid variant. Try again.");
+                    }
+                }
+            }
+
+            //Input Value
+            System.out.print("Enter Value: ");
+            double value = scanner.nextDouble();
+
+            Card card = new Card(cardName, rarity, variant, value);
+            this.collection.add(card);
         }
 
-        //Input Value
-        System.out.print("Enter Value: ");
-        double value = scanner.nextDouble();
-
-        Card card = new Card(cardName, rarity, variant, value);
-        this.collection.add(card);
     }
 
     public void display(){
 
+        int input = 0;
+        Scanner scanner = new Scanner(System.in);
+        boolean running = true;
+
+        while(running) {
+
+            System.out.println("View Card and View Collection Menu");
+            System.out.println("-------------------------------------------");
+            System.out.println("1. View Card");
+            System.out.println("2. View Collection");
+            System.out.println("3. Exit");
+            System.out.print("Enter Choice: ");
+            input = scanner.nextInt(); //Didn't take the \n
+            scanner.nextLine(); //Takes input Buffer
+            System.out.println("\n-------------------------------------------");
+
+            switch(input) {
+                case 1:
+                    // View Card
+
+                    System.out.print("Enter Card Name: ");
+                    String cardName = scanner.nextLine();
+                    Card foundCard = cardUtils.searchCard(collection, cardName);
+
+                    if(foundCard == null){
+                        System.out.println("Card not found.");
+                    }
+                    else{
+                        cardUtils.viewCard(foundCard);
+                    }
+
+                    break;
+                case 2:
+                    //View Collection
+                    displayCollection();
+                    break;
+                case 3:
+                    running = false;
+                    break;
+            }
+
+        }
 
     }
 
     public void displayCollection(){
-        CardUtils cardutils = new CardUtils();
 
         for (int i = 0; i < collection.size(); i++){
             Card card = this.collection.get(i);
-            cardutils.viewCard(card);
+            cardUtils.viewCard(card);
         }
 
     }
