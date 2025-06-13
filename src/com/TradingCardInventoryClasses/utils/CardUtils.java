@@ -27,6 +27,11 @@ public class CardUtils {
         return false;
     }
 
+    public List<Card> sortCardsByName(){
+        //TODO
+        return this.collection;
+    }
+
     public void viewCard(Card card){
 
         System.out.println("───────────────────────────────");

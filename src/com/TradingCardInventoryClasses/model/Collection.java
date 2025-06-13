@@ -181,18 +181,13 @@ public class Collection {
         //TODO
     }
 
-    public List<Card> sortCardsByName(){
-        //TODO
-        return this.collection;
-    }
 
     public List<Card> getAllCards(){
         return this.collection;
     }
 
     public Card getCard(String name){
-        //TODO
-        return collection.get(0);
+        return cardUtils.searchCard(this.collection, name);
     }
 
 }
