@@ -14,6 +14,7 @@ public class CardUtils {
                 return cards.get(i);
             }
         }
+
         return null;
     }
 
@@ -25,11 +26,6 @@ public class CardUtils {
     public boolean isTradeFair(Card card1, Card card2){
         //TODO
         return false;
-    }
-
-    public List<Card> sortCardsByName(){
-        //TODO
-        return this.collection;
     }
 
     public void viewCard(Card card){

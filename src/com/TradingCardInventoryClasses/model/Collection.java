@@ -1,6 +1,7 @@
 package com.TradingCardInventoryClasses.model;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -49,6 +50,7 @@ public class Collection {
                     break;
                 case 2:
                     //Increase / Decrease Card Count
+                    increaseDecrease();
                     break;
                 case 3:
                     //Display Card / Collection
@@ -113,6 +115,9 @@ public class Collection {
 
             Card card = new Card(cardName, rarity, variant, value);
             this.collection.add(card);
+
+            //Says that you're comparing Card Objects via their getName methods
+            this.collection.sort(Comparator.comparing(Card::getName)); // add .reversed if you want it descending
         }
 
     }
@@ -174,13 +179,92 @@ public class Collection {
     }
 
     public void increaseCardCount(String name){
-        //TODO
+        Card foundCard = cardUtils.searchCard(this.collection, name);
+        if (foundCard == null){
+            System.out.println("Card not found.");
+        }
+        else{
+            foundCard.incrementCount(1);
+            System.out.println("Increment Successful!\n");
+        }
+    }
+
+    // Method Over Riding Option
+    public void increaseCardCount(String name, int count){
+        Card foundCard = cardUtils.searchCard(this.collection, name);
+        if (foundCard == null){
+            System.out.println("Card not found.");
+        }
+        else{
+            foundCard.incrementCount(count);
+            System.out.println("Increment Successful!\n");
+        }
     }
 
     public void decreaseCardCount(String name){
-        //TODO
+        Card foundCard = cardUtils.searchCard(this.collection, name);
+        if (foundCard == null){
+            System.out.println("Card not found.");
+        }
+        else{
+            if(foundCard.getCount() > 0){
+                foundCard.incrementCount(-1);
+                System.out.println();
+            }
+        }
     }
 
+    // Method Over Riding Option
+    public void decreaseCardCount(String name, int count){
+        Card foundCard = cardUtils.searchCard(this.collection, name);
+        if (foundCard == null){
+            System.out.println("Card not found.");
+            System.out.println();
+        }
+        else{
+            if(foundCard.getCount() >= count){
+                foundCard.incrementCount(-count);
+            }
+        }
+    }
+
+    public void increaseDecrease(){
+        int input = 0;
+        Scanner scanner = new Scanner(System.in);
+        boolean running = true;
+
+        while(running) {
+
+            System.out.println("Increase or Decrease Card Count");
+            System.out.println("-------------------------------------------");
+            System.out.println("1. Increase Card Count");
+            System.out.println("2. Decrease Card Count");
+            System.out.println("3. Exit");
+            System.out.print("Enter Choice: ");
+            input = scanner.nextInt(); //Didn't take the \n
+            scanner.nextLine(); //Takes input Buffer
+            System.out.println("\n-------------------------------------------");
+
+            switch(input) {
+                case 1:
+                    // Increase Card
+                    System.out.print("Enter Card Name: ");
+                    String increaseCardName = scanner.nextLine();
+                    increaseCardCount(increaseCardName);
+                    break;
+                case 2:
+                    // Increase Card
+                    System.out.print("Enter Card Name: ");
+                    String decreaseCardName = scanner.nextLine();
+                    decreaseCardCount(decreaseCardName);
+                    break;
+                case 3:
+                    running = false;
+                    break;
+            }
+
+        }
+    }
 
     public List<Card> getAllCards(){
         return this.collection;
