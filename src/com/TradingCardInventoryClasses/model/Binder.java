@@ -9,8 +9,11 @@ public class Binder {
 
     // Method
     public Binder(String name){
+        //creates the space for Card objects
         this.cards = new Card[20];
         this.name = name;
+
+        //for(int i = 0)
     }
 
     public void setName(String name) {

@@ -22,6 +22,10 @@ public class Card {
         this.count = 1;
     }
 
+    public void incrementCount(int count) {
+        this.count += count;
+    }
+
     // Getters and Setters
 
     public String getName() {
@@ -50,10 +54,6 @@ public class Card {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public void incrementCount(int count) {
-        this.count += count;
     }
 
     public void setActualValue(double actualValue) {

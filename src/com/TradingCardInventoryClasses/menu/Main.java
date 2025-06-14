@@ -1,4 +1,4 @@
-package com.TradingCardInventoryClasses.main;
+package com.TradingCardInventoryClasses.menu;
 
 public class Main {
     public static void main(String[] args){

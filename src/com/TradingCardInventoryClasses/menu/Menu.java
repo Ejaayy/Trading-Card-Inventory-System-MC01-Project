@@ -1,4 +1,4 @@
-package com.TradingCardInventoryClasses.main;
+package com.TradingCardInventoryClasses.menu;
 
 import com.TradingCardInventoryClasses.manager.ManageBinder;
 import com.TradingCardInventoryClasses.manager.ManageDeck;
@@ -9,10 +9,13 @@ import java.util.Scanner;
 public class Menu {
 
     public void run() {
-
+        Scanner scanner = new Scanner(System.in);
         Collection collection = new Collection();
         ManageBinder manageBinder = new ManageBinder();
         ManageDeck manageDeck = new ManageDeck();
+        CollectionUI collectionUI = new CollectionUI(collection, scanner);
+        BinderUI binderUI = new BinderUI(/*manageBinder*/);
+        DeckUI deckUI = new DeckUI(/*manageBinder*/);
 
         boolean running = true;
 
@@ -21,7 +24,7 @@ public class Menu {
 
             switch (input){
                 case 1:
-                    collection.collectionMenu();
+                    collectionUI.collectionMenu();
                     break;
                 case 2:
                     manageBinder.manageBinderMenu();
