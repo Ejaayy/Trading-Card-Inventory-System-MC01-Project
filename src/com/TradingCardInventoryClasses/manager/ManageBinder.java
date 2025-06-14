@@ -17,39 +17,6 @@ public class ManageBinder {
         this.binders = new ArrayList<>();
     }
 
-    public void manageBinderMenu(){
-
-        boolean running = true;
-        int input = 0;
-        while(running) {
-            input = manageBinderMenuTemplate();
-            switch (input) {
-                case 1:
-                    //Create New Binder
-                    break;
-                case 2:
-                    //Delete a Binder
-                    break;
-                case 3:
-                    //Add card to a Binder
-                    break;
-                case 4:
-                    //Remove card from a Binder
-                    break;
-                case 5:
-                    //Trade Card
-                    break;
-                case 6:
-                    //View Binder
-                    break;
-                case 7:
-                    //exit
-                    running = false;
-                    break;
-            }
-        }
-    }
-
     public void createBinder(){
 
         System.out.print("Input Binder Name: ");

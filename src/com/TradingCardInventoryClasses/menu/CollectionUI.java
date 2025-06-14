@@ -11,11 +11,14 @@ import java.util.Scanner;
 //Logic comes from the Models
 public class CollectionUI {
 
-    public Collection collection;
-    public CardUtils cardUtils;
-    public Scanner scanner;
+    //Properties
+    private Collection collection;
+    private CardUtils cardUtils;
+    private Scanner scanner;
 
-    //Instantiate necessary properties
+    //Methods
+
+    //Instantiate necessary properties in constructor
     public CollectionUI(Collection collection, Scanner scanner){
         this.collection = collection;
         cardUtils = new CardUtils();

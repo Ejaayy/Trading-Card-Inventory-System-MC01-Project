@@ -14,8 +14,8 @@ public class Menu {
         ManageBinder manageBinder = new ManageBinder();
         ManageDeck manageDeck = new ManageDeck();
         CollectionUI collectionUI = new CollectionUI(collection, scanner);
-        BinderUI binderUI = new BinderUI(/*manageBinder*/);
-        DeckUI deckUI = new DeckUI(/*manageBinder*/);
+        BinderUI binderUI = new BinderUI(manageBinder, scanner);
+        DeckUI deckUI = new DeckUI(manageDeck, scanner);
 
         boolean running = true;
 
@@ -27,10 +27,10 @@ public class Menu {
                     collectionUI.collectionMenu();
                     break;
                 case 2:
-                    manageBinder.manageBinderMenu();
+                    binderUI.manageBinderMenu();
                     break;
                 case 3:
-                    manageDeck.manageDeckMenu();
+                    deckUI.manageDeckMenu();
                     break;
                 case 4:
                     running = false;
