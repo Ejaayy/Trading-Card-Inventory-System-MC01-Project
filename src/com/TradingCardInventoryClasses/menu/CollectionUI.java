@@ -5,37 +5,24 @@ import com.TradingCardInventoryClasses.options.Rarity;
 import com.TradingCardInventoryClasses.options.Variant;
 import com.TradingCardInventoryClasses.utils.CardUtils;
 
-import java.util.Comparator;
 import java.util.Scanner;
 
-//Directly calls Collection Methods
+//This class only handles UI, user input, and showing Displays
+//Logic comes from the Models
 public class CollectionUI {
 
     public Collection collection;
     public CardUtils cardUtils;
     public Scanner scanner;
 
+    //Instantiate necessary properties
     public CollectionUI(Collection collection, Scanner scanner){
         this.collection = collection;
         cardUtils = new CardUtils();
         this.scanner = scanner;
     }
 
-    public int collectionMenuTemplate(){
-        int input = 0;
-
-        System.out.println("MCO1 - Collection Menu");
-        System.out.println("-------------------------------------------");
-        System.out.println("1. Add Card");
-        System.out.println("2. Increase / Decrease Card Count");
-        System.out.println("3. Display Card / Collection");
-        System.out.println("4. Exit");
-        System.out.print("Enter Choice: ");
-        input = this.scanner.nextInt();
-        System.out.println("\n-------------------------------------------");
-        return input;
-    }
-
+    //Menu logic for Collection Menu
     public void collectionMenu(){
 
         boolean running = true;
@@ -62,6 +49,23 @@ public class CollectionUI {
         }
     }
 
+    //Template for choosing Collection Menu Options
+    public int collectionMenuTemplate(){
+        int input = 0;
+
+        System.out.println("MCO1 - Collection Menu");
+        System.out.println("-------------------------------------------");
+        System.out.println("1. Add Card");
+        System.out.println("2. Increase / Decrease Card Count");
+        System.out.println("3. Display Card / Collection");
+        System.out.println("4. Exit");
+        System.out.print("Enter Choice: ");
+        input = this.scanner.nextInt();
+        System.out.println("\n-------------------------------------------");
+        return input;
+    }
+
+    //Menu logic for handling increases and decreases in specific Cards
     public void increaseDecrease(){
         int input = 0;
         boolean running = true;
@@ -99,6 +103,7 @@ public class CollectionUI {
         }
     }
 
+    //Menu for showing a specific card or displaying the whole collection
     public void display(){
 
         int input = 0;
@@ -122,7 +127,7 @@ public class CollectionUI {
 
                     System.out.print("Enter Card Name: ");
                     String cardName = this.scanner.nextLine();
-                    Card foundCard = cardUtils.searchCard(this.collection.getAllCards(), cardName);
+                    Card foundCard = this.collection.searchCard(cardName);
 
                     if(foundCard == null){
                         System.out.println("Card not found.");
@@ -145,6 +150,7 @@ public class CollectionUI {
 
     }
 
+    //UI for asking inputs for Add a Card Option
     public void addInputCard(){
 
         //Input Card Name
@@ -152,8 +158,8 @@ public class CollectionUI {
         this.scanner.nextLine(); //Input buffer
         String cardName = this.scanner.nextLine();
 
-        //Add here a search loop to find if the card exists already
-        Card foundCard = cardUtils.searchCard(this.collection.getAllCards(), cardName);
+        //Search loop to find if the card exists already
+        Card foundCard = this.collection.searchCard(cardName);
 
         if(foundCard != null){
             System.out.println("Card already Exists! Would you like to increase the card count? [Y/N]: ");
