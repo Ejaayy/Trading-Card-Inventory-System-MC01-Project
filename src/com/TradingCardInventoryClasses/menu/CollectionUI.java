@@ -1,4 +1,5 @@
 package com.TradingCardInventoryClasses.menu;
+
 import com.TradingCardInventoryClasses.model.Card;
 import com.TradingCardInventoryClasses.model.Collection;
 import com.TradingCardInventoryClasses.options.Rarity;

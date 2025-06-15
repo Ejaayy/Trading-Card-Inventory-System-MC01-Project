@@ -1,9 +1,7 @@
 package com.TradingCardInventoryClasses.menu;
 
 import com.TradingCardInventoryClasses.manager.ManageDeck;
-import com.TradingCardInventoryClasses.model.Collection;
 import com.TradingCardInventoryClasses.utils.CardUtils;
-
 import java.util.Scanner;
 
 //Uses DeckUI

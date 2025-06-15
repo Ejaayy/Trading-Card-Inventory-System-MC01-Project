@@ -2,9 +2,7 @@ package com.TradingCardInventoryClasses.manager;
 
 import com.TradingCardInventoryClasses.model.Binder;
 import com.TradingCardInventoryClasses.model.Card;
-
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class ManageBinder {
 

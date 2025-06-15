@@ -3,7 +3,6 @@ package com.TradingCardInventoryClasses.menu;
 import com.TradingCardInventoryClasses.manager.ManageBinder;
 import com.TradingCardInventoryClasses.manager.ManageDeck;
 import com.TradingCardInventoryClasses.model.Collection;
-
 import java.util.Scanner;
 
 public class Menu {

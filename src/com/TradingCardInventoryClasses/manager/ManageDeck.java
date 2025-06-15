@@ -1,9 +1,7 @@
 package com.TradingCardInventoryClasses.manager;
 
 import com.TradingCardInventoryClasses.model.Deck;
-
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class ManageDeck {
     // Properties / Attributes
