@@ -58,7 +58,13 @@ public class BindersUI {
                     //Delete a Binder
                     System.out.print("Enter name of Binder to be removed: ");
                     String nameDelete = scanner.nextLine();
-                    manageBinder.deleteBinder(nameDelete);
+                    Boolean deleteStatus = manageBinder.deleteBinder(nameDelete);
+                    if(deleteStatus){
+                        System.out.println("Binder deleted succesfully!");
+                    }
+                    else{
+                        System.out.println("Attempt to delete Binder Failed");
+                    }
                     break;
                 case 3:
                     //Add card to a Binder

@@ -24,17 +24,18 @@ public class ManageBinders {
         this.binders.add(binder);
     }
 
-    public void deleteBinder(String binderName){
+    public boolean deleteBinder(String binderName){
         Binder foundBinder = searchBinder(binderName);
         if(foundBinder == null){
-            System.out.println("Binder not found");
+            return false;
         }
         else{
             List<Card> binderContent = foundBinder.getCards();
             for(int i=0; i< binderContent.size(); i++){
-                collection.addCard(binderContent.get(i));
+                binderContent.get(i).incrementCount(1);
             }
             this.binders.remove(foundBinder);
+            return true;
         }
 
     }

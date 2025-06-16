@@ -57,4 +57,8 @@ public class Binder {
         return cards;
     }
 
+    public int getBinderCardsSize(){
+        return this.cards.size();
+    }
+
 }
