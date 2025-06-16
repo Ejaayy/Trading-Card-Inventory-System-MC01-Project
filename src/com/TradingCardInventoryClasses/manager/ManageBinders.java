@@ -39,11 +39,53 @@ public class ManageBinders {
 
     }
 
-    public void addCard(Card card){
-        //Add card from collection
-        //remove from collection
-        //add to list in binders
+    public boolean addCardFromBinder(String cardName, String binderName) {
+
+        //Search if Card exists in collection
+        Card card = this.collection.searchCard(cardName);
+
+        //Search if Binder exists in list
+        Binder binder = this.searchBinder(binderName);
+
+        //Return false if can't find specific card or binder
+        if (card == null || binder == null) {
+            return false;
+        }
+
+        //Return false if card Count is 0 or the binder is full already
+        if (card.getCount() <= 0 || binder.isFull()) {
+            return false;
+        }
+
+        binder.addCard(card);
+        card.incrementCount(-1); //decrement in collection because it was moved to binder
+        return true;
     }
+
+    public boolean removeCardFromBinder(String cardName, String binderName) {
+
+        //Search if Card exists in collection
+        Card card = this.collection.searchCard(cardName);
+
+        //Search if Binder exists in list
+        Binder binder = this.searchBinder(binderName);
+
+        //Return false if can't find specific card or binder
+        if (card == null || binder == null) {
+            return false;
+        }
+
+        //Return false if card Count is 0 or the binder is full already
+        if (card.getCount() <= 0 || binder.isFull()) {
+            return false;
+        }
+
+        binder.removeCard(card);
+        card.incrementCount(1);
+
+        return true;
+    }
+
 
     public int getCount(){
         return this.binders.size();
@@ -57,9 +99,18 @@ public class ManageBinders {
         return card1;
     }
 
-    public void viewBinder(){
+    public boolean viewSpecificBinder(String binderName){
 
+        Binder foundBinder = searchBinder(binderName);
+        if(foundBinder == null){
+            return false;
+        }
+        else{
+            foundBinder.viewBinder();
+        }
+        return true;
     }
+
 
     public Binder searchBinder(String name){
         for(int i=0; i< binders.size(); i++){

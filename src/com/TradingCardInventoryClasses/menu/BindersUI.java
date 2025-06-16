@@ -2,7 +2,6 @@ package com.TradingCardInventoryClasses.menu;
 
 import com.TradingCardInventoryClasses.manager.ManageBinders;
 import com.TradingCardInventoryClasses.utils.CardUtils;
-import com.TradingCardInventoryClasses.model.Collection;
 
 import java.util.Scanner;
 
@@ -11,9 +10,8 @@ public class BindersUI {
 
     //Properties
    private ManageBinders manageBinder;
-   private CardUtils cardUtils;
    private Scanner scanner;
-
+   private CardUtils cardUtils;
     //Methods
 
     //Instantiate necessary properties in constructor
@@ -24,7 +22,7 @@ public class BindersUI {
     }
 
     public int manageBinderMenuTemplate(){
-        int input = 0;
+        int input;
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("MCO1 - Manage Binder Menu");
@@ -46,7 +44,7 @@ public class BindersUI {
     public void manageBinderMenu(){
 
         boolean running = true;
-        int input = 0;
+        int input;
         while(running) {
             input = manageBinderMenuTemplate();
             switch (input) {
@@ -55,26 +53,29 @@ public class BindersUI {
                     System.out.print("Enter name of new Binder: ");
                     String nameCreate = scanner.nextLine();
                     manageBinder.createBinder(nameCreate);
-
                     break;
                 case 2:
                     //Delete a Binder
                     System.out.print("Enter name of Binder to be removed: ");
                     String nameDelete = scanner.nextLine();
                     manageBinder.deleteBinder(nameDelete);
-
                     break;
                 case 3:
                     //Add card to a Binder
+                    this.addCardtoBinder();
                     break;
                 case 4:
                     //Remove card from a Binder
+                    this.removeCardtoBinder();
                     break;
                 case 5:
                     //Trade Card
                     break;
                 case 6:
                     //View Binder
+                    System.out.print("Enter Binder Name to View: ");
+                    String binderName = scanner.nextLine();
+                    manageBinder.viewSpecificBinder(binderName);
                     break;
                 case 7:
                     //exit
@@ -82,5 +83,33 @@ public class BindersUI {
                     break;
             }
         }
+    }
+
+    public void addCardtoBinder(){
+        //Input and search for Card in Collection
+        System.out.print("Enter Card Name from Collection: ");
+        String cardName = scanner.nextLine();
+
+        //Input and search Binder in Binders list
+        System.out.print("Enter which Binder to add card in: ");
+        String binderName = scanner.nextLine();
+
+        boolean status = manageBinder.addCardFromBinder(cardName, binderName);
+        if(status){
+            System.out.printf("Success! Card: %s has been added to Binder: %s\n", cardName, binderName);
+        }
+
+    }
+
+    public void removeCardtoBinder(){
+        //Input and search for Card in Collection
+        System.out.print("Enter Card Name from Collection: ");
+        String cardName = scanner.nextLine();
+
+        //Input and search Binder in Binders list
+        System.out.println("Enter which Binder to add card in: ");
+        String binderName = scanner.nextLine();
+
+        manageBinder.removeCardFromBinder(cardName, binderName);
     }
 }

@@ -30,7 +30,7 @@ public class CollectionUI {
     public void collectionMenu(){
 
         boolean running = true;
-        int input = 0;
+        int input;
         while(running) {
             input = collectionMenuTemplate();
             switch (input) {
@@ -55,7 +55,7 @@ public class CollectionUI {
 
     //Template for choosing Collection Menu Options
     public int collectionMenuTemplate(){
-        int input = 0;
+        int input;
 
         System.out.println("MCO1 - Collection Menu");
         System.out.println("-------------------------------------------");
@@ -71,7 +71,7 @@ public class CollectionUI {
 
     //Menu logic for handling increases and decreases in specific Cards
     public void increaseDecrease(){
-        int input = 0;
+        int input;
         boolean running = true;
 
         while(running) {
@@ -109,7 +109,7 @@ public class CollectionUI {
     //Menu for showing a specific card or displaying the whole collection
     public void display(){
 
-        int input = 0;
+        int input;
         boolean running = true;
 
         while(running) {
@@ -120,6 +120,7 @@ public class CollectionUI {
             System.out.println("2. View Collection");
             System.out.println("3. Exit");
             System.out.print("Enter Choice: ");
+            input = scanner.nextInt();
             System.out.println("\n-------------------------------------------");
 
             switch(input) {
