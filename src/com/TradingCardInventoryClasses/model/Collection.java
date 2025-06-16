@@ -28,6 +28,12 @@ public class Collection {
 
     }
 
+    //Method override from adding Card from Binders and Deck
+    public void addCard(Card card) {
+        this.collection.add(card);
+        this.collection.sort(Comparator.comparing(Card::getName));
+    }
+
     //Logic for looping through the whole collection to display all Cards in it
     public void displayCollection(){
 

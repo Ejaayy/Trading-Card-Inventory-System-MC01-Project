@@ -1,15 +1,18 @@
 package com.TradingCardInventoryClasses.manager;
 
+import com.TradingCardInventoryClasses.model.Collection;
 import com.TradingCardInventoryClasses.model.Deck;
 import java.util.ArrayList;
 
 public class ManageDeck {
     // Properties / Attributes
     private ArrayList<Deck> decks; //since no limit
+    private Collection collection;
 
     // Methods
-    public ManageDeck(){
+    public ManageDeck(Collection collection){
         this.decks = new ArrayList<>();
+        this.collection = collection;
     }
 
     public void createDeck(){

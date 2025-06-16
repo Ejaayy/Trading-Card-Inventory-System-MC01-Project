@@ -36,6 +36,7 @@ public class DeckUI {
         System.out.println("6. Exit");
         System.out.print("Enter Choice: ");
         input = scanner.nextInt();
+        this.scanner.nextLine(); //Takes input Buffer
         System.out.println("\n-------------------------------------------");
 
         return input;

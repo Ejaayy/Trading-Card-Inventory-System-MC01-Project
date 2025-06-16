@@ -1,20 +1,21 @@
 package com.TradingCardInventoryClasses.menu;
 
-import com.TradingCardInventoryClasses.manager.ManageBinder;
+import com.TradingCardInventoryClasses.manager.ManageBinders;
 import com.TradingCardInventoryClasses.manager.ManageDeck;
 import com.TradingCardInventoryClasses.model.Collection;
 import java.util.Scanner;
 
 public class Menu {
+    Scanner scanner = new Scanner(System.in);
 
     public void run() {
-        Scanner scanner = new Scanner(System.in);
+
         Collection collection = new Collection();
-        ManageBinder manageBinder = new ManageBinder();
-        ManageDeck manageDeck = new ManageDeck();
-        CollectionUI collectionUI = new CollectionUI(collection, scanner);
-        BinderUI binderUI = new BinderUI(manageBinder, scanner);
-        DeckUI deckUI = new DeckUI(manageDeck, scanner);
+        ManageBinders manageBinder = new ManageBinders(collection);
+        ManageDeck manageDeck = new ManageDeck(collection);
+        CollectionUI collectionUI = new CollectionUI(collection, this.scanner);
+        BindersUI binderUI = new BindersUI(manageBinder, this.scanner);
+        DeckUI deckUI = new DeckUI(manageDeck, this.scanner);
 
         boolean running = true;
 
@@ -41,7 +42,6 @@ public class Menu {
 
     public int displayMainMenu(){
         int input = 0;
-        Scanner scanner = new Scanner(System.in);
 
         System.out.println("MCO1 - Trading Card Inventory System");
         System.out.println("-------------------------------------------");
@@ -50,7 +50,8 @@ public class Menu {
         System.out.println("3. Manage Decks");
         System.out.println("4. Exit");
         System.out.print("Enter Choice: ");
-        input = scanner.nextInt();
+        input = this.scanner.nextInt();
+        this.scanner.nextLine(); //For input buffers
         System.out.println("\n-------------------------------------------");
 
         return input;

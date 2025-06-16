@@ -1,16 +1,19 @@
 package com.TradingCardInventoryClasses.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Binder {
 
     // Properties / Attributes
 
     private String name;
-    private Card[] cards; //20 cards max in 1 binder
+    private List<Card> cards; //20 cards max in 1 binder
 
     // Method
     public Binder(String name){
         //creates the space for Card objects
-        this.cards = new Card[20];
+        this.cards = new ArrayList<>();
         this.name = name;
 
         //for(int i = 0)
@@ -24,11 +27,11 @@ public class Binder {
         return name;
     }
 
-    public void setCards(Card[] cards) {
+    public void setCards(List<Card> cards) {
         this.cards = cards;
     }
 
-    public Card[] getCards() {
+    public List<Card> getCards() {
         return cards;
     }
 

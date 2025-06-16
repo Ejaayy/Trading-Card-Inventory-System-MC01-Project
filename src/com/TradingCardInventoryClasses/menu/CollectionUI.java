@@ -83,7 +83,6 @@ public class CollectionUI {
             System.out.println("3. Exit");
             System.out.print("Enter Choice: ");
             input = this.scanner.nextInt(); //Didn't take the \n
-            this.scanner.nextLine(); //Takes input Buffer
             System.out.println("\n-------------------------------------------");
 
             switch(input) {
@@ -121,8 +120,6 @@ public class CollectionUI {
             System.out.println("2. View Collection");
             System.out.println("3. Exit");
             System.out.print("Enter Choice: ");
-            input = this.scanner.nextInt(); //Didn't take the \n
-            this.scanner.nextLine(); //Takes input Buffer
             System.out.println("\n-------------------------------------------");
 
             switch(input) {

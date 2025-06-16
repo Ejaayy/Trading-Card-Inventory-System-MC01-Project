@@ -1,22 +1,23 @@
 package com.TradingCardInventoryClasses.menu;
 
-import com.TradingCardInventoryClasses.manager.ManageBinder;
+import com.TradingCardInventoryClasses.manager.ManageBinders;
 import com.TradingCardInventoryClasses.utils.CardUtils;
+import com.TradingCardInventoryClasses.model.Collection;
 
 import java.util.Scanner;
 
 //Uses manage Binder
-public class BinderUI {
+public class BindersUI {
 
     //Properties
-   private ManageBinder manageBinder;
+   private ManageBinders manageBinder;
    private CardUtils cardUtils;
    private Scanner scanner;
 
     //Methods
 
     //Instantiate necessary properties in constructor
-    public BinderUI(ManageBinder manageBinder, Scanner scanner){
+    public BindersUI(ManageBinders manageBinder, Scanner scanner){
         this.manageBinder = manageBinder;
         cardUtils = new CardUtils();
         this.scanner = scanner;
@@ -51,9 +52,17 @@ public class BinderUI {
             switch (input) {
                 case 1:
                     //Create New Binder
+                    System.out.print("Enter name of new Binder: ");
+                    String nameCreate = scanner.nextLine();
+                    manageBinder.createBinder(nameCreate);
+
                     break;
                 case 2:
                     //Delete a Binder
+                    System.out.print("Enter name of Binder to be removed: ");
+                    String nameDelete = scanner.nextLine();
+                    manageBinder.deleteBinder(nameDelete);
+
                     break;
                 case 3:
                     //Add card to a Binder
