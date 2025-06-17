@@ -1,5 +1,6 @@
 package com.TradingCardInventoryClasses.manager;
 
+import com.TradingCardInventoryClasses.model.Binder;
 import com.TradingCardInventoryClasses.model.Collection;
 import com.TradingCardInventoryClasses.model.Deck;
 import java.util.ArrayList;
@@ -15,8 +16,9 @@ public class ManageDeck {
         this.collection = collection;
     }
 
-    public void createDeck(){
-
+    public void createDeck(String name){
+      Deck deck = new Deck(name);
+      this.decks.add(deck);
     }
 
     public void deleteDeck(Deck deck){

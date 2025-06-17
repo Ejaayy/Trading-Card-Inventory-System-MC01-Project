@@ -1,24 +1,31 @@
 package com.TradingCardInventoryClasses.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Deck {
 
     // Properties / Attributes
 
     private String name;
-    private Card[] cards; //10 cards max in 1 deck
+    private List<Card> cards; //10 cards max in 1 deck
 
     // Methods
     public Deck(String name){
         this.name = name;
-        this.cards = new Card[10];
+        this.cards = new ArrayList<>();
     }
 
     public void addCard(Card card){
-
+        this.cards.add(card);
     }
 
     public void removeCard(Card card){
+        this.cards.remove(card);
+    }
 
+    public boolean isFull(){
+        return this.cards.size() >= 20;
     }
 
     public void viewDeck(){
@@ -33,11 +40,11 @@ public class Deck {
         this.name = name;
     }
 
-    public Card[] getCards() {
+    public List<Card> getCards() {
         return cards;
     }
 
-    public void setCards(Card[] cards) {
+    public void setCards(List<Card> cards) {
         this.cards = cards;
     }
 }
