@@ -2,6 +2,8 @@ package com.TradingCardInventoryClasses.menu;
 
 import com.TradingCardInventoryClasses.manager.ManageDeck;
 import com.TradingCardInventoryClasses.utils.CardUtils;
+
+import java.sql.SQLOutput;
 import java.util.Scanner;
 
 //Uses DeckUI
@@ -50,12 +52,38 @@ public class DeckUI {
             switch (input) {
                 case 1:
                     //Create New Deck
+                    System.out.println("Enter name for Deck: ");
+                    String deckName = scanner.nextLine();
+                    manageDeck.createDeck(deckName);
                     break;
                 case 2:
                     //Delete a Deck
+                    System.out.println("Enter name of Binder to delete: ");
+                    String deckDelete = scanner.nextLine();
+                    boolean statusDelete = manageDeck.deleteDeck(deckDelete);
+                    if(statusDelete){
+                        System.out.println("Deck deleted successfully");
+                    }
+                    else{
+                        System.out.println("Deck deletion failed");
+                    }
+
                     break;
                 case 3:
                     //Add card to a deck
+
+                    //Input and search for Card in Collection
+                    System.out.print("Enter Card Name from Collection: ");
+                    String cardName = scanner.nextLine();
+
+                    //Input and search Binder in Binders list
+                    System.out.print("Enter which Deck to add card in: ");
+                    String addDeckName = scanner.nextLine();
+
+                    boolean status = manageDeck.addCardToDeck(cardName, addDeckName);
+                    if(status){
+                        System.out.printf("Success! Card: %s has been added to Binder: %s\n", cardName, addDeckName);
+                    }
                     break;
                 case 4:
                     //Remove card to a deck

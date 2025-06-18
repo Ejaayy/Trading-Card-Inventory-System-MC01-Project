@@ -18,6 +18,7 @@ public class Binder {
         //creates the space for Card objects
         this.cards = new ArrayList<>();
         this.name = name;
+        this.cardUtils = new CardUtils();
 
         //for(int i = 0)
     }

@@ -40,7 +40,7 @@ public class ManageBinders {
 
     }
 
-    public boolean addCardFromBinder(String cardName, String binderName) {
+    public boolean addCardToBinder(String cardName, String binderName) {
 
         //Search if Card exists in collection
         Card card = this.collection.searchCard(cardName);
@@ -92,9 +92,17 @@ public class ManageBinders {
         return this.binders.size();
     }
 
-    public void tradeCard(Card outgoing, Card incoming){
-
+    /*
+    public void tradeCard(String binderName){
+        Binder foundBinder = searchBinder(binderName);
+        Card incoming = new Card();
+        if(foundBinder!=null){
+            foundBinder.viewBinder();
+        }
+        System.out.print("Choose card number to offer: ");
     }
+
+    */
 
     public Card compareCard(Card card1, Card card2){
         return card1;

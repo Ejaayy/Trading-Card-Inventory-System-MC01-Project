@@ -45,6 +45,7 @@ public class BindersUI {
 
         boolean running = true;
         int input;
+        String binderName;
         while(running) {
             input = manageBinderMenuTemplate();
             switch (input) {
@@ -76,11 +77,14 @@ public class BindersUI {
                     break;
                 case 5:
                     //Trade Card
+                    System.out.print("Enter Binder Name to choose the card from: ");
+                    // binderName = scanner.nextLine();
+                    //manageBinder.tradeCard(binderName);
                     break;
                 case 6:
                     //View Binder
                     System.out.print("Enter Binder Name to View: ");
-                    String binderName = scanner.nextLine();
+                    binderName = scanner.nextLine();
                     manageBinder.viewSpecificBinder(binderName);
                     break;
                 case 7:
@@ -100,7 +104,7 @@ public class BindersUI {
         System.out.print("Enter which Binder to add card in: ");
         String binderName = scanner.nextLine();
 
-        boolean status = manageBinder.addCardFromBinder(cardName, binderName);
+        boolean status = manageBinder.addCardToBinder(cardName, binderName);
         if(status){
             System.out.printf("Success! Card: %s has been added to Binder: %s\n", cardName, binderName);
         }
