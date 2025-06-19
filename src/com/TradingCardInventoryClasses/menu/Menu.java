@@ -13,9 +13,9 @@ public class Menu {
         Collection collection = new Collection();
         ManageBinders manageBinder = new ManageBinders(collection);
         ManageDeck manageDeck = new ManageDeck(collection);
-        CollectionUI collectionUI = new CollectionUI(collection, this.scanner);
-        BindersUI binderUI = new BindersUI(manageBinder, this.scanner);
-        DeckUI deckUI = new DeckUI(manageDeck, this.scanner);
+        CollectionController collectionUI = new CollectionController(collection, this.scanner);
+        BindersController binderUI = new BindersController(manageBinder, this.scanner);
+        DeckController deckUI = new DeckController(manageDeck, this.scanner);
 
         boolean running = true;
 

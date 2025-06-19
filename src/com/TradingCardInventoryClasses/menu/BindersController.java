@@ -6,7 +6,7 @@ import com.TradingCardInventoryClasses.utils.CardUtils;
 import java.util.Scanner;
 
 //Uses manage Binder
-public class BindersUI {
+public class BindersController {
 
     //Properties
    private ManageBinders manageBinder;
@@ -15,7 +15,7 @@ public class BindersUI {
     //Methods
 
     //Instantiate necessary properties in constructor
-    public BindersUI(ManageBinders manageBinder, Scanner scanner){
+    public BindersController(ManageBinders manageBinder, Scanner scanner){
         this.manageBinder = manageBinder;
         cardUtils = new CardUtils();
         this.scanner = scanner;

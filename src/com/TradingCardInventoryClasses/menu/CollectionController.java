@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 //This class only handles UI, user input, and showing Displays
 //Logic comes from the Models
-public class CollectionUI {
+public class CollectionController {
 
     //Properties
     private Collection collection;
@@ -20,7 +20,7 @@ public class CollectionUI {
     //Methods
 
     //Instantiate necessary properties in constructor
-    public CollectionUI(Collection collection, Scanner scanner){
+    public CollectionController(Collection collection, Scanner scanner){
         this.collection = collection;
         cardUtils = new CardUtils();
         this.scanner = scanner;
