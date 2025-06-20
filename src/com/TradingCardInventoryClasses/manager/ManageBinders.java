@@ -92,17 +92,14 @@ public class ManageBinders {
         return this.binders.size();
     }
 
-    /*
-    public void tradeCard(String binderName){
-        Binder foundBinder = searchBinder(binderName);
-        Card incoming = new Card();
-        if(foundBinder!=null){
-            foundBinder.viewBinder();
-        }
-        System.out.print("Choose card number to offer: ");
-    }
 
-    */
+    public void tradeCard(String binderName){
+
+
+
+
+
+    }
 
     public Card compareCard(Card card1, Card card2){
         return card1;

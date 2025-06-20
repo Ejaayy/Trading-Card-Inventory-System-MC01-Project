@@ -1,6 +1,7 @@
 package com.TradingCardInventoryClasses.menu;
 
 import com.TradingCardInventoryClasses.manager.ManageBinders;
+import com.TradingCardInventoryClasses.model.Binder;
 import com.TradingCardInventoryClasses.utils.CardUtils;
 
 import java.util.Scanner;
@@ -78,7 +79,14 @@ public class BindersController {
                 case 5:
                     //Trade Card
                     System.out.print("Enter Binder Name to choose the card from: ");
-                    // binderName = scanner.nextLine();
+
+                    //checks if the binder exists, then displays the binder
+                    binderName = scanner.nextLine();
+                    if(manageBinder.searchBinder(binderName) != null)
+                        manageBinder.viewSpecificBinder(binderName);
+
+                    //asks the user about which card they want to offer up
+                    System.out.print("Choose card to offer: ");
                     //manageBinder.tradeCard(binderName);
                     break;
                 case 6:
