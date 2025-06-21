@@ -16,6 +16,7 @@ public class Deck {
     public Deck(String name){
         this.name = name;
         this.cards = new ArrayList<>();
+        this.cardUtils= new CardUtils();
     }
 
     public void addCard(Card card){
@@ -30,7 +31,7 @@ public class Deck {
         return this.cards.size() >= 20;
     }
 
-    public void viewBinder(){
+    public void viewDeck(){
         System.out.printf("------- Deck: %s ------\n", this.name);
         for(int i=0; i<cards.size(); i++){
             cardUtils.viewCard(cards.get(i));

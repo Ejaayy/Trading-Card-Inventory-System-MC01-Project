@@ -102,4 +102,16 @@ public class ManageDeck {
     public void setDecks(ArrayList<Deck> decks) {
         this.decks = decks;
     }
+
+    public boolean viewSpecificDeck(String deckName){
+
+        Deck foundDeck = searchDeck(deckName);
+        if(foundDeck == null){
+            return false;
+        }
+        else{
+            foundDeck.viewDeck();
+        }
+        return true;
+    }
 }

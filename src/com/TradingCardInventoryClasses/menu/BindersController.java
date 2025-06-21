@@ -1,7 +1,6 @@
 package com.TradingCardInventoryClasses.menu;
 
 import com.TradingCardInventoryClasses.manager.ManageBinders;
-import com.TradingCardInventoryClasses.model.Binder;
 import com.TradingCardInventoryClasses.utils.CardUtils;
 
 import java.util.Scanner;
