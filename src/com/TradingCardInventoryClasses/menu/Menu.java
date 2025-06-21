@@ -8,12 +8,12 @@ import java.util.Scanner;
 public class Menu {
     Scanner scanner = new Scanner(System.in);
 
-    Collection collection;
-    ManageBinders manageBinder;
-    ManageDeck manageDeck;
-    CollectionController collectionUI;
-    BindersController binderUI;
-    DeckController deckUI;
+    private Collection collection;
+    private ManageBinders manageBinder;
+    private ManageDeck manageDeck;
+    private CollectionController collectionUI;
+    private BindersController binderUI;
+    private DeckController deckUI;
 
     public Menu(){
         this.collection = new Collection();

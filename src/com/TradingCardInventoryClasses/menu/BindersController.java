@@ -46,6 +46,7 @@ public class BindersController {
         boolean running = true;
         int input;
         String binderName;
+        String cardName;
         while(running) {
             input = manageBinderMenuTemplate();
             switch (input) {
@@ -69,11 +70,11 @@ public class BindersController {
                     break;
                 case 3:
                     //Add card to a Binder
-                    this.addCardtoBinder();
+                    this.addCardToBinder();
                     break;
                 case 4:
                     //Remove card from a Binder
-                    this.removeCardtoBinder();
+                    this.removeCardFromBinder();
                     break;
                 case 5:
                     //Trade Card
@@ -86,6 +87,10 @@ public class BindersController {
 
                     //asks the user about which card they want to offer up
                     System.out.print("Choose card to offer: ");
+                    cardName = scanner.nextLine();
+
+                    manageBinder.removeCardFromBinder(cardName, binderName);
+                    manageBinder.tradeCard(cardName, binderName);
                     //manageBinder.tradeCard(binderName);
                     break;
                 case 6:
@@ -102,7 +107,7 @@ public class BindersController {
         }
     }
 
-    public void addCardtoBinder(){
+    public void addCardToBinder(){
         //Input and search for Card in Collection
         System.out.print("Enter Card Name from Collection: ");
         String cardName = scanner.nextLine();
@@ -118,7 +123,7 @@ public class BindersController {
 
     }
 
-    public void removeCardtoBinder(){
+    public void removeCardFromBinder(){
         //Input and search for Card in Collection
         System.out.print("Enter Card Name from Collection: ");
         String cardName = scanner.nextLine();
