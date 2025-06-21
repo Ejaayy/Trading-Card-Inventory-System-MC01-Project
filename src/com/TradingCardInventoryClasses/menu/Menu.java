@@ -8,14 +8,23 @@ import java.util.Scanner;
 public class Menu {
     Scanner scanner = new Scanner(System.in);
 
-    public void run() {
+    Collection collection;
+    ManageBinders manageBinder;
+    ManageDeck manageDeck;
+    CollectionController collectionUI;
+    BindersController binderUI;
+    DeckController deckUI;
 
-        Collection collection = new Collection();
-        ManageBinders manageBinder = new ManageBinders(collection);
-        ManageDeck manageDeck = new ManageDeck(collection);
-        CollectionController collectionUI = new CollectionController(collection, this.scanner);
-        BindersController binderUI = new BindersController(manageBinder, this.scanner);
-        DeckController deckUI = new DeckController(manageDeck, this.scanner);
+    public Menu(){
+        this.collection = new Collection();
+        this.manageBinder = new ManageBinders(collection);
+        this.manageDeck= new ManageDeck(collection);
+        this.collectionUI = new CollectionController(collection, this.scanner);
+        this.binderUI = new BindersController(manageBinder, this.scanner);
+        this.deckUI = new DeckController(manageDeck, this.scanner);
+    }
+
+    public void run() {
 
         boolean running = true;
 
@@ -37,7 +46,6 @@ public class Menu {
                     break;
             }
         }
-
     }
 
     public int displayMainMenu(){
@@ -56,9 +64,5 @@ public class Menu {
 
         return input;
     }
-
-
-
-
 
 }
