@@ -24,7 +24,7 @@ public class Collection {
         this.collection.add(card);
 
         //Says that you're comparing Card Objects via their getName methods
-        this.collection.sort(Comparator.comparing(Card::getName)); // add .reversed if you want it descending
+        this.collection.sort(Comparator.comparing(Card::getName)); // add reversed if you want it descending
 
     }
 
@@ -36,13 +36,31 @@ public class Collection {
 
     //Logic for looping through the whole collection to display all Cards in it
     public void displayCollection(){
-
+        System.out.println("────────────────────────────────────────────────────");
+        System.out.printf("                    Collection\n");
+        System.out.println("────────────────────────────────────────────────────");
+        System.out.printf("%-25s %-6s%n", "Name", "Count");
         for (int i = 0; i < this.collection.size(); i++){
             Card card = this.collection.get(i);
-            cardUtils.viewCard(card);
+            card.viewCardAndCount();
         }
+        System.out.println("────────────────────────────────────────────────────");
 
     }
+
+    public boolean displayCard(String cardName){
+
+        Card foundCard = this.searchCard(cardName);
+
+        if(foundCard == null){
+            return false;
+        }
+        else{
+            foundCard.viewCardDetails();
+            return true;
+        }
+    }
+
 
     //Logic for incrementing a Card by 1
     public void increaseCardCount(String name){

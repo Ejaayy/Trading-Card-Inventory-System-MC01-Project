@@ -35,9 +35,12 @@ public class Binder {
     }
 
     public void viewBinder(){
-        System.out.printf("------- Binder: %s ------\n", this.name);
+        System.out.println("────────────────────────────────────────────────────");
+        System.out.printf("               Binder: %s\n", this.name);
+        System.out.println("────────────────────────────────────────────────────");
+        System.out.printf("%-25s %-12s %-12s %-10s %-6s%n", "Name", "Rarity", "Variant", "Value", "Count");
         for(int i=0; i<cards.size(); i++){
-            cardUtils.viewCard(cards.get(i));
+            cards.get(i).viewCardDetails();
         }
     }
 

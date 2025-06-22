@@ -63,4 +63,23 @@ public class Card {
     public void setBaseValue(double baseValue) {
         this.baseValue = baseValue;
     }
+
+    public void viewCardDetails(){
+
+        System.out.printf("%-25s %-12s %-12s $%-9.2f %-6d%n",
+                this.name,
+                this.rarity,
+                this.variant,
+                this.actualValue,
+                this.count);
+    }
+
+    public void viewCardAndCount(){
+
+        System.out.printf("%-25s   %-6d%n",
+                this.name,
+                this.count);
+    }
+
+
 }

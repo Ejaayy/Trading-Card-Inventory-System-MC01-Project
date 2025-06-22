@@ -121,7 +121,8 @@ public class CollectionController {
             System.out.println("3. Exit");
             System.out.print("Enter Choice: ");
             input = scanner.nextInt();
-            System.out.println("\n-------------------------------------------");
+            scanner.nextLine(); //for input buffer
+            System.out.println("-------------------------------------------");
 
             switch(input) {
                 case 1:
@@ -129,14 +130,7 @@ public class CollectionController {
 
                     System.out.print("Enter Card Name: ");
                     String cardName = this.scanner.nextLine();
-                    Card foundCard = this.collection.searchCard(cardName);
-
-                    if(foundCard == null){
-                        System.out.println("Card not found.");
-                    }
-                    else{
-                        cardUtils.viewCard(foundCard);
-                    }
+                    this.collection.displayCard(cardName);
 
                     break;
                 case 2:
