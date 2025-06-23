@@ -33,7 +33,6 @@ public class BindersController {
         System.out.print("Enter Choice: ");
         input = scanner.nextInt();
         System.out.println("-------------------------------------------");
-        scanner.nextLine(); //for input buffer
 
         return input;
     }
@@ -45,7 +44,9 @@ public class BindersController {
         String binderName;
         String cardName;
         while(running) {
+            scanner.nextLine(); //For input buffer
             input = manageBinderMenuTemplate();
+
             switch (input) {
                 case 1:
                     //Create New Binder

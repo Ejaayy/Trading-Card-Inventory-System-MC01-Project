@@ -31,15 +31,20 @@ public class Binder {
     }
 
     public void viewBinder(){
-        System.out.println("────────────────────────────────────────────────────");
-        System.out.printf("               Binder: %s\n", this.name);
-        System.out.println("────────────────────────────────────────────────────");
-        System.out.printf("%-25s %-12s %-12s %-10s %-6s%n", "Name", "Rarity", "Variant", "Value", "Count");
-        for(int i=0; i<cards.size(); i++){
-            cards.get(i).viewCardDetails();
+        System.out.println("──────────────────────────────────────────────────────────────────");
+        System.out.printf("                       Binder: %s\n", this.name);
+        System.out.println("──────────────────────────────────────────────────────────────────");
+        if(this.cards.size()>0){
+            System.out.printf("%-25s %-12s %-12s %-10s%n", "Name", "Rarity", "Variant", "Value");
+            for(int i=0; i<cards.size(); i++){
+                cards.get(i).viewCardDetails();
+            }
         }
+        else{
+            System.out.println("                  THIS BINDER IS EMPTY");
+        }
+        System.out.println("──────────────────────────────────────────────────────────────────");
     }
-
 
     public void setName(String name) {
         this.name = name;
