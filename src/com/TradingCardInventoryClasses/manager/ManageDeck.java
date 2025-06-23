@@ -13,16 +13,33 @@ public class ManageDeck {
     private Collection collection;
 
     // Methods
+
+    /*
+     * Constructor that initializes the deck list and sets the collection reference.
+     *
+     * @param collection the shared Collection object
+     */
     public ManageDeck(Collection collection){
         this.decks = new ArrayList<>();
         this.collection = collection;
     }
 
+    /*
+     * Creates and adds a new deck with the given name.
+     *
+     * @param name the name of the new deck
+     */
     public void createDeck(String name){
       Deck deck = new Deck(name);
       this.decks.add(deck);
     }
 
+    /*
+     * Deletes a deck and returns all its cards back to the collection.
+     *
+     * @param deckName the name of the deck to be deleted
+     * @return true if deleted successfully, false otherwise
+     */
     public boolean deleteDeck(String deckName){
         Deck foundDeck = searchDeck(deckName);
         if(foundDeck == null){
@@ -38,6 +55,12 @@ public class ManageDeck {
         }
     }
 
+    /*
+     * Searches for a deck by name (case-insensitive).
+     *
+     * @param name the name of the deck
+     * @return the matching Deck object, or null if not found
+     */
     public Deck searchDeck(String name){
         for(int i=0; i< this.decks.size(); i++){
             if(this.decks.get(i).getName().equalsIgnoreCase(name)){
@@ -48,6 +71,14 @@ public class ManageDeck {
         return null;
     }
 
+    /*
+     * Adds a card from the collection into a deck.
+     * Reduces the count of the card in the collection.
+     *
+     * @param cardName the card to add
+     * @param deckName the deck to add the card to
+     * @return true if successful, false if card or deck is invalid or full
+     */
     public boolean addCardToDeck(String cardName, String binderName) {
 
         //Search if Card exists in collection
@@ -71,6 +102,13 @@ public class ManageDeck {
         return true;
     }
 
+    /*
+     * Removes a card from a deck and returns it to the collection.
+     *
+     * @param cardName the card to remove
+     * @param deckName the deck to remove the card from
+     * @return true if successful, false if not valid or conditions unmet
+     */
     public boolean removeCardFromDeck(String cardName, String deckName) {
 
         //Search if Card exists in collection
@@ -95,14 +133,21 @@ public class ManageDeck {
         return true;
     }
 
+    /*
+     * Gets the list of all current decks.
+     *
+     * @return the deck list
+     */
     public ArrayList<Deck> getDecks() {
         return decks;
     }
 
-    public void setDecks(ArrayList<Deck> decks) {
-        this.decks = decks;
-    }
-
+    /*
+     * Displays the contents of a specific deck, if it exists.
+     *
+     * @param deckName name of the deck to view
+     * @return true if deck was found and shown, false otherwise
+     */
     public boolean viewSpecificDeck(String deckName){
 
         Deck foundDeck = searchDeck(deckName);
@@ -113,5 +158,10 @@ public class ManageDeck {
             foundDeck.viewDeck();
         }
         return true;
+    }
+
+    //SETTERS AND GETTERS
+    public void setDecks(ArrayList<Deck> decks) {
+        this.decks = decks;
     }
 }

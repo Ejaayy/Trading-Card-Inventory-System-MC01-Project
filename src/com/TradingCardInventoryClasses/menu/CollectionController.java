@@ -5,6 +5,7 @@ import com.TradingCardInventoryClasses.model.Collection;
 import com.TradingCardInventoryClasses.options.Rarity;
 import com.TradingCardInventoryClasses.options.Variant;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 //This class only handles UI, user input, and showing Displays
@@ -17,13 +18,34 @@ public class CollectionController {
 
     //Methods
 
-    //Instantiate necessary properties in constructor
+    /*
+     * Constructs a CollectionController with a given collection and scanner.
+     *
+     * @param collection the Collection model to be managed
+     * @param scanner the Scanner object for user input
+     *
+     * Pre-condition:
+     * - 'collection' and 'scanner' should not be null.
+     *
+     * Post-condition:
+     * - Initializes the controller with references to the collection and scanner.
+     */
+
     public CollectionController(Collection collection, Scanner scanner){
         this.collection = collection;
         this.scanner = scanner;
     }
 
-    //Menu logic for Collection Menu
+    /*
+     * collectionMenu() - Handles the main menu for managing the card collection.
+     *
+     * Pre-condition:
+     * - Supporting methods like addInputCard(), increaseDecrease(), and display() must be implemented.
+     * - Scanner for user input must be initialized.
+     *
+     * Post-condition:
+     * - Executes menu operations in a loop until the user selects "Exit".
+     */
     public void collectionMenu(){
 
         boolean running = true;
@@ -50,9 +72,17 @@ public class CollectionController {
         }
     }
 
-    //Template for choosing Collection Menu Options
-    public int collectionMenuTemplate(){
-        int input;
+    /*
+     * Displays the collection menu and prompts the user for a choice.
+     *
+     * Pre-condition:
+     * - Scanner must be initialized.
+     *
+     * Post-condition:
+     * - Returns the user's menu choice as an integer (or -1 if input is invalid).
+     */
+    public int collectionMenuTemplate() {
+        int input = -1;
         System.out.println("-------------------------------------------");
         System.out.println("MCO1 - Collection Menu");
         System.out.println("-------------------------------------------");
@@ -61,12 +91,29 @@ public class CollectionController {
         System.out.println("3. Display Card / Collection");
         System.out.println("4. Exit");
         System.out.print("Enter Choice: ");
-        input = this.scanner.nextInt();
+
+        try {
+            input = scanner.nextInt();
+            scanner.nextLine();
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid input! Please enter a number.");
+            scanner.nextLine(); // clear the wrong input
+        }
+
         System.out.println("-------------------------------------------");
         return input;
     }
 
-    //Menu logic for handling increases and decreases in specific Cards
+    /*
+     * Menu logic for handling increases and decreases in specific Cards.
+     *
+     * Pre-condition:
+     * - Scanner and Collection instance must be initialized.
+     * - Collection must have methods: increaseCardCount(String), decreaseCardCount(String).
+     *
+     * Post-condition:
+     * - Updates the count of a card based on user input until user exits the menu.
+     */
     public void increaseDecrease(){
         int input;
         boolean running = true;
@@ -79,8 +126,9 @@ public class CollectionController {
             System.out.println("2. Decrease Card Count");
             System.out.println("3. Exit");
             System.out.print("Enter Choice: ");
-            input = this.scanner.nextInt(); //Didn't take the \n
-            System.out.println("\n-------------------------------------------");
+            input = scanner.nextInt();
+            scanner.nextLine();
+            System.out.println("-------------------------------------------");
 
             switch(input) {
                 case 1:
@@ -103,7 +151,16 @@ public class CollectionController {
         }
     }
 
-    //Menu for showing a specific card or displaying the whole collection
+    /*
+     * Menu for viewing a specific card or the entire collection.
+     *
+     * Pre-condition:
+     * - Scanner and Collection instance must be initialized.
+     * - Collection must have methods: displayCard(String), displayCollection().
+     *
+     * Post-condition:
+     * - Allows user to view a card or the full collection until they choose to exit.
+     */
     public void display(){
 
         int input;
@@ -118,7 +175,7 @@ public class CollectionController {
             System.out.println("3. Exit");
             System.out.print("Enter Choice: ");
             input = scanner.nextInt();
-            scanner.nextLine(); //for input buffer
+            scanner.nextLine();
             System.out.println("-------------------------------------------");
 
             switch(input) {
@@ -147,12 +204,21 @@ public class CollectionController {
 
     }
 
-    //UI for asking inputs for Add a Card Option
+    /*
+     * UI for asking inputs when adding a new card to the collection.
+     *
+     * Pre-condition:
+     * - Scanner and Collection instances must be initialized.
+     * - Enum types Rarity and Variant must be defined.
+     * - Collection must have methods: searchCard(String), addCard(...).
+     *
+     * Post-condition:
+     * - Adds a new card or increments the count of an existing one based on user input.
+     */
     public void addInputCard(){
 
         //Input Card Name
         System.out.print("Enter Card name: ");
-        this.scanner.nextLine(); //Input buffer
         String cardName = this.scanner.nextLine();
 
         //Search loop to find if the card exists already
@@ -196,7 +262,7 @@ public class CollectionController {
             //Input Value
             System.out.print("Enter Value: ");
             double value = this.scanner.nextDouble();
-
+            scanner.nextLine();
             this.collection.addCard(cardName, rarity, variant, value);
 
         }

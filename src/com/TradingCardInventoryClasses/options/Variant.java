@@ -8,10 +8,20 @@ public enum Variant {
 
     private final double multiplier;
 
+    /*
+     * Constructor to assign the multiplier to the variant.
+     *
+     * @param multiplier the value multiplier for the variant
+     */
     Variant(double multiplier) {
         this.multiplier = multiplier;
     }
 
+    /*
+     * Returns the multiplier associated with the variant.
+     *
+     * @return the multiplier value
+     */
     public double getMultiplier() {
         return multiplier;
     }

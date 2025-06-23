@@ -7,6 +7,7 @@ import com.TradingCardInventoryClasses.options.Rarity;
 import com.TradingCardInventoryClasses.options.Variant;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -15,18 +16,35 @@ public class ManageBinders {
     // Properties / Attributes
     private List<Binder> binders;
     private Collection collection;
+
     // Methods
 
+    /*
+     * Constructor that initializes the binders list and binds the collection reference.
+     *
+     * @param collection reference to the shared Collection object
+     */
     public ManageBinders(Collection collection){
         this.binders = new ArrayList<>();
         this.collection = collection;
     }
 
+    /*
+     * Creates a new binder and adds it to the list.
+     *
+     * @param name the name of the new binder
+     */
     public void createBinder(String name){
         Binder binder = new Binder(name);
         this.binders.add(binder);
     }
 
+    /*
+     * Deletes an existing binder and restores all its card counts back to the collection.
+     *
+     * @param binderName name of the binder to delete
+     * @return true if deleted successfully, false if not found
+     */
     public boolean deleteBinder(String binderName){
         Binder foundBinder = searchBinder(binderName);
         if(foundBinder == null){
@@ -38,11 +56,22 @@ public class ManageBinders {
                 binderContent.get(i).incrementCount(1);
             }
             this.binders.remove(foundBinder);
+
+            //Sort the collection again
+            collection.getAllCards().sort(Comparator.comparing(Card::getName));
             return true;
         }
 
     }
 
+    /*
+     * Transfers a card from the collection into a binder.
+     * Decreases card count in collection.
+     *
+     * @param cardName   name of the card to move
+     * @param binderName target binder name
+     * @return true if successful, false if not possible
+     */
     public boolean addCardToBinder(String cardName, String binderName) {
 
         //Search if Card exists in collection
@@ -66,6 +95,13 @@ public class ManageBinders {
         return true;
     }
 
+    /*
+     * Removes a card from a binder and returns it to the collection (increases count).
+     *
+     * @param cardName   name of the card to remove
+     * @param binderName name of the binder
+     * @return true if operation was successful, false otherwise
+     */
     public boolean removeCardFromBinder(String cardName, String binderName) {
 
         //Search if Card exists in collection
@@ -85,12 +121,23 @@ public class ManageBinders {
         return true;
     }
 
-
+    /*
+     * Gets the total number of binders.
+     *
+     * @return size of the binders list
+     */
     public int getCount(){
         return this.binders.size();
     }
 
 
+    /*
+     * Facilitates a card trade from a binder. Adds a new card to the collection
+     * and removes the traded one if values are within $1 range.
+     *
+     * @param cardName   name of the outgoing card
+     * @param binderName name of the binder involved
+     */
     public void tradeCard(String cardName, String binderName) {
         Scanner scanner = new Scanner(System.in);
 
@@ -174,10 +221,20 @@ public class ManageBinders {
         }
     }
 
+    /*
+     * Dummy placeholder for future card comparison feature.
+     * Currently just returns the first card.
+     */
     public Card compareCard(Card card1, Card card2){
         return card1;
     }
 
+    /*
+     * Displays a specific binder if it exists.
+     *
+     * @param binderName name of the binder to view
+     * @return true if the binder was found and viewed, false otherwise
+     */
     public boolean viewSpecificBinder(String binderName){
 
         Binder foundBinder = searchBinder(binderName);
@@ -190,7 +247,12 @@ public class ManageBinders {
         return true;
     }
 
-
+    /*
+     * Searches for a binder in the list by name (case-insensitive).
+     *
+     * @param name name of the binder
+     * @return the Binder object if found, null otherwise
+     */
     public Binder searchBinder(String name){
         for(int i=0; i< binders.size(); i++){
             if(binders.get(i).getName().equalsIgnoreCase(name)){

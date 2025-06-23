@@ -9,18 +9,29 @@ public class BindersController {
     //Properties
    private ManageBinders manageBinder;
    private Scanner scanner;
+
     //Methods
 
-    //Instantiate necessary properties in constructor
+    /*
+     * Instantiates necessary properties in the constructor.
+     *
+     * @param manageBinder reference to the ManageBinders logic class
+     * @param scanner input reader for user interaction
+     */
     public BindersController(ManageBinders manageBinder, Scanner scanner){
         this.manageBinder = manageBinder;
         this.scanner = scanner;
     }
 
+    /*
+     * Displays the Manage Binder menu and prompts the user for input.
+     *
+     * @return the user's selected menu option
+     */
     public int manageBinderMenuTemplate(){
         int input;
         Scanner scanner = new Scanner(System.in);
-
+        System.out.println("-------------------------------------------");
         System.out.println("MCO1 - Manage Binder Menu");
         System.out.println("-------------------------------------------");
         System.out.println("1. Create New Binder");
@@ -32,11 +43,16 @@ public class BindersController {
         System.out.println("7. Exit");
         System.out.print("Enter Choice: ");
         input = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("-------------------------------------------");
 
         return input;
     }
 
+    /*
+     * Main loop that processes user interaction with the binder management system.
+     * Allows users to manage binders and perform card operations.
+     */
     public void manageBinderMenu(){
 
         boolean running = true;
@@ -44,7 +60,6 @@ public class BindersController {
         String binderName;
         String cardName;
         while(running) {
-            scanner.nextLine(); //For input buffer
             input = manageBinderMenuTemplate();
 
             switch (input) {
@@ -58,7 +73,7 @@ public class BindersController {
                     //Delete a Binder
                     System.out.print("Enter name of Binder to be removed: ");
                     String nameDelete = scanner.nextLine();
-                    Boolean deleteStatus = manageBinder.deleteBinder(nameDelete);
+                    boolean deleteStatus = manageBinder.deleteBinder(nameDelete);
                     if(deleteStatus){
                         System.out.println("Binder deleted succesfully!");
                     }
@@ -105,6 +120,10 @@ public class BindersController {
         }
     }
 
+    /*
+     * Handles user input to add a card from the collection to a binder.
+     * Displays a success/failure message based on the result.
+     */
     public void addCardToBinder(){
         //Input and search for Card in Collection
         System.out.print("Enter Card Name from Collection: ");
@@ -118,9 +137,16 @@ public class BindersController {
         if(status){
             System.out.printf("Success! Card: %s has been added to Binder: %s\n", cardName, binderName);
         }
+        else{
+            System.out.println("Failed to add card to binder");
+        }
 
     }
 
+    /*
+     * Handles user input to remove a card from a binder.
+     * Displays a success/failure message based on the result.
+     */
     public void removeCardFromBinder(){
         //Input and search for Card in Collection
         System.out.print("Enter Card Name from Collection: ");
@@ -130,6 +156,12 @@ public class BindersController {
         System.out.println("Enter which Binder to add card in: ");
         String binderName = scanner.nextLine();
 
-        manageBinder.removeCardFromBinder(cardName, binderName);
+        boolean status = manageBinder.removeCardFromBinder(cardName, binderName);
+        if(status){
+            System.out.printf("Success! Card: %s has been removed from Binder: %s\n", cardName, binderName);
+        }
+        else{
+            System.out.println("Failed to remove card from binder");
+        }
     }
 }

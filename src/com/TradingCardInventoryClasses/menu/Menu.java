@@ -6,6 +6,8 @@ import com.TradingCardInventoryClasses.model.Collection;
 import java.util.Scanner;
 
 public class Menu {
+
+    // Properties and Attributes
     Scanner scanner = new Scanner(System.in);
 
     private Collection collection;
@@ -15,6 +17,13 @@ public class Menu {
     private BindersController binderUI;
     private DeckController deckUI;
 
+    /*
+     * Constructor initializes all components of the system and wires them together.
+     * Pre-condition:
+     * - All supporting classes (Collection, ManageBinders, etc.) must be defined.
+     * Post-condition:
+     * - Ready to run the menu-based system with all modules initialized.
+     */
     public Menu(){
         this.collection = new Collection();
         this.manageBinder = new ManageBinders(collection);
@@ -24,6 +33,11 @@ public class Menu {
         this.deckUI = new DeckController(manageDeck, this.scanner);
     }
 
+    /*
+     * Starts the main loop of the system.
+     * Displays the main menu and calls the appropriate module based on user input.
+     * Runs until the user selects the Exit option.
+     */
     public void run() {
 
         boolean running = true;
@@ -48,6 +62,11 @@ public class Menu {
         }
     }
 
+    /*
+     * Displays the main menu of the program and reads the user’s choice.
+     *
+     * @return the user’s chosen option as an integer
+     */
     public int displayMainMenu(){
         int input = 0;
         System.out.println("-------------------------------------------");
@@ -59,7 +78,8 @@ public class Menu {
         System.out.println("4. Exit");
         System.out.println("-------------------------------------------");
         System.out.print("Enter Choice: ");
-        input = this.scanner.nextInt();
+        input = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("-------------------------------------------\n");
         return input;
     }

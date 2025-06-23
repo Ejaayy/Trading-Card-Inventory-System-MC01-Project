@@ -12,17 +12,33 @@ public class DeckController {
 
     //Methods
 
-    //Instantiate necessary properties in constructor
+    /*
+     * Instantiates necessary properties in the constructor.
+     *
+     * @param manageDeck object that manages deck operations
+     * @param scanner input reader for user interaction
+     */
     public DeckController(ManageDeck manageDeck, Scanner scanner){
         this.manageDeck = manageDeck;
         this.scanner = scanner;
 
     }
 
+    /*
+     * Template for displaying the Manage Deck menu and retrieving user input.
+     *
+     * @return the selected menu option as an integer
+     *
+     * Pre-condition:
+     * - User is prompted via console
+     * Post-condition:
+     * - User input is returned
+     */
     public int manageDeckMenuTemplate(){
         int input = 0;
         Scanner scanner = new Scanner(System.in);
 
+        System.out.println("-------------------------------------------");
         System.out.println("MCO1 - Manage Deck Menu");
         System.out.println("-------------------------------------------");
         System.out.println("1. Create New Deck");
@@ -33,11 +49,16 @@ public class DeckController {
         System.out.println("6. Exit");
         System.out.print("Enter Choice: ");
         input = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("\n-------------------------------------------");
 
         return input;
     }
 
+    /*
+     * Main logic loop for displaying and executing deck management options.
+     * Handles menu input, deck/card operations, and user feedback.
+     */
     public void manageDeckMenu(){
 
         boolean running = true;
