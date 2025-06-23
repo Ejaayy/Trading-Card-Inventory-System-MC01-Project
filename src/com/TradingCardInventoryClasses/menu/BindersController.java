@@ -32,7 +32,8 @@ public class BindersController {
         System.out.println("7. Exit");
         System.out.print("Enter Choice: ");
         input = scanner.nextInt();
-        System.out.println("\n-------------------------------------------");
+        System.out.println("-------------------------------------------");
+        scanner.nextLine(); //for input buffer
 
         return input;
     }

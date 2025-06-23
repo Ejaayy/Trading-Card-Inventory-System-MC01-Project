@@ -50,18 +50,17 @@ public class Menu {
 
     public int displayMainMenu(){
         int input = 0;
-
+        System.out.println("-------------------------------------------");
         System.out.println("MCO1 - Trading Card Inventory System");
         System.out.println("-------------------------------------------");
         System.out.println("1. Manage Collection");
         System.out.println("2. Manage Binders");
         System.out.println("3. Manage Decks");
         System.out.println("4. Exit");
+        System.out.println("-------------------------------------------");
         System.out.print("Enter Choice: ");
         input = this.scanner.nextInt();
-        this.scanner.nextLine(); //For input buffers
-        System.out.println("\n-------------------------------------------");
-
+        System.out.println("-------------------------------------------\n");
         return input;
     }
 

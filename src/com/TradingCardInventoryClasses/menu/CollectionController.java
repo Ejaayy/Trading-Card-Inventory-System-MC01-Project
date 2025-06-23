@@ -53,7 +53,7 @@ public class CollectionController {
     //Template for choosing Collection Menu Options
     public int collectionMenuTemplate(){
         int input;
-
+        System.out.println("-------------------------------------------");
         System.out.println("MCO1 - Collection Menu");
         System.out.println("-------------------------------------------");
         System.out.println("1. Add Card");
@@ -62,7 +62,7 @@ public class CollectionController {
         System.out.println("4. Exit");
         System.out.print("Enter Choice: ");
         input = this.scanner.nextInt();
-        System.out.println("\n-------------------------------------------");
+        System.out.println("-------------------------------------------");
         return input;
     }
 
@@ -127,7 +127,11 @@ public class CollectionController {
 
                     System.out.print("Enter Card Name: ");
                     String cardName = this.scanner.nextLine();
-                    this.collection.displayCard(cardName);
+                    boolean status = this.collection.displayCard(cardName);
+
+                    if(!status){
+                        System.out.println("Card not found");
+                    }
 
                     break;
                 case 2:

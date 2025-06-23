@@ -33,28 +33,40 @@ public class Collection {
     }
 
     //Logic for looping through the whole collection to display all Cards in it
-    public void displayCollection(){
-        System.out.println("────────────────────────────────────────────────────");
-        System.out.printf("                    Collection\n");
-        System.out.println("────────────────────────────────────────────────────");
-        System.out.printf("%-25s %-6s%n", "Name", "Count");
-        for (int i = 0; i < this.collection.size(); i++){
-            Card card = this.collection.get(i);
-            card.viewCardAndCount();
-        }
-        System.out.println("────────────────────────────────────────────────────");
+    public void displayCollection() {
+        System.out.println("──────────────────────────────────────────");
+        System.out.printf("              Collection%n");
+        System.out.println("──────────────────────────────────────────");
 
+        if (this.isEmpty()) {
+            System.out.println("           Collection is empty");
+        } else {
+            System.out.printf("%-25s %-6s%n", "Name", "Count");
+            for (int i = 0; i < this.collection.size(); i++) {
+                Card card = this.collection.get(i);
+                if (card.getCount() > 0) {
+                    card.viewCardAndCount();
+                }
+            }
+        }
+
+        System.out.println("─────────────────────────────────────────────");
     }
 
     public boolean displayCard(String cardName){
 
         Card foundCard = this.searchCard(cardName);
 
-        if(foundCard == null){
+        if(foundCard == null || foundCard.getCount() <= 0){
             return false;
         }
         else{
+            System.out.println("──────────────────────────────────────────────────────────────────");
+            System.out.printf("                      Viewing Card: %s\n", foundCard.getName());
+            System.out.println("──────────────────────────────────────────────────────────────────");
+            System.out.printf("%-25s %-12s %-12s %-10s%n", "Name", "Rarity", "Variant", "Value");
             foundCard.viewCardDetails();
+            System.out.println("──────────────────────────────────────────────────────────────────");
             return true;
         }
     }
@@ -128,6 +140,15 @@ public class Collection {
 
     public Card getCard(String name){
         return this.searchCard(name);
+    }
+
+    public boolean isEmpty() {
+        for (Card card : this.collection) {
+            if (card.getCount() > 0) {
+                return false; // Found a card with count > 0, so it's not empty
+            }
+        }
+        return true; // All cards had 0 count
     }
 
 }

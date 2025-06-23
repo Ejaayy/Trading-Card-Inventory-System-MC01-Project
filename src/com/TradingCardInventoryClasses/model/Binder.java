@@ -1,6 +1,7 @@
 package com.TradingCardInventoryClasses.model;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class Binder {
@@ -18,6 +19,7 @@ public class Binder {
     }
     public void addCard(Card card){
         this.cards.add(card);
+        this.cards.sort(Comparator.comparing(Card::getName));
     }
 
     public void removeCard(Card card){

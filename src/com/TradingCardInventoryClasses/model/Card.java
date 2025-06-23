@@ -66,12 +66,11 @@ public class Card {
 
     public void viewCardDetails(){
 
-        System.out.printf("%-25s %-12s %-12s $%-9.2f %-6d%n",
+        System.out.printf("%-25s %-12s %-12s $%-9.2f%n",
                 this.name,
                 this.rarity,
                 this.variant,
-                this.actualValue,
-                this.count);
+                this.actualValue);
     }
 
     public void viewCardAndCount(){
