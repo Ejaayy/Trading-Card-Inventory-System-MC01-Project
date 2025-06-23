@@ -1,8 +1,6 @@
 package com.TradingCardInventoryClasses.menu;
 
 import com.TradingCardInventoryClasses.manager.ManageBinders;
-import com.TradingCardInventoryClasses.utils.CardUtils;
-
 import java.util.Scanner;
 
 //Uses manage Binder
@@ -11,13 +9,11 @@ public class BindersController {
     //Properties
    private ManageBinders manageBinder;
    private Scanner scanner;
-   private CardUtils cardUtils;
     //Methods
 
     //Instantiate necessary properties in constructor
     public BindersController(ManageBinders manageBinder, Scanner scanner){
         this.manageBinder = manageBinder;
-        cardUtils = new CardUtils();
         this.scanner = scanner;
     }
 

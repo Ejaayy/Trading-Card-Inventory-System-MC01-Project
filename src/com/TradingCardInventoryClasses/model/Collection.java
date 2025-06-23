@@ -1,5 +1,4 @@
 package com.TradingCardInventoryClasses.model;
-import com.TradingCardInventoryClasses.utils.CardUtils;
 import com.TradingCardInventoryClasses.options.*;
 
 import java.util.ArrayList;
@@ -10,7 +9,6 @@ public class Collection {
 
     // Properties / Attributes
     private List<Card> collection;
-    CardUtils cardUtils = new CardUtils();
 
     //Methods
     public Collection() {
@@ -64,7 +62,7 @@ public class Collection {
 
     //Logic for incrementing a Card by 1
     public void increaseCardCount(String name){
-        Card foundCard = cardUtils.searchCard(this.collection, name);
+        Card foundCard = this.searchCard(name);
         if (foundCard == null){
             System.out.println("Card not found.");
         }
@@ -76,7 +74,7 @@ public class Collection {
 
     // Method Over Riding Option for incrementing a Card by more than 1
     public void increaseCardCount(String name, int count){
-        Card foundCard = cardUtils.searchCard(this.collection, name);
+        Card foundCard = this.searchCard(name);
         if (foundCard == null){
             System.out.println("Card not found.");
         }
@@ -88,7 +86,7 @@ public class Collection {
 
     //Logic for decrementing a Card by 1
     public void decreaseCardCount(String name){
-        Card foundCard = cardUtils.searchCard(this.collection, name);
+        Card foundCard = this.searchCard(name);
         if (foundCard == null){
             System.out.println("Card not found.");
         }
@@ -102,7 +100,7 @@ public class Collection {
 
     // Method Over Riding Option for decrementing a Card by more than 1
     public void decreaseCardCount(String name, int count){
-        Card foundCard = cardUtils.searchCard(this.collection, name);
+        Card foundCard = this.searchCard(name);
         if (foundCard == null){
             System.out.println("Card not found.");
             System.out.println();
@@ -116,7 +114,10 @@ public class Collection {
 
     //Method for looping through the whole collection and find a Card
     public Card searchCard(String name){
-        return cardUtils.searchCard(this.collection, name);
+        return this.collection.stream() // turn the list into a stream
+                .filter(card -> card.getName().equalsIgnoreCase(name)) // keep cards that match the name
+                .findFirst() // get the first matching card
+                .orElse(null); // return it, or null if none found
     }
 
     //Getters and Setters
@@ -126,7 +127,7 @@ public class Collection {
     }
 
     public Card getCard(String name){
-        return cardUtils.searchCard(this.collection, name);
+        return this.searchCard(name);
     }
 
 }

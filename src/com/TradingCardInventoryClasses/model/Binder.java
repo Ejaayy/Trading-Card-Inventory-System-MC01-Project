@@ -1,7 +1,5 @@
 package com.TradingCardInventoryClasses.model;
 
-import com.TradingCardInventoryClasses.utils.CardUtils;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,16 +9,12 @@ public class Binder {
 
     private String name;
     private List<Card> cards; //20 cards max in 1 binder
-    private CardUtils cardUtils;
 
     // Method
     public Binder(String name){
         //creates the space for Card objects
         this.cards = new ArrayList<>();
         this.name = name;
-        this.cardUtils = new CardUtils();
-
-        //for(int i = 0)
     }
     public void addCard(Card card){
         this.cards.add(card);

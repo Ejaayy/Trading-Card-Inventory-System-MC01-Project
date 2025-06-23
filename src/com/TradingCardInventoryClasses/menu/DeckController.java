@@ -1,8 +1,6 @@
 package com.TradingCardInventoryClasses.menu;
 
 import com.TradingCardInventoryClasses.manager.ManageDeck;
-import com.TradingCardInventoryClasses.utils.CardUtils;
-
 import java.util.Scanner;
 
 //Uses DeckUI
@@ -10,7 +8,6 @@ public class DeckController {
 
     // Properties
     private ManageDeck manageDeck;
-    private CardUtils cardUtils;
     private Scanner scanner;
 
     //Methods
@@ -18,7 +15,6 @@ public class DeckController {
     //Instantiate necessary properties in constructor
     public DeckController(ManageDeck manageDeck, Scanner scanner){
         this.manageDeck = manageDeck;
-        cardUtils = new CardUtils();
         this.scanner = scanner;
 
     }

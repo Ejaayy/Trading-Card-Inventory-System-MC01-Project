@@ -1,14 +1,11 @@
 package com.TradingCardInventoryClasses.model;
 
-import com.TradingCardInventoryClasses.utils.CardUtils;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class Deck {
 
     // Properties / Attributes
-    private CardUtils cardUtils;
     private String name;
     private List<Card> cards; //10 cards max in 1 deck
 
@@ -16,7 +13,7 @@ public class Deck {
     public Deck(String name){
         this.name = name;
         this.cards = new ArrayList<>();
-        this.cardUtils= new CardUtils();
+        this.cards = new ArrayList<>();
     }
 
     public void addCard(Card card){

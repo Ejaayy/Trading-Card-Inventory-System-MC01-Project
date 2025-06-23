@@ -4,7 +4,6 @@ import com.TradingCardInventoryClasses.model.Card;
 import com.TradingCardInventoryClasses.model.Collection;
 import com.TradingCardInventoryClasses.options.Rarity;
 import com.TradingCardInventoryClasses.options.Variant;
-import com.TradingCardInventoryClasses.utils.CardUtils;
 
 import java.util.Scanner;
 
@@ -14,7 +13,6 @@ public class CollectionController {
 
     //Properties
     private Collection collection;
-    private CardUtils cardUtils;
     private Scanner scanner;
 
     //Methods
@@ -22,7 +20,6 @@ public class CollectionController {
     //Instantiate necessary properties in constructor
     public CollectionController(Collection collection, Scanner scanner){
         this.collection = collection;
-        cardUtils = new CardUtils();
         this.scanner = scanner;
     }
 
