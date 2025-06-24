@@ -1,9 +1,9 @@
-package com.TradingCardInventoryClasses.menu;
+package com.tradingCardInventory.menu;
 
-import com.TradingCardInventoryClasses.model.Card;
-import com.TradingCardInventoryClasses.model.Collection;
-import com.TradingCardInventoryClasses.options.Rarity;
-import com.TradingCardInventoryClasses.options.Variant;
+import com.tradingCardInventory.model.Card;
+import com.tradingCardInventory.model.Collection;
+import com.tradingCardInventory.options.Rarity;
+import com.tradingCardInventory.options.Variant;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;

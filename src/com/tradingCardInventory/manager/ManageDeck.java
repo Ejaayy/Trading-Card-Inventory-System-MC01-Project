@@ -1,9 +1,8 @@
-package com.TradingCardInventoryClasses.manager;
+package com.tradingCardInventory.manager;
 
-import com.TradingCardInventoryClasses.model.Binder;
-import com.TradingCardInventoryClasses.model.Card;
-import com.TradingCardInventoryClasses.model.Collection;
-import com.TradingCardInventoryClasses.model.Deck;
+import com.tradingCardInventory.model.Card;
+import com.tradingCardInventory.model.Collection;
+import com.tradingCardInventory.model.Deck;
 import java.util.ArrayList;
 import java.util.List;
 

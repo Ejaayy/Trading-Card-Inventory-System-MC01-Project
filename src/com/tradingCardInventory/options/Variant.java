@@ -1,4 +1,4 @@
-package com.TradingCardInventoryClasses.options;
+package com.tradingCardInventory.options;
 
 public enum Variant {
     NORMAL(1.0),

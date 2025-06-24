@@ -1,8 +1,8 @@
-package com.TradingCardInventoryClasses.menu;
+package com.tradingCardInventory.menu;
 
-import com.TradingCardInventoryClasses.manager.ManageBinders;
-import com.TradingCardInventoryClasses.manager.ManageDeck;
-import com.TradingCardInventoryClasses.model.Collection;
+import com.tradingCardInventory.manager.ManageBinders;
+import com.tradingCardInventory.manager.ManageDeck;
+import com.tradingCardInventory.model.Collection;
 import java.util.Scanner;
 
 public class Menu {

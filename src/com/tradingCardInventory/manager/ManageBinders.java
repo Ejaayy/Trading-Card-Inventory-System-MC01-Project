@@ -1,10 +1,10 @@
-package com.TradingCardInventoryClasses.manager;
+package com.tradingCardInventory.manager;
 
-import com.TradingCardInventoryClasses.model.Binder;
-import com.TradingCardInventoryClasses.model.Card;
-import com.TradingCardInventoryClasses.model.Collection;
-import com.TradingCardInventoryClasses.options.Rarity;
-import com.TradingCardInventoryClasses.options.Variant;
+import com.tradingCardInventory.model.Binder;
+import com.tradingCardInventory.model.Card;
+import com.tradingCardInventory.model.Collection;
+import com.tradingCardInventory.options.Rarity;
+import com.tradingCardInventory.options.Variant;
 
 import java.util.ArrayList;
 import java.util.Comparator;

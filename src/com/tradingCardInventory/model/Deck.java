@@ -1,4 +1,4 @@
-package com.TradingCardInventoryClasses.model;
+package com.tradingCardInventory.model;
 
 import java.util.ArrayList;
 import java.util.List;
