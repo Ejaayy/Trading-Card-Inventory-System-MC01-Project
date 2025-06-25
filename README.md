@@ -17,6 +17,7 @@
 - **2025-06-22**: Finished UML
 - **2025-06-23**: Deleted Card Utils and Helper classes
 - **2025-06-23**: Improved UI for View, Fixed view in collection, Sorted View 
+- **2025-06-25**: Moved Trade Card to its own class
 
 ## 📋 Overview
 The Trading com.tradingCardInventory.model.Card Inventory System (TCIS) is a command-line application that helps card collectors manage their collections efficiently. It supports tracking of card details, managing binders and decks, and performing basic trades—all while adhering to object-based programming principles.
