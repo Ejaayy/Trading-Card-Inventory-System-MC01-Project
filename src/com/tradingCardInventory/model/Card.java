@@ -1,6 +1,10 @@
 package com.tradingCardInventory.model;
 import com.tradingCardInventory.options.*;
 
+/*
+ * Represents a trading card with properties like name, rarity, variant, value, and count.
+ * Actual value is calculated using a multiplier based on the variant.
+ */
 public class Card {
 
     // Properties / Attributes
@@ -62,10 +66,6 @@ public class Card {
         System.out.printf("%-25s   %-6d%n",
                 this.name,
                 this.count);
-    }
-
-    public void viewCardName(){
-        System.out.printf("%s", this.name);
     }
 
     // Getters and Setters

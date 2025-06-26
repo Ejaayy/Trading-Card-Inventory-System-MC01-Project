@@ -6,6 +6,11 @@ import com.tradingCardInventory.model.Deck;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/*
+ * ManageDeck handles operations related to managing decks such as
+ * creating, deleting, viewing, and modifying deck contents using cards from a shared collection.
+ */
 public class ManageDeck {
     // Properties / Attributes
     private ArrayList<Deck> decks; //since no limit
@@ -142,10 +147,15 @@ public class ManageDeck {
     }
 
     /*
-     * Displays the contents of a specific deck, if it exists.
+     * Searches for a specific deck by name and displays its contents.
      *
-     * @param deckName name of the deck to view
-     * @return true if deck was found and shown, false otherwise
+     * @param deckName the name of the deck to search for and view
+     * @return the Deck object if found, otherwise returns null
+     *
+     * Pre-condition:
+     * - The deck name should match an existing deck (case-insensitive if implemented that way)
+     * Post-condition:
+     * - If the deck is found, its contents are printed via viewDeck()
      */
     public Deck viewSpecificDeck(String deckName){
 
@@ -159,14 +169,17 @@ public class ManageDeck {
         return foundDeck;
     }
 
-    public boolean viewSpecificCardinDeck(String cardName, Deck deckName){
+    /*
+     * Displays a specific card within a given deck.
+     *
+     * @param cardName the name of the card to search for in the deck
+     * @param deckName the Deck object to search within
+     * @return true if the card was found and displayed, false otherwise
+     *
+     */
+    public boolean viewSpecificCardinDeck(String cardName, Deck deck){
 
-        if(deckName.displayCard(cardName)){
-            return true;
-        }
-        else{
-            return false;
-        }
+        return deck.displayCard(cardName);
     }
 
     //SETTERS AND GETTERS

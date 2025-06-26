@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+/*
+ * Represents a user's card collection. Handles operations such as
+ * adding, searching, displaying, and modifying card quantities.
+ */
 public class Collection {
 
     // Properties / Attributes

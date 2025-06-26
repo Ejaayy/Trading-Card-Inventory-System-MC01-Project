@@ -9,6 +9,11 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+/*
+ * ManageBinders handles all operations related to binder management,
+ * including creating, deleting, modifying binders, and managing cards inside them.
+ * It interacts with the shared Collection object and supports trading cards as well.
+ */
 public class ManageBinders {
 
     // Properties / Attributes

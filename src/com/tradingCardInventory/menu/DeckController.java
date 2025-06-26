@@ -5,7 +5,11 @@ import com.tradingCardInventory.model.Deck;
 
 import java.util.Scanner;
 
-//Uses DeckUI
+/*
+ * DeckController handles all user interaction related to managing decks.
+ * It serves as the controller in the MVC architecture, delegating logic to ManageDeck (model manager)
+ * and facilitating input/output through the console.
+ */
 public class DeckController {
 
     // Properties

@@ -1,5 +1,9 @@
 package com.tradingCardInventory.options;
 
+/*
+ * Represents the options for Variants
+ * and their corresponding multiplicity values
+ */
 public enum Variant {
     NORMAL(1.0),
     EXTENDED_ART(1.5),

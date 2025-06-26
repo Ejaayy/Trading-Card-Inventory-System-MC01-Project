@@ -3,6 +3,10 @@ package com.tradingCardInventory.model;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+ * Represents a deck containing up to 20 cards.
+ * Supports adding, removing, searching, and displaying cards.
+ */
 public class Deck {
 
     // Properties / Attributes
@@ -83,7 +87,7 @@ public class Deck {
             System.out.printf("%-25s%n", "Name");
             for (int i = 0; i < this.cards.size(); i++) {
                 Card card = this.cards.get(i);
-                card.viewCardName();
+                System.out.println(card.getName());
                 System.out.println();
             }
         }
@@ -115,6 +119,12 @@ public class Deck {
         return true;
     }
 
+    /*
+     * Searches for a card in the collection by name (case-insensitive).
+     *
+     * @param name the name of the card to search
+     * @return the Card object if found, otherwise null
+     */
     public Card searchCard(String name){
         return this.cards.stream() // turn the list into a stream
                 .filter(card -> card.getName().equalsIgnoreCase(name)) // keep cards that match the name

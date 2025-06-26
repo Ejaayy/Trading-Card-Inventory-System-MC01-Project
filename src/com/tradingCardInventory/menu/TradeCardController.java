@@ -7,15 +7,36 @@ import com.tradingCardInventory.options.Variant;
 
 import java.util.Scanner;
 
+/*
+ * TradeCardController handles the UI logic for facilitating a card trade.
+ * It prompts the user to input details about the incoming card and compares it
+ * with the outgoing card from the binder.
+ */
 public class TradeCardController {
+
+    // Properties / Attributes
     private Scanner scanner;
     private Collection collection;
 
+    // Methods
+
+    /*
+     * Constructs the TradeCardController with the provided collection.
+     *
+     * @param collection the collection to interact with for trading
+     */
     public TradeCardController(Collection collection) {
         this.scanner = new Scanner(System.in);
         this.collection = collection;
     }
 
+    /*
+     * Displays a trade menu, gets the new (incoming) card details, and compares it
+     * with the outgoing card. Returns the incoming card if trade is accepted.
+     *
+     * @param cardName the name of the card being offered (outgoing)
+     * @return the Card object to be traded in, or null if trade is canceled
+     */
     public Card tradeCardMenu(String cardName){
         //Input for Incoming Card Name
         System.out.print("Enter Card name: ");

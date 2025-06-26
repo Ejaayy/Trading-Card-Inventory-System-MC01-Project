@@ -5,6 +5,10 @@ import com.tradingCardInventory.manager.ManageDeck;
 import com.tradingCardInventory.model.Collection;
 import java.util.Scanner;
 
+/*
+ * Menu class serves as the main controller that initializes all components of the system
+ * and presents the main menu for navigating between the Collection, Binders, and Decks modules.
+ */
 public class Menu {
 
     // Properties and Attributes

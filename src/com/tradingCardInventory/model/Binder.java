@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+/*
+ * Represents a binder that can hold up to 20 trading cards.
+ * Provides functionality to add, remove, search, and display cards.
+ */
 public class Binder {
 
     // Properties / Attributes
@@ -91,6 +95,12 @@ public class Binder {
         System.out.println("──────────────────────────────────────────────────────────────────");
     }
 
+    /*
+     * Searches for a card in the collection by name (case-insensitive).
+     *
+     * @param name the name of the card to search
+     * @return the Card object if found, otherwise null
+     */
     public Card searchCard(String name){
         return this.cards.stream() // turn the list into a stream
                 .filter(card -> card.getName().equalsIgnoreCase(name)) // keep cards that match the name

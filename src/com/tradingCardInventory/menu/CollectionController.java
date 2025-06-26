@@ -8,8 +8,13 @@ import com.tradingCardInventory.options.Variant;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-//This class only handles UI, user input, and showing Displays
-//Logic comes from the Models
+/*
+ * CollectionController handles user interaction for managing the main card collection.
+ * It serves as the "Controller" in the MVC architecture and interacts with the Collection model.
+ *
+ * It displays menus for collection-related actions, accept and validate user input
+ * and call appropriate methods on the Collection model
+ */
 public class CollectionController {
 
     //Properties

@@ -3,7 +3,11 @@ package com.tradingCardInventory.menu;
 import com.tradingCardInventory.manager.ManageBinders;
 import java.util.Scanner;
 
-//Uses manage Binder
+/*
+ * BindersController is responsible for handling user input and interactions
+ * related to managing binders. It serves as the controller in the MVC pattern,
+ * communicating between the user interface and the ManageBinders logic.
+ */
 public class BindersController {
 
     //Properties
