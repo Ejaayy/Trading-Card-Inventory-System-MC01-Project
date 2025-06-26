@@ -57,17 +57,6 @@ public class Card {
                 this.actualValue);
     }
 
-    /*
-     * Displays the details of the card (name, rarity, variant, actual value).
-     * Used when viewing cards in a list or binder.
-     */
-    public void viewCardAndCount(){
-
-        System.out.printf("%-25s   %-6d%n",
-                this.name,
-                this.count);
-    }
-
     // Getters and Setters
 
     public String getName() {

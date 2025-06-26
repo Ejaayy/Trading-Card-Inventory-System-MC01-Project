@@ -75,7 +75,7 @@ public class Collection {
             for (int i = 0; i < this.collection.size(); i++) {
                 Card card = this.collection.get(i);
                 if (card.getCount() > 0) {
-                    card.viewCardAndCount();
+                    System.out.printf("%-25s   %-6d%n", card.getName(), card.getCount());
                 }
             }
         }
