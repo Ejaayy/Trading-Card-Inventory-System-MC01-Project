@@ -1,6 +1,8 @@
 package com.tradingCardInventory.menu;
 
 import com.tradingCardInventory.manager.ManageDeck;
+import com.tradingCardInventory.model.Deck;
+
 import java.util.Scanner;
 
 //Uses DeckUI
@@ -76,7 +78,7 @@ public class DeckController {
                     break;
                 case 2:
                     //Delete a Deck
-                    System.out.println("Enter name of Binder to delete: ");
+                    System.out.println("Enter name of Deck to delete: ");
                     String deckDelete = scanner.nextLine();
                     boolean statusDelete = manageDeck.deleteDeck(deckDelete);
                     if(statusDelete){
@@ -94,13 +96,15 @@ public class DeckController {
                     System.out.print("Enter Card Name from Collection: ");
                     String addCardName = scanner.nextLine();
 
-                    //Input and search Binder in Binders list
+                    //Input and search Deck in Deck list
                     System.out.print("Enter which Deck to add card in: ");
                     String addDeckName = scanner.nextLine();
 
                     boolean status = manageDeck.addCardToDeck(addCardName, addDeckName);
                     if(status){
-                        System.out.printf("Success! Card: %s has been added to Binder: %s\n", addCardName, addDeckName);
+                        System.out.printf("Success! Card: %s has been added to deck: %s\n", addCardName, addDeckName);
+                    }else{
+                        System.out.println("Failed to add card to deck");
                     }
                     break;
                 case 4:
@@ -110,20 +114,30 @@ public class DeckController {
                     System.out.print("Enter Card Name from Collection: ");
                     String removeCardName = scanner.nextLine();
 
-                    //Input and search Binder in Binders list
+                    //Input and search Deck in deck list
                     System.out.print("Enter which Deck to remove card in: ");
                     String removeDeckName = scanner.nextLine();
 
                     boolean deckstatus = manageDeck.removeCardFromDeck(removeCardName, removeDeckName);
                     if(deckstatus){
-                        System.out.printf("Success! Card: %s has been added to Binder: %s\n", removeCardName, removeDeckName);
+                        System.out.printf("Success! Card: %s has been removed from deck: %s\n", removeCardName, removeDeckName);
+                    }else{
+                        System.out.println("Failed to remove card from deck");
                     }
                     break;
                 case 5:
                     //View Deck
-                    System.out.print("Enter Binder Name to View: ");
+                    System.out.print("Enter Deck Name to View: ");
                     deckName = scanner.nextLine();
-                    manageDeck.viewSpecificDeck(deckName);
+                    Deck deck = manageDeck.viewSpecificDeck(deckName);
+
+                    System.out.println("Enter Card in Deck to View: ");
+                    String deckCardName = scanner.nextLine();
+                    if(!manageDeck.viewSpecificCardinDeck(deckCardName, deck)){
+                        System.out.println("Card not found.");
+                    };
+
+
                     break;
                 case 6:
                     running = false;

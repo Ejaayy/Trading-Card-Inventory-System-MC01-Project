@@ -64,6 +64,10 @@ public class Card {
                 this.count);
     }
 
+    public void viewCardName(){
+        System.out.printf("%s", this.name);
+    }
+
     // Getters and Setters
 
     public String getName() {

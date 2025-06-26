@@ -3,7 +3,7 @@ package com.tradingCardInventory.manager;
 import com.tradingCardInventory.model.Binder;
 import com.tradingCardInventory.model.Card;
 import com.tradingCardInventory.model.Collection;
-import com.tradingCardInventory.menu.TradeCard;
+import com.tradingCardInventory.menu.TradeCardController;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -14,7 +14,7 @@ public class ManageBinders {
     // Properties / Attributes
     private List<Binder> binders;
     private Collection collection;
-    private TradeCard tradeCard;
+    private TradeCardController tradeCard;
 
     // Methods
 
@@ -26,7 +26,7 @@ public class ManageBinders {
     public ManageBinders(Collection collection){
         this.binders = new ArrayList<>();
         this.collection = collection;
-        this.tradeCard = new TradeCard(collection);
+        this.tradeCard = new TradeCardController(collection);
     }
 
     /*
@@ -52,8 +52,8 @@ public class ManageBinders {
         }
         else{
             List<Card> binderContent = foundBinder.getCards();
-            for(int i=0; i< binderContent.size(); i++){
-                binderContent.get(i).incrementCount(1);
+            for (Card card : binderContent) {
+                card.incrementCount(1);
             }
             this.binders.remove(foundBinder);
 
@@ -104,14 +104,20 @@ public class ManageBinders {
      */
     public boolean removeCardFromBinder(String cardName, String binderName) {
 
-        //Search if Card exists in collection
+        // Search if Card exists in collection
         Card card = this.collection.searchCard(cardName);
 
-        //Search if Binder exists in list
+        // Search if Binder exists
         Binder binder = this.searchBinder(binderName);
 
-        //Return false if can't find specific card or binder
+        // Check for nulls before using them
         if (card == null || binder == null) {
+            return false;
+        }
+
+        Card foundCard = binder.searchCard(cardName);
+
+        if (foundCard == null) {
             return false;
         }
 
@@ -142,7 +148,7 @@ public class ManageBinders {
         //runs the trade card menu and assigns the return value to incoming card
         //if incoming card exists, a trade was confirmed and incoming card will be the new card
         //if incoming card is null/doesn't exist, then the trade was rejected and the old card should be kept
-        Card incomingCard = tradeCard.tradeCardMenu(cardName, binderName);
+        Card incomingCard = tradeCard.tradeCardMenu(cardName);
         if(incomingCard != null){
             this.collection.decreaseCardCount(cardName, 1);
             this.collection.addCard(incomingCard);
@@ -150,14 +156,6 @@ public class ManageBinders {
         } else {
             this.addCardToBinder(cardName, binderName);
         }
-    }
-
-    /*
-     * Dummy placeholder for future card comparison feature.
-     * Currently just returns the first card.
-     */
-    public Card compareCard(Card card1, Card card2){
-        return card1;
     }
 
     /*
@@ -186,11 +184,10 @@ public class ManageBinders {
      */
     public Binder searchBinder(String name){
         for(int i=0; i< binders.size(); i++){
-            if(binders.get(i).getName().equalsIgnoreCase(name)){
-                return binders.get(i);
-            }
+            if(binders.get(i).getName().equalsIgnoreCase(name)) return binders.get(i);
         }
 
         return null;
     }
+
 }

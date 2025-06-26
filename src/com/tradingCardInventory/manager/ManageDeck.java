@@ -46,8 +46,8 @@ public class ManageDeck {
         }
         else{
             List<Card> binderContent = foundDeck.getCards();
-            for(int i=0; i< binderContent.size(); i++){
-                binderContent.get(i).incrementCount(1);
+            for (Card card : binderContent) {
+                card.incrementCount(1);
             }
             this.decks.remove(foundDeck);
             return true;
@@ -61,12 +61,11 @@ public class ManageDeck {
      * @return the matching Deck object, or null if not found
      */
     public Deck searchDeck(String name){
-        for(int i=0; i< this.decks.size(); i++){
-            if(this.decks.get(i).getName().equalsIgnoreCase(name)){
-                return this.decks.get(i);
+        for (Deck deck : this.decks) {
+            if (deck.getName().equalsIgnoreCase(name)) {
+                return deck;
             }
         }
-
         return null;
     }
 
@@ -78,13 +77,13 @@ public class ManageDeck {
      * @param deckName the deck to add the card to
      * @return true if successful, false if card or deck is invalid or full
      */
-    public boolean addCardToDeck(String cardName, String binderName) {
+    public boolean addCardToDeck(String cardName, String deckName) {
 
         //Search if Card exists in collection
         Card card = this.collection.searchCard(cardName);
 
         //Search if Binder exists in list
-        Deck deck = this.searchDeck(binderName);
+        Deck deck = this.searchDeck(deckName);
 
         //Return false if can't find specific card or binder
         if (card == null || deck == null) {
@@ -110,19 +109,20 @@ public class ManageDeck {
      */
     public boolean removeCardFromDeck(String cardName, String deckName) {
 
-        //Search if Card exists in collection
+        // Search if Card exists in collection
         Card card = this.collection.searchCard(cardName);
 
-        //Search if Binder exists in list
+        // Search if Deck exists
         Deck deck = this.searchDeck(deckName);
 
-        //Return false if can't find specific card or binder
+        // Check for nulls before using them
         if (card == null || deck == null) {
             return false;
         }
 
-        //Return false if card Count is 0 or the binder is full already
-        if (card.getCount() <= 0 || deck.isFull()) {
+        //checks if the card is in the deck
+        Card foundCard = deck.searchCard(cardName);
+        if (foundCard == null) {
             return false;
         }
 
@@ -147,16 +147,26 @@ public class ManageDeck {
      * @param deckName name of the deck to view
      * @return true if deck was found and shown, false otherwise
      */
-    public boolean viewSpecificDeck(String deckName){
+    public Deck viewSpecificDeck(String deckName){
 
         Deck foundDeck = searchDeck(deckName);
         if(foundDeck == null){
-            return false;
+            return foundDeck;
         }
         else{
             foundDeck.viewDeck();
         }
-        return true;
+        return foundDeck;
+    }
+
+    public boolean viewSpecificCardinDeck(String cardName, Deck deckName){
+
+        if(deckName.displayCard(cardName)){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     //SETTERS AND GETTERS

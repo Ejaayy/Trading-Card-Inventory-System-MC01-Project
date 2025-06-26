@@ -73,19 +73,53 @@ public class Deck {
      * - Deck information is printed to the console
      */
     public void viewDeck(){
-        System.out.println("──────────────────────────────────────────────────────────────────");
-        System.out.printf("                 Deck: %s\n", this.name);
-        System.out.println("──────────────────────────────────────────────────────────────────");
-        if(this.cards.size()>0){
-            System.out.printf("%-25s %-12s %-12s %-10s%n", "Name", "Rarity", "Variant", "Value");
-            for(int i=0; i<cards.size(); i++){
-                cards.get(i).viewCardDetails();
+        System.out.println("─────────────────────────────────");
+        System.out.printf("             Deck%n");
+        System.out.println("─────────────────────────────────");
+
+        if (this.cards.isEmpty()) {
+            System.out.println("          Deck is empty");
+        } else {
+            System.out.printf("%-25s%n", "Name");
+            for (int i = 0; i < this.cards.size(); i++) {
+                Card card = this.cards.get(i);
+                card.viewCardName();
+                System.out.println();
             }
         }
-        else{
-            System.out.println("                  THIS DECK IS EMPTY");
+
+        System.out.println("──────────────────────────────────");
+    }
+
+    /*
+     * Displays a single card's details if it exists and has a count > 0.
+     *
+     * @param cardName the name of the card to display
+     * @return true if the card was found and displayed, false otherwise
+     */
+    public boolean displayCard(String cardName){
+
+        Card foundCard = this.searchCard(cardName);
+
+        if(foundCard == null){
+            return false;
         }
-        System.out.println("──────────────────────────────────────────────────────────────────");
+        else{
+            System.out.println("──────────────────────────────────────────────────────────────────");
+            System.out.printf("                      Viewing Card: %s\n", foundCard.getName());
+            System.out.println("──────────────────────────────────────────────────────────────────");
+            System.out.printf("%-25s %-12s %-12s %-10s%n", "Name", "Rarity", "Variant", "Value");
+            foundCard.viewCardDetails();
+            System.out.println("──────────────────────────────────────────────────────────────────");
+        }
+        return true;
+    }
+
+    public Card searchCard(String name){
+        return this.cards.stream() // turn the list into a stream
+                .filter(card -> card.getName().equalsIgnoreCase(name)) // keep cards that match the name
+                .findFirst() // get the first matching card
+                .orElse(null); // return it, or null if none found
     }
 
     // GETTERS AND SETTERS

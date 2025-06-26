@@ -7,19 +7,18 @@ import com.tradingCardInventory.options.Variant;
 
 import java.util.Scanner;
 
-public class TradeCard {
+public class TradeCardController {
     private Scanner scanner;
     private Collection collection;
 
-    public TradeCard(Collection collection) {
+    public TradeCardController(Collection collection) {
         this.scanner = new Scanner(System.in);
         this.collection = collection;
     }
 
-    public Card tradeCardMenu(String cardName, String binderName){
-        //Input Card Name
+    public Card tradeCardMenu(String cardName){
+        //Input for Incoming Card Name
         System.out.print("Enter Card name: ");
-        scanner.nextLine(); //Input buffer
         String name = scanner.nextLine();
         Card incomingCard = null;
 
@@ -89,6 +88,7 @@ public class TradeCard {
             System.out.print("Input: ");
 
             if(scanner.nextInt() != 1) {
+                scanner.nextLine(); //input buffer
                 incomingCard = null;
             }
         }

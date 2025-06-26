@@ -91,6 +91,13 @@ public class Binder {
         System.out.println("──────────────────────────────────────────────────────────────────");
     }
 
+    public Card searchCard(String name){
+        return this.cards.stream() // turn the list into a stream
+                .filter(card -> card.getName().equalsIgnoreCase(name)) // keep cards that match the name
+                .findFirst() // get the first matching card
+                .orElse(null); // return it, or null if none found
+    }
+
     // GETTERS AND SETTERS
 
     public void setName(String name) {
