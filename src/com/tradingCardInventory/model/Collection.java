@@ -12,7 +12,7 @@ import java.util.List;
 public class Collection {
 
     // Properties / Attributes
-    private List<Card> collection;
+    private final List<Card> collection;
 
     //Methods
 
@@ -36,6 +36,7 @@ public class Collection {
      */
     public void addCard(String cardName, Rarity rarity, Variant variant, Double value){
 
+        //Make a new card given inputs
         Card card = new Card(cardName, rarity, variant, value);
         this.collection.add(card);
 
@@ -68,12 +69,12 @@ public class Collection {
         System.out.printf("              Collection%n");
         System.out.println("──────────────────────────────────────────");
 
+        //Prints UI based on status of collection if its empty
         if (this.isEmpty()) {
             System.out.println("           Collection is empty");
         } else {
             System.out.printf("%-25s %-6s%n", "Name", "Count");
-            for (int i = 0; i < this.collection.size(); i++) {
-                Card card = this.collection.get(i);
+            for (Card card : this.collection) {
                 if (card.getCount() > 0) {
                     System.out.printf("%-25s   %-6d%n", card.getName(), card.getCount());
                 }
@@ -93,10 +94,12 @@ public class Collection {
 
         Card foundCard = this.searchCard(cardName);
 
+        // If the card doesn't exist or has zero count, return false
         if(foundCard == null || foundCard.getCount() <= 0){
             return false;
         }
         else{
+            // Display formatted card header
             System.out.println("──────────────────────────────────────────────────────────────────");
             System.out.printf("                      Viewing Card: %s\n", foundCard.getName());
             System.out.println("──────────────────────────────────────────────────────────────────");
@@ -108,28 +111,14 @@ public class Collection {
     }
 
     /*
-     * Increments the count of a card by 1.
-     *
-     * @param name the name of the card
-     */
-    public void increaseCardCount(String name){
-        Card foundCard = this.searchCard(name);
-        if (foundCard == null){
-            System.out.println("Card not found.");
-        }
-        else{
-            foundCard.incrementCount(1);
-            System.out.println("Increment Successful!\n");
-        }
-    }
-
-    /*
      * Increments the count of a card by a specific amount.
      *
      * @param name the name of the card
      * @param count the number to add
      */
-    public void increaseCardCount(String name, int count){
+    public void changeCardCount(String name, int count){
+
+        //Searches if card exists and increments if it is
         Card foundCard = this.searchCard(name);
         if (foundCard == null){
             System.out.println("Card not found.");
@@ -141,30 +130,14 @@ public class Collection {
     }
 
     /*
-     * Decrements the count of a card by 1, if it is greater than 0.
-     *
-     * @param name the name of the card
-     */
-    public void decreaseCardCount(String name){
-        Card foundCard = this.searchCard(name);
-        if (foundCard == null){
-            System.out.println("Card not found.");
-        }
-        else{
-            if(foundCard.getCount() > 0){
-                foundCard.incrementCount(-1);
-                System.out.println();
-            }
-        }
-    }
-
-    /*
      * Decrements the count of a card by a specific amount.
      *
      * @param name the name of the card
      * @param count the number to subtract
      */
     public void decreaseCardCount(String name, int count){
+
+        //Searches if card exists and decrements if it is
         Card foundCard = this.searchCard(name);
         if (foundCard == null){
             System.out.println("Card not found.");
@@ -210,7 +183,10 @@ public class Collection {
         return this.collection;
     }
 
+    /*
+
     public Card getCard(String name){
         return this.searchCard(name);
     }
+     */
 }

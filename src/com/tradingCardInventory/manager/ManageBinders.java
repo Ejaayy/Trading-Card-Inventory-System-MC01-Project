@@ -17,9 +17,9 @@ import java.util.List;
 public class ManageBinders {
 
     // Properties / Attributes
-    private List<Binder> binders;
-    private Collection collection;
-    private TradeCardController tradeCard;
+    private final List<Binder> binders;
+    private final Collection collection;
+    private final TradeCardController tradeCard;
 
     // Methods
 
@@ -40,6 +40,7 @@ public class ManageBinders {
      * @param name the name of the new binder
      */
     public void createBinder(String name){
+        //Creates and adds new Binder to the list
         Binder binder = new Binder(name);
         this.binders.add(binder);
     }
@@ -51,11 +52,13 @@ public class ManageBinders {
      * @return true if deleted successfully, false if not found
      */
     public boolean deleteBinder(String binderName){
+        //Checks if binder exists
         Binder foundBinder = searchBinder(binderName);
         if(foundBinder == null){
             return false;
         }
         else{
+            //Loops through every card in binder
             List<Card> binderContent = foundBinder.getCards();
             for (Card card : binderContent) {
                 card.incrementCount(1);
@@ -120,27 +123,19 @@ public class ManageBinders {
             return false;
         }
 
+        //Finds Card
         Card foundCard = binder.searchCard(cardName);
 
         if (foundCard == null) {
             return false;
         }
 
+        //Removes that specific card
         binder.removeCard(card);
         card.incrementCount(1);
 
         return true;
     }
-
-    /*
-     * Gets the total number of binders.
-     *
-     * @return size of the binders list
-     */
-    public int getCount(){
-        return this.binders.size();
-    }
-
 
     /*
      * Facilitates a card trade from a binder. Adds a new card to the collection
@@ -153,13 +148,34 @@ public class ManageBinders {
         //runs the trade card menu and assigns the return value to incoming card
         //if incoming card exists, a trade was confirmed and incoming card will be the new card
         //if incoming card is null/doesn't exist, then the trade was rejected and the old card should be kept
-        Card incomingCard = tradeCard.tradeCardMenu(cardName);
+        Card incomingCard = tradeCard.tradeCardMenu(this.collection.searchCard(cardName));
+
         if(incomingCard != null){
-            this.collection.decreaseCardCount(cardName, 1);
-            this.collection.addCard(incomingCard);
-            this.addCardToBinder(incomingCard.getName(), binderName);
+            //special case: if the incoming card exists in the collection
+            if(this.collection.searchCard(incomingCard.getName()) != null){
+                //shows the trade menu and if the user accepts the trade
+                if(tradeCard.displayTradeMenu(incomingCard, this.collection.searchCard(cardName)).equals("1")){
+                    //decrease outgoing card count and add incoming card to the binder
+                    this.collection.decreaseCardCount(cardName, 1);
+                    this.collection.decreaseCardCount(incomingCard.getName(), -1);
+                    this.addCardToBinder(incomingCard.getName(), binderName);
+                    System.out.println("Cards Traded! Added " + incomingCard.getName() + " to " + binderName + ".");
+                } else {
+                    //return outgoing card to binder
+                    this.addCardToBinder(cardName, binderName);
+                    System.out.println("Returning " + cardName + " to " + binderName + ".");
+                }
+            }else{
+                //decrease outgoing card count and add incoming card to the binder
+                this.collection.decreaseCardCount(cardName, 1);
+                this.collection.addCard(incomingCard);
+                this.addCardToBinder(incomingCard.getName(), binderName);
+                System.out.println("Cards Traded! Added " + incomingCard.getName() + " to " + binderName + ".");
+            }
         } else {
+            //return outgoing card to binder
             this.addCardToBinder(cardName, binderName);
+            System.out.println("Returning " + cardName + " to " + binderName + ".");
         }
     }
 
@@ -188,11 +204,10 @@ public class ManageBinders {
      * @return the Binder object if found, null otherwise
      */
     public Binder searchBinder(String name){
+        //Loops through all binders
         for(int i=0; i< binders.size(); i++){
             if(binders.get(i).getName().equalsIgnoreCase(name)) return binders.get(i);
         }
-
         return null;
     }
-
 }

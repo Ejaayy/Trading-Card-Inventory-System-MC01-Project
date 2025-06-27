@@ -20,11 +20,11 @@
 - **2025-06-25**: Moved Trade Card to its own class
 - **2025-06-26**: Fixed View Bugs, Added comments, Started Test Cases
 - **2025-06-26**: Test Cases Mostly done, UML updated
+- **2025-06-27**: Error Handling, Specs Requirements
+- **2025-06-28**: Updated Test Cases, UML, Specs Requirements, TAPOS NA (YATA) (SANA)
 
 ## 🔥 TO DO
-
-- **Error handling (Priority)**
-- **Comments (Priority)**
+- **Look for Program holes**
 - **UI improvements kung kasya**
 - **MVC**
 

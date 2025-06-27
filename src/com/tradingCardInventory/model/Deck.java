@@ -1,6 +1,7 @@
 package com.tradingCardInventory.model;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 /*
@@ -10,8 +11,8 @@ import java.util.List;
 public class Deck {
 
     // Properties / Attributes
-    private String name;
-    private List<Card> cards; //10 cards max in 1 deck
+    private final String name;
+    private final List<Card> cards; //10 cards max in 1 deck
 
     // Methods
 
@@ -42,6 +43,7 @@ public class Deck {
      */
     public void addCard(Card card){
         this.cards.add(card);
+        this.cards.sort(Comparator.comparing(Card::getName));
     }
 
     /*
@@ -85,8 +87,7 @@ public class Deck {
             System.out.println("          Deck is empty");
         } else {
             System.out.printf("%-25s%n", "Name");
-            for (int i = 0; i < this.cards.size(); i++) {
-                Card card = this.cards.get(i);
+            for (Card card : this.cards) {
                 System.out.println(card.getName());
                 System.out.println();
             }
@@ -138,17 +139,8 @@ public class Deck {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public List<Card> getCards() {
         return cards;
     }
 
-    public void setCards(List<Card> cards) {
-        this.cards = cards;
-    }
 }
-
-

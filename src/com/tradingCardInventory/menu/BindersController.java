@@ -84,70 +84,88 @@ public class BindersController {
             switch (input) {
                 case 1:
                     //Create New Binder
+                    System.out.println("[0. Exit]");
                     System.out.print("Enter name of new Binder: ");
                     String nameCreate = scanner.nextLine();
-                    manageBinder.createBinder(nameCreate);
-                    System.out.println("Success! Binder created successfully!");
+
+                    if(!nameCreate.equals("0")){
+                        manageBinder.createBinder(nameCreate);
+                        System.out.println("Success! Binder created successfully!");
+                    }
                     break;
                 case 2:
                     //Delete a Binder
+                    System.out.println("[0. Exit]");
                     System.out.print("Enter name of Binder to be removed: ");
                     String nameDelete = scanner.nextLine();
-                    boolean deleteStatus = manageBinder.deleteBinder(nameDelete);
-                    if(deleteStatus){
-                        System.out.println("Success! Binder deleted successfully!");
-                    }
-                    else{
-                        System.out.println("Attempt to delete Binder Failed");
+
+                    if(!nameDelete.equals("0")){
+                        boolean deleteStatus = manageBinder.deleteBinder(nameDelete);
+                        if(deleteStatus){
+                            System.out.println("Success! Binder deleted successfully!");
+                        }
+                        else{
+                            System.out.println("Attempt to delete Binder Failed");
+                        }
                     }
                     break;
                 case 3:
                     //Add card to a Binder
+                    System.out.println("[0. Exit]");
                     this.addCardToBinder();
                     break;
                 case 4:
                     //Remove card from a Binder
+                    System.out.println("[0. Exit]");
                     this.removeCardFromBinder();
                     break;
                 case 5:
                     //Trade Card
 
+                    System.out.println("[0. Exit]");
                     //Prompts for Binder in Binder List
                     System.out.print("Enter Binder Name to choose the card from: ");
                     binderName = scanner.nextLine();
 
-                    //Checks if that binder exists
-                    if(manageBinder.searchBinder(binderName) != null) {
+                    if(!binderName.equals("0")){
+                        //Checks if that binder exists
+                        if(manageBinder.searchBinder(binderName) != null) {
 
-                        //Shows cards in that binder
-                        manageBinder.viewSpecificBinder(binderName);
+                            //Shows cards in that binder
+                            manageBinder.viewSpecificBinder(binderName);
 
-                        //Prompts user to choose a card in that binder
-                        System.out.print("Choose card to offer: ");
-                        cardName = scanner.nextLine();
+                            //Prompts user to choose a card in that binder
+                            System.out.print("Choose card to offer: ");
+                            cardName = scanner.nextLine();
 
-                        //Checks for validity of card and that Binder
-                        if(manageBinder.removeCardFromBinder(cardName, binderName)){
-                            //Prompt user for incoming card
-                            System.out.println("Input details for Incoming Card: ");
-                            manageBinder.tradeCard(cardName, binderName);
-                        } else {
-                            System.out.println("Card not found.");
+                            if(!cardName.equals("0")){
+                                //Checks for validity of card and that Binder
+                                if(manageBinder.removeCardFromBinder(cardName, binderName)){
+                                    //Prompt user for incoming card
+                                    System.out.println("Input details for Incoming Card: ");
+                                    manageBinder.tradeCard(cardName, binderName);
+                                } else {
+                                    System.out.println("Card not found.");
+                                }
+                            }
+
+                        }else{
+                            System.out.println("Error: Binder not found");
                         }
-
-                    }else{
-                        System.out.println("Error: Binder not found");
                     }
                     break;
                 case 6:
                     //View Binder
+                    System.out.println("[0. Exit]");
                     System.out.print("Enter Binder Name to View: ");
                     binderName = scanner.nextLine();
 
-                    //Calls view specific binder and necessary error handling messages
-                    boolean viewBinder = manageBinder.viewSpecificBinder(binderName);
-                    if(!viewBinder){
-                        System.out.println("Binder not found");
+                    if(!binderName.equals("0")){
+                        //Calls view specific binder and necessary error handling messages
+                        boolean viewBinder = manageBinder.viewSpecificBinder(binderName);
+                        if(!viewBinder){
+                            System.out.println("Binder not found");
+                        }
                     }
                     break;
                 case 0:
@@ -170,17 +188,21 @@ public class BindersController {
         System.out.print("Enter Card Name from Collection: ");
         String cardName = scanner.nextLine();
 
-        //Input and search Binder in Binders list
-        System.out.print("Enter which Binder to add card in: ");
-        String binderName = scanner.nextLine();
+        if(!cardName.equals("0")){
+            //Input and search Binder in Binders list
+            System.out.print("Enter which Binder to add card in: ");
+            String binderName = scanner.nextLine();
 
-        //Calls to add that specific card to that specific binder
-        boolean status = manageBinder.addCardToBinder(cardName, binderName);
-        if(status){
-            System.out.printf("Success! Card: %s has been added to Binder: %s\n", cardName, binderName);
-        }
-        else{
-            System.out.println("Failed to add card to binder");
+            if(!binderName.equals("0")){
+                //Calls to add that specific card to that specific binder
+                boolean status = manageBinder.addCardToBinder(cardName, binderName);
+                if(status){
+                    System.out.printf("Success! Card: %s has been added to Binder: %s\n", cardName, binderName);
+                }
+                else{
+                    System.out.println("Failed to add card to binder");
+                }
+            }
         }
     }
 
@@ -193,17 +215,21 @@ public class BindersController {
         System.out.print("Enter Card Name from Collection: ");
         String cardName = scanner.nextLine();
 
-        //Input and search Binder in Binders list
-        System.out.println("Enter which Binder to add card in: ");
-        String binderName = scanner.nextLine();
+        if(!cardName.equals("0")){
+            //Input and search Binder in Binders list
+            System.out.println("Enter which Binder to add card in: ");
+            String binderName = scanner.nextLine();
 
-        //Calls to remove that specific card to that specific binder
-        boolean status = manageBinder.removeCardFromBinder(cardName, binderName);
-        if(status){
-            System.out.printf("Success! Card: %s has been removed from Binder: %s\n", cardName, binderName);
-        }
-        else{
-            System.out.println("Failed to remove card from binder");
+            if(!binderName.equals("0")){
+                //Calls to remove that specific card to that specific binder
+                boolean status = manageBinder.removeCardFromBinder(cardName, binderName);
+                if(status){
+                    System.out.printf("Success! Card: %s has been removed from Binder: %s\n", cardName, binderName);
+                }
+                else{
+                    System.out.println("Failed to remove card from binder");
+                }
+            }
         }
     }
 }

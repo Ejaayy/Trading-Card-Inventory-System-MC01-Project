@@ -164,7 +164,7 @@ public class CollectionController {
                     System.out.print("Enter Card Name: ");
                     String increaseCardName = this.scanner.nextLine();
                     if(!increaseCardName.equals("0"))
-                        this.collection.increaseCardCount(increaseCardName);
+                        this.collection.changeCardCount(increaseCardName, 1);
                     break;
                 case 2:
                     // Increase Card
@@ -172,7 +172,7 @@ public class CollectionController {
                     System.out.print("Enter Card Name: ");
                     String decreaseCardName = this.scanner.nextLine();
                     if(!decreaseCardName.equals("0"))
-                        this.collection.decreaseCardCount(decreaseCardName);
+                        this.collection.changeCardCount(decreaseCardName, -1);
                     break;
                 case 0:
                     running = false;
@@ -219,13 +219,15 @@ public class CollectionController {
             switch(input) {
                 case 1:
                     // View Card
+                    System.out.println("[0. Exit]");
                     System.out.print("Enter Card Name: ");
                     String cardName = this.scanner.nextLine();
                     boolean status = this.collection.displayCard(cardName);
 
-                    if(!status){
-                        System.out.println("Card not found");
-                    }
+                    if(!cardName.equals("0"))
+                        if(!status){
+                            System.out.println("Card not found");
+                        }
                     break;
                 case 2:
                     //View Collection
@@ -345,11 +347,12 @@ public class CollectionController {
                             System.out.println("1. Value");
                             System.out.print("Input: ");
 
-                            int input = scanner.nextDouble();
+                            double input = scanner.nextDouble();
                             scanner.nextLine();
 
                             if(input!=0){
-                                
+                                this.collection.addCard(cardName, rarity, variant, value);
+                                System.out.println("Input Card Success!");
                             }
                         }
                     }

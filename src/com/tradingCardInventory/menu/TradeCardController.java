@@ -5,6 +5,7 @@ import com.tradingCardInventory.model.Collection;
 import com.tradingCardInventory.options.Rarity;
 import com.tradingCardInventory.options.Variant;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /*
@@ -37,83 +38,147 @@ public class TradeCardController {
      * @param cardName the name of the card being offered (outgoing)
      * @return the Card object to be traded in, or null if trade is canceled
      */
-    public Card tradeCardMenu(String cardName){
+    public Card tradeCardMenu(Card outgoingCard){
         //Input for Incoming Card Name
         System.out.print("Enter Card name: ");
         String name = scanner.nextLine();
         Card incomingCard = null;
 
-        //Search loop to find if the card exists already
-        Card foundCard = this.collection.searchCard(name);
+        if(!name.equals("0")) {
+            //Search loop to find if the card exists already
+            Card foundCard = this.collection.searchCard(name);
+            if(foundCard != null) {
+                //card exists in collection
+                System.out.println("Card already exists in collection!");
+                return foundCard;
+            }else{
+                //card doesnt exist in collection
+                Rarity rarity = null;
+                boolean flag = true;
 
-        if (foundCard != null) {
-            System.out.println("Card already Exists! Would you like to increase the card count? [Y/N]: ");
-            String response = scanner.nextLine();
-            if (response.equalsIgnoreCase("Y")) {
-                foundCard.incrementCount(1);
-                System.out.println("Card increment successful.");
-            }
-        } else {
-            // Input Rarity
-            Rarity rarity = null;
-            while (rarity == null) {
-                System.out.print("Enter Rarity (common, uncommon, rare, legendary): ");
-                String rarityInput = scanner.nextLine().trim().toUpperCase();
-                try {
-                    rarity = Rarity.valueOf(rarityInput);
-                } catch (IllegalArgumentException e) {
-                    System.out.println("Invalid rarity. Try again.");
-                }
-            }
+                while(rarity == null && flag){
+                    System.out.print("Enter Rarity (common, uncommon, rare, legendary): ");
+                    String rarityInput = this.scanner.nextLine().trim().toUpperCase();
 
-            // Input Variant (only if rare or legendary)
-            Variant variant = Variant.NORMAL;  // default
-            if (rarity == Rarity.RARE || rarity == Rarity.LEGENDARY) {
-                while (true) {
-                    System.out.print("Enter Variant (normal, extended_art, full_art, alt_art): ");
-                    String variantInput = scanner.nextLine().trim().toUpperCase();
+                    //Error Handling
                     try {
-                        variant = Variant.valueOf(variantInput);
-                        break;
+                        if(!rarityInput.equals("0"))
+                            rarity = Rarity.valueOf(rarityInput);
+                        else
+                            flag = false;
                     } catch (IllegalArgumentException e) {
-                        System.out.println("Invalid variant. Try again.");
+                        System.out.println("Invalid rarity. Try again.");
+                    }
+
+                    if(flag){
+                        // Input Variant (only if rare or legendary)
+                        Variant variant = Variant.NORMAL;  // default
+                        if (rarity == Rarity.RARE || rarity == Rarity.LEGENDARY) {
+                            while (true) {
+                                System.out.print("Enter Variant (normal, extended_art, full_art, alt_art): ");
+                                String variantInput = this.scanner.nextLine().trim().toUpperCase();
+
+                                //Error Handling
+                                try {
+                                    if(!variantInput.equals("0"))
+                                        variant = Variant.valueOf(variantInput);
+                                    else
+                                        flag = false;
+                                    break;
+                                } catch (IllegalArgumentException e) {
+                                    System.out.println("Invalid variant. Try again.");
+                                }
+                            }
+                        }
+
+                        if(flag){
+                            double value = 0;
+                            boolean valid = false;
+
+                            while(!valid){
+                                System.out.print("Enter Value: ");
+
+                                //Error Handling
+                                try {
+                                    value = this.scanner.nextDouble();
+                                    scanner.nextLine(); // consume newline
+                                    valid = true;
+                                } catch (InputMismatchException e) {
+                                    System.out.println("Invalid input! Please enter a numeric value.");
+                                    scanner.nextLine(); // clear invalid input
+                                }
+                            }
+
+                            if(value == 0){
+                                System.out.println("Is the input (0) to cancel or the value of the card?");
+                                System.out.println("0. Cancel");
+                                System.out.println("1. Value");
+                                System.out.print("Input: ");
+
+                                double input = scanner.nextDouble();
+                                scanner.nextLine();
+
+                                if(input==0){
+                                    flag = false;
+                                }
+                            }
+                            if(flag){
+                                // After a valid value is entered
+                                incomingCard = new Card(name, rarity, variant, value);
+                                System.out.println("Input Card Success!");
+
+                                // If not 1, cancel the trade
+                                if(!displayTradeMenu(incomingCard, outgoingCard).equals("1")) {
+                                    incomingCard = null;
+                                }
+                            }
+                        }
                     }
                 }
             }
-
-            //Input Value
-            System.out.print("Enter Value: ");
-            double value = scanner.nextDouble();
-
-            incomingCard = new Card(name, rarity, variant, value);
-
-            System.out.println("Trade Menu");
-            System.out.println("───────────────────────────────");
-            System.out.println("Incoming Card");
-            System.out.println("───────────────────────────────");
-            System.out.printf("Name  : %s%n", incomingCard.getName());
-            System.out.printf("Value : $%.2f%n", incomingCard.getActualValue());
-            System.out.println("───────────────────────────────");
-            System.out.println("Outgoing Card");
-            System.out.println("───────────────────────────────");
-            System.out.printf("Name  : %s%n", this.collection.searchCard(cardName).getName());
-            System.out.printf("Value : $%.2f%n", this.collection.searchCard(cardName).getActualValue());
-            System.out.println("───────────────────────────────\n");
-
-            if(incomingCard.getActualValue() - this.collection.searchCard(cardName).getActualValue() > -1 && incomingCard.getActualValue() - this.collection.searchCard(cardName).getActualValue() < 1){
-                System.out.println("Value difference is less than $1.");
-            }
-
-            System.out.println("Proceed with the trade?");
-            System.out.println("1. Yes");
-            System.out.println("2. No");
-            System.out.print("Input: ");
-
-            if(scanner.nextInt() != 1) {
-                scanner.nextLine(); //input buffer
-                incomingCard = null;
-            }
         }
         return incomingCard;
+    }
+
+    public String displayTradeMenu(Card incomingCard, Card outgoingCard){
+        //Showing card details from input
+        System.out.println("Trade Menu");
+        System.out.println("───────────────────────────────");
+        System.out.println("Incoming Card");
+        System.out.println("───────────────────────────────");
+        System.out.printf("Name  : %s%n", incomingCard.getName());
+        System.out.printf("Value : $%.2f%n", incomingCard.getActualValue());
+        System.out.println("───────────────────────────────");
+        System.out.println("Outgoing Card");
+        System.out.println("───────────────────────────────");
+        System.out.printf("Name  : %s%n", outgoingCard.getName());
+        System.out.printf("Value : $%.2f%n", outgoingCard.getActualValue());
+        System.out.println("───────────────────────────────\n");
+
+        // Check if the trade is fair (within $1 difference)
+        if(incomingCard.getActualValue() - outgoingCard.getActualValue() > -1 && incomingCard.getActualValue() - outgoingCard.getActualValue() < 1){
+            System.out.println("Value difference is less than $1.");
+        }
+
+        // Confirm trade
+        System.out.println("Proceed with the trade?");
+        System.out.println("0. Cancel");
+        System.out.println("1. Proceed");
+        System.out.print("Input: ");
+        
+        boolean valid = false;
+        String input = "";
+
+        while(!valid){
+            input = scanner.nextLine();
+            
+            if(input.equals("0") || input.equals("1")){
+                valid = true;
+            } else {
+                System.out.println("Invalid input. Try again.");
+            }
+        }
+        
+        return input;
     }
 }

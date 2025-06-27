@@ -30,6 +30,7 @@ public class Card {
      * - A card object is created with calculated actual value and count = 1.
      */
     public Card(String name, Rarity rarity, Variant variant, double baseValue) {
+
         this.name = name;
         this.rarity = rarity;
         this.variant = variant;
@@ -37,17 +38,21 @@ public class Card {
         this.count = 1;
     }
 
-    public void incrementCount(int count) {
-        this.count += count;
-    }
-
     /*
      * Increments the count of this card by the specified amount.
      *
      * @param count number of copies to add
      */
-    public void viewCardDetails(){
+    public void incrementCount(int count) {
+        this.count += count;
+    }
 
+    /*
+     * Displays the card's details in a formatted table row.
+     * Fields include: Name, Rarity, Variant, and Value (formatted as currency).
+     */
+    public void viewCardDetails(){
+        //Prints UI of card
         System.out.printf("%-25s %-12s %-12s $%-9.2f%n",
                 this.name,
                 this.rarity,
@@ -81,15 +86,6 @@ public class Card {
     public double getBaseValue(){
         return this.baseValue;
     }
-
-    public void setActualValue(double actualValue) {
-        this.actualValue = actualValue;
-    }
-
-    public void setBaseValue(double baseValue) {
-        this.baseValue = baseValue;
-    }
-
      */
 
 }

@@ -13,8 +13,8 @@ import java.util.List;
  */
 public class ManageDeck {
     // Properties / Attributes
-    private ArrayList<Deck> decks; //since no limit
-    private Collection collection;
+    private final ArrayList<Deck> decks; //since no limit
+    private final Collection collection;
 
     // Methods
 
@@ -90,13 +90,20 @@ public class ManageDeck {
         //Search if Binder exists in list
         Deck deck = this.searchDeck(deckName);
 
-        //Return false if can't find specific card or binder
+        //Return false if you can't find specific card or binder
         if (card == null || deck == null) {
             return false;
         }
 
         //Return false if card Count is 0 or the binder is full already
         if (card.getCount() <= 0 || deck.isFull()) {
+            return false;
+        }
+
+        //Checks if that card exists in that deck
+        Card checkCardinDeck = deck.searchCard(cardName);
+
+        if(checkCardinDeck != null) {
             return false;
         }
 
@@ -138,15 +145,6 @@ public class ManageDeck {
     }
 
     /*
-     * Gets the list of all current decks.
-     *
-     * @return the deck list
-     */
-    public ArrayList<Deck> getDecks() {
-        return decks;
-    }
-
-    /*
      * Searches for a specific deck by name and displays its contents.
      *
      * @param deckName the name of the deck to search for and view
@@ -180,10 +178,5 @@ public class ManageDeck {
     public boolean viewSpecificCardinDeck(String cardName, Deck deck){
 
         return deck.displayCard(cardName);
-    }
-
-    //SETTERS AND GETTERS
-    public void setDecks(ArrayList<Deck> decks) {
-        this.decks = decks;
     }
 }

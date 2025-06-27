@@ -85,75 +85,103 @@ public class DeckController {
             switch (input) {
                 case 1:
                     //Create New Deck
+                    System.out.println("[0. Exit]");
                     System.out.println("Enter name for Deck: ");
                     deckName = scanner.nextLine();
-                    manageDeck.createDeck(deckName);
-                    System.out.println("Success! Deck created successfully");
+
+                    if(!deckName.equals("0")){
+                        manageDeck.createDeck(deckName);
+                        System.out.println("Success! Deck created successfully");
+                    }
                     break;
                 case 2:
                     //Delete a Deck
+                    System.out.println("[0. Exit]");
                     System.out.println("Enter name of Deck to delete: ");
                     String deckDelete = scanner.nextLine();
-                    boolean statusDelete = manageDeck.deleteDeck(deckDelete);
-                    if(statusDelete){
-                        System.out.println("Deck deleted successfully");
-                    }
-                    else{
-                        System.out.println("Deck deletion failed");
+
+                    if(!deckDelete.equals("0")){
+                        boolean statusDelete = manageDeck.deleteDeck(deckDelete);
+
+                        if(statusDelete){
+                            System.out.println("Deck deleted successfully");
+                        }
+                        else{
+                            System.out.println("Deck deletion failed");
+                        }
                     }
 
                     break;
                 case 3:
                     //Add card to a deck
 
+                    System.out.println("[0. Exit]");
+
                     //Input and search for Card in Collection
                     System.out.print("Enter Card Name from Collection: ");
                     String addCardName = scanner.nextLine();
 
-                    //Input and search Deck in Deck list
-                    System.out.print("Enter which Deck to add card in: ");
-                    String addDeckName = scanner.nextLine();
+                    if(!addCardName.equals("0")){
+                        //Input and search Deck in Deck list
+                        System.out.print("Enter which Deck to add card in: ");
+                        String addDeckName = scanner.nextLine();
 
-                    boolean status = manageDeck.addCardToDeck(addCardName, addDeckName);
-                    if(status){
-                        System.out.printf("Success! Card: %s has been added to deck: %s\n", addCardName, addDeckName);
-                    }else{
-                        System.out.println("Failed to add card to deck");
+                        if(!addDeckName.equals("0")){
+                            boolean status = manageDeck.addCardToDeck(addCardName, addDeckName);
+                            if(status){
+                                System.out.printf("Success! Card: %s has been added to deck: %s\n", addCardName, addDeckName);
+                            }else{
+                                System.out.println("Failed to add card to deck");
+                            }
+                        }
                     }
                     break;
                 case 4:
                     //Remove card to a deck
 
+                    System.out.println("[0. Exit]");
+
                     //Input and search for Card in Collection
                     System.out.print("Enter Card Name from Collection: ");
                     String removeCardName = scanner.nextLine();
 
-                    //Input and search Deck in deck list
-                    System.out.print("Enter which Deck to remove card from: ");
-                    String removeDeckName = scanner.nextLine();
+                    if(!removeCardName.equals("0")){
+                        //Input and search Deck in deck list
+                        System.out.print("Enter which Deck to remove card from: ");
+                        String removeDeckName = scanner.nextLine();
 
-                    boolean deckStatus = manageDeck.removeCardFromDeck(removeCardName, removeDeckName);
-                    if(deckStatus){
-                        System.out.printf("Success! Card: %s has been removed from deck: %s\n", removeCardName, removeDeckName);
-                    }else{
-                        System.out.println("Failed to remove card from deck");
+                        if(!removeDeckName.equals("0")){
+                            boolean deckStatus = manageDeck.removeCardFromDeck(removeCardName, removeDeckName);
+                            if(deckStatus){
+                                System.out.printf("Success! Card: %s has been removed from deck: %s\n", removeCardName, removeDeckName);
+                            }else{
+                                System.out.println("Failed to remove card from deck");
+                            }
+                        }
                     }
                     break;
                 case 5:
                     //View Deck
+                    System.out.println("[0. Exit]");
                     System.out.print("Enter Deck Name to View: ");
                     deckName = scanner.nextLine();
-                    Deck deck = manageDeck.viewSpecificDeck(deckName);
 
-                    //Prompts user to view specific card in deck
-                    if(deck != null){
-                        System.out.println("Enter Card in Deck to View: ");
-                        String deckCardName = scanner.nextLine();
-                        if(!manageDeck.viewSpecificCardinDeck(deckCardName, deck)){
-                            System.out.println("Card not found.");
+                    if(!deckName.equals("0")){
+                        Deck deck = manageDeck.viewSpecificDeck(deckName);
+
+                        //Prompts user to view specific card in deck
+                        if(deck != null){
+                            System.out.println("Enter Card in Deck to View: ");
+                            String deckCardName = scanner.nextLine();
+
+                            if(!deckCardName.equals("0")){
+                                if(!manageDeck.viewSpecificCardinDeck(deckCardName, deck)){
+                                    System.out.println("Card not found.");
+                                }
+                            }
+                        }else{
+                            System.out.println("Deck not found.");
                         }
-                    }else{
-                        System.out.println("Deck not found.");
                     }
 
                     break;

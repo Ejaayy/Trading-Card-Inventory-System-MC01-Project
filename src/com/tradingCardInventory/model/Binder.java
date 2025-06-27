@@ -12,8 +12,8 @@ public class Binder {
 
     // Properties / Attributes
 
-    private String name;
-    private List<Card> cards; //20 cards max in 1 binder
+    private final String name;
+    private final List<Card> cards; //20 cards max in 1 binder
 
     // Method
 
@@ -109,10 +109,6 @@ public class Binder {
     }
 
     // GETTERS AND SETTERS
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public String getName() {
         return name;
