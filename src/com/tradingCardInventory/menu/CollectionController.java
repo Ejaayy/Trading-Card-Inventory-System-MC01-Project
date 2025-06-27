@@ -18,7 +18,7 @@ import java.util.Scanner;
 public class CollectionController {
 
     //Properties
-    private Collection collection;
+    private final Collection collection;
     private Scanner scanner;
 
     //Methods
@@ -54,9 +54,14 @@ public class CollectionController {
     public void collectionMenu(){
 
         boolean running = true;
-        int input;
+
+        //Continues to run until the user  chooses to exit ( Case 0 )
         while(running) {
-            input = collectionMenuTemplate();
+
+            //Calls Collection Menu UI
+            int input = collectionMenuTemplate();
+
+            //Calls appropriate input based from user's decision
             switch (input) {
                 case 1:
                     //Add card method
@@ -71,9 +76,11 @@ public class CollectionController {
                     this.display();
                     break;
                 case 0:
+                    //Exits collection menu
                     running = false;
                     break;
                 default:
+                    //Error handling message
                     System.out.println("Invalid option. Please choose between 0 and 3.\n");
             }
         }
@@ -90,6 +97,8 @@ public class CollectionController {
      */
     public int collectionMenuTemplate() {
         int input = -1;
+
+        //Prints UI for Main Menu
         System.out.println("-------------------------------------------");
         System.out.println("MCO1 - Collection Menu");
         System.out.println("-------------------------------------------");
@@ -99,7 +108,8 @@ public class CollectionController {
         System.out.println("0. Exit");
         System.out.print("Enter Choice: ");
 
-        try { //out of bounds handling (input is not 0-3)
+        //Error handling for Collection Menu
+        try {
             input = scanner.nextInt();
             scanner.nextLine();
         } catch (InputMismatchException e) {
@@ -121,39 +131,55 @@ public class CollectionController {
      * - Updates the count of a card based on user input until user exits the menu.
      */
     public void increaseDecrease(){
-        int input;
+
+        int input = -1;
         boolean running = true;
 
+        //Continues to run until the user  chooses to exit ( Case 0 )
         while(running) {
 
+            //Prints UI for Increase or Decrease
             System.out.println("Increase or Decrease Card Count");
             System.out.println("-------------------------------------------");
             System.out.println("1. Increase Card Count");
             System.out.println("2. Decrease Card Count");
             System.out.println("0. Exit");
             System.out.print("Enter Choice: ");
-            input = scanner.nextInt(); //needs error handling
-            scanner.nextLine();
+
+            //Error handling for Collection Menu
+            try {
+                input = scanner.nextInt();
+                scanner.nextLine();
+            } catch (InputMismatchException e) {
+                scanner.nextLine(); // clear the wrong input
+            }
+
             System.out.println("-------------------------------------------");
 
+            //Calls appropriate input based from user's decision
             switch(input) {
                 case 1:
                     // Increase Card
+                    System.out.println("[0. Exit]");
                     System.out.print("Enter Card Name: ");
                     String increaseCardName = this.scanner.nextLine();
-                    this.collection.increaseCardCount(increaseCardName);
+                    if(!increaseCardName.equals("0"))
+                        this.collection.increaseCardCount(increaseCardName);
                     break;
                 case 2:
                     // Increase Card
+                    System.out.println("[0. Exit]");
                     System.out.print("Enter Card Name: ");
                     String decreaseCardName = this.scanner.nextLine();
-                    this.collection.decreaseCardCount(decreaseCardName);
+                    if(!decreaseCardName.equals("0"))
+                        this.collection.decreaseCardCount(decreaseCardName);
                     break;
                 case 0:
                     running = false;
                     break;
+                default:
+                    System.out.println("Invalid option. Please choose between 0 and 2.\n");
             }
-
         }
     }
 
@@ -169,7 +195,7 @@ public class CollectionController {
      */
     public void display(){
 
-        int input;
+        int input = -1;
         boolean running = true;
 
         while(running) {
@@ -180,14 +206,19 @@ public class CollectionController {
             System.out.println("2. View Collection");
             System.out.println("0. Exit");
             System.out.print("Enter Choice: ");
-            input = scanner.nextInt();
-            scanner.nextLine(); //error handling
+
+            //Error handling for Collection Menu
+            try {
+                input = scanner.nextInt();
+                scanner.nextLine();
+            } catch (InputMismatchException e) {
+                scanner.nextLine(); // clear the wrong input
+            }
             System.out.println("-------------------------------------------");
 
             switch(input) {
                 case 1:
                     // View Card
-
                     System.out.print("Enter Card Name: ");
                     String cardName = this.scanner.nextLine();
                     boolean status = this.collection.displayCard(cardName);
@@ -195,7 +226,6 @@ public class CollectionController {
                     if(!status){
                         System.out.println("Card not found");
                     }
-
                     break;
                 case 2:
                     //View Collection
@@ -204,6 +234,8 @@ public class CollectionController {
                 case 0:
                     running = false;
                     break;
+                default:
+                    System.out.println("Invalid option. Please choose between 0 and 2.\n");
             }
 
         }
@@ -224,54 +256,105 @@ public class CollectionController {
     public void addInputCard(){
 
         //Input Card Name
+        System.out.println("[0. Exit]");
         System.out.print("Enter Card name: ");
         String cardName = this.scanner.nextLine();
 
-        //Search loop to find if the card exists already
-        Card foundCard = this.collection.searchCard(cardName);
+        if(!cardName.equals("0")){
+            //Search loop to find if the card exists already
+            Card foundCard = this.collection.searchCard(cardName);
 
-        if(foundCard != null){
-            System.out.println("Card already Exists! Would you like to increase the card count? [Y/N]: ");
-            String response = this.scanner.nextLine(); //need pa ba nito idk
-            if (response.equals("Y")){
-                foundCard.incrementCount(1);
-            }
-        }
-        else{
-            // Input Rarity
-            Rarity rarity = null;
-            while (rarity == null) {
-                System.out.print("Enter Rarity (common, uncommon, rare, legendary): ");
-                String rarityInput = this.scanner.nextLine().trim().toUpperCase();
-                try {
-                    rarity = Rarity.valueOf(rarityInput);
-                } catch (IllegalArgumentException e) {
-                    System.out.println("Invalid rarity. Try again.");
+            //Checks if Card already exists
+            if(foundCard != null){
+                //Confirms user if user wants to continue adding that card
+                System.out.println("Card already Exists! Would you like to increase the card count? [Y/N]: ");
+                String response = this.scanner.nextLine();
+
+                if (response.equalsIgnoreCase("Y") && !response.equals("0")){
+                    foundCard.incrementCount(1);
+                    System.out.println("Card Increment successful!");
+                }else{
+                    System.out.println("Add Card cancelled.");
                 }
             }
+            else{
+                // Input Rarity
+                Rarity rarity = null;
+                boolean flag = true;
+                while (rarity == null && flag) {
+                    System.out.print("Enter Rarity (common, uncommon, rare, legendary): ");
+                    String rarityInput = this.scanner.nextLine().trim().toUpperCase();
 
-            // Input Variant (only if rare or legendary)
-            Variant variant = Variant.NORMAL;  // default
-            if (rarity == Rarity.RARE || rarity == Rarity.LEGENDARY) {
-                while (true) {
-                    System.out.print("Enter Variant (normal, extended_art, full_art, alt_art): ");
-                    String variantInput = this.scanner.nextLine().trim().toUpperCase();
+                    //Error Handling
                     try {
-                        variant = Variant.valueOf(variantInput);
-                        break;
+                        if(!rarityInput.equals("0"))
+                            rarity = Rarity.valueOf(rarityInput);
+                        else
+                            flag = false;
                     } catch (IllegalArgumentException e) {
-                        System.out.println("Invalid variant. Try again.");
+                        System.out.println("Invalid rarity. Try again.");
+                    }
+                }
+
+                if(flag){
+                    // Input Variant (only if rare or legendary)
+                    Variant variant = Variant.NORMAL;  // default
+                    if (rarity == Rarity.RARE || rarity == Rarity.LEGENDARY) {
+                        while (true) {
+                            System.out.print("Enter Variant (normal, extended_art, full_art, alt_art): ");
+                            String variantInput = this.scanner.nextLine().trim().toUpperCase();
+
+                            //Error Handling
+                            try {
+                                if(!variantInput.equals("0"))
+                                    variant = Variant.valueOf(variantInput);
+                                else
+                                    flag = false;
+                                break;
+                            } catch (IllegalArgumentException e) {
+                                System.out.println("Invalid variant. Try again.");
+                            }
+                        }
+                    }
+
+                    // Input Value
+                    double value = 0.0;
+                    boolean valid = false;
+
+                    if(flag){
+                        while (!valid) {
+                            System.out.print("Enter Value: ");
+
+                            //Error Handling
+                            try {
+                                value = this.scanner.nextDouble();
+                                scanner.nextLine(); // consume newline
+                                valid = true;
+                            } catch (InputMismatchException e) {
+                                System.out.println("Invalid input! Please enter a numeric value.");
+                                scanner.nextLine(); // clear invalid input
+                            }
+                        }
+                        if(value != 0){
+                            // After a valid value is entered
+                            this.collection.addCard(cardName, rarity, variant, value);
+                            System.out.println("Input Card Success!");
+                        } else{
+                            System.out.println("Is the input (0) to cancel or the value of the card?");
+                            System.out.println("0. Cancel");
+                            System.out.println("1. Value");
+                            System.out.print("Input: ");
+
+                            int input = scanner.nextDouble();
+                            scanner.nextLine();
+
+                            if(input!=0){
+                                
+                            }
+                        }
                     }
                 }
             }
-
-            //Input Value
-            System.out.print("Enter Value: ");
-            double value = this.scanner.nextDouble();
-            scanner.nextLine();
-            this.collection.addCard(cardName, rarity, variant, value);
-
         }
-
     }
 }

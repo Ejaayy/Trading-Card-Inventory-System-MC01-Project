@@ -8,12 +8,11 @@ import com.tradingCardInventory.options.*;
 public class Card {
 
     // Properties / Attributes
-    private String name;
+    private final String name;
+    private final Rarity rarity;
+    private final Variant variant;
+    private final double actualValue;
     private int count;
-    private Rarity rarity;
-    private Variant variant;
-    private double baseValue;
-    private double actualValue;
 
     // Methods
 
@@ -34,7 +33,6 @@ public class Card {
         this.name = name;
         this.rarity = rarity;
         this.variant = variant;
-        this.baseValue = baseValue;
         this.actualValue = baseValue * variant.getMultiplier();
         this.count = 1;
     }
@@ -67,24 +65,21 @@ public class Card {
         return this.count;
     }
 
-    public Rarity getRarity() {
-        return this.rarity;
-    }
-
-    public Variant getVariant() {
-        return this.variant;
-    }
-
     public double getActualValue() {
         return this.actualValue;
     }
 
-    public double getBaseValue(){
-        return this.baseValue;
+    /*
+    public Variant getVariant() {
+        return this.variant;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public Rarity getRarity() {
+        return this.rarity;
+    }
+
+    public double getBaseValue(){
+        return this.baseValue;
     }
 
     public void setActualValue(double actualValue) {
@@ -94,5 +89,7 @@ public class Card {
     public void setBaseValue(double baseValue) {
         this.baseValue = baseValue;
     }
+
+     */
 
 }

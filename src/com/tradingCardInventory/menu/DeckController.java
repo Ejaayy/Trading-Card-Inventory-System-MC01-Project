@@ -3,6 +3,7 @@ package com.tradingCardInventory.menu;
 import com.tradingCardInventory.manager.ManageDeck;
 import com.tradingCardInventory.model.Deck;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /*
@@ -13,7 +14,7 @@ import java.util.Scanner;
 public class DeckController {
 
     // Properties
-    private ManageDeck manageDeck;
+    private final ManageDeck manageDeck;
     private Scanner scanner;
 
     //Methods
@@ -41,9 +42,10 @@ public class DeckController {
      * - User input is returned
      */
     public int manageDeckMenuTemplate(){
-        int input = 0;
+        int input = -1;
         Scanner scanner = new Scanner(System.in);
 
+        //Shows Deck Menu UI
         System.out.println("-------------------------------------------");
         System.out.println("MCO1 - Manage Deck Menu");
         System.out.println("-------------------------------------------");
@@ -54,8 +56,15 @@ public class DeckController {
         System.out.println("5. View Deck");
         System.out.println("0. Exit");
         System.out.print("Enter Choice: ");
-        input = scanner.nextInt(); //errorr
-        scanner.nextLine();
+
+        //Error handling for Decks Menu
+        try {
+            input = scanner.nextInt();
+            scanner.nextLine();
+        } catch (InputMismatchException e) {
+            scanner.nextLine(); // clear the wrong input
+        }
+
         System.out.println("\n-------------------------------------------");
 
         return input;
@@ -68,17 +77,18 @@ public class DeckController {
     public void manageDeckMenu(){
 
         boolean running = true;
-        int input = 0;
         String deckName;
 
+        //Continues to run until the user  chooses to exit ( Case 0 )
         while(running) {
-            input = manageDeckMenuTemplate();
+            int input = manageDeckMenuTemplate();
             switch (input) {
                 case 1:
                     //Create New Deck
                     System.out.println("Enter name for Deck: ");
                     deckName = scanner.nextLine();
                     manageDeck.createDeck(deckName);
+                    System.out.println("Success! Deck created successfully");
                     break;
                 case 2:
                     //Delete a Deck
@@ -135,17 +145,25 @@ public class DeckController {
                     deckName = scanner.nextLine();
                     Deck deck = manageDeck.viewSpecificDeck(deckName);
 
-                    System.out.println("Enter Card in Deck to View: ");
-                    String deckCardName = scanner.nextLine();
-                    if(!manageDeck.viewSpecificCardinDeck(deckCardName, deck)){
-                        System.out.println("Card not found.");
-                    };
-
+                    //Prompts user to view specific card in deck
+                    if(deck != null){
+                        System.out.println("Enter Card in Deck to View: ");
+                        String deckCardName = scanner.nextLine();
+                        if(!manageDeck.viewSpecificCardinDeck(deckCardName, deck)){
+                            System.out.println("Card not found.");
+                        }
+                    }else{
+                        System.out.println("Deck not found.");
+                    }
 
                     break;
-                case 6:
+                case 0:
+                    //Exiting Deck Menu
                     running = false;
                     break;
+                default:
+                    //Error handling message
+                    System.out.println("Invalid option. Please choose between 0 and 5.\n");
             }
         }
     }

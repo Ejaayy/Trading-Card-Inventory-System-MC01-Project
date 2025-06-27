@@ -54,21 +54,27 @@ public class Menu {
             //Calls Main Menu UI
             int input = displayMainMenu();
 
-            //Calls appropriate
+            //Calls appropriate input based from user's decision
             switch (input){
                 case 1:
+                    //Calls Collection Menu
                     collectionController.collectionMenu();
                     break;
                 case 2:
+                    //Calls Binder Menu
                     bindersController.manageBinderMenu();
                     break;
                 case 3:
+                    //Calls Deck Menu
                     decksController.manageDeckMenu();
                     break;
                 case 0:
+                    //Ends Program
                     running = false;
+                    scanner.close();
                     break;
                 default:
+                    //Error handling message
                     System.out.println("Invalid option. Please choose between 0 and 3.\n");
             }
         }

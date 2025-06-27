@@ -16,7 +16,7 @@ public class TradeCardController {
 
     // Properties / Attributes
     private Scanner scanner;
-    private Collection collection;
+    private final Collection collection;
 
     // Methods
 
@@ -49,8 +49,9 @@ public class TradeCardController {
         if (foundCard != null) {
             System.out.println("Card already Exists! Would you like to increase the card count? [Y/N]: ");
             String response = scanner.nextLine();
-            if (response.equals("Y")) {
+            if (response.equalsIgnoreCase("Y")) {
                 foundCard.incrementCount(1);
+                System.out.println("Card increment successful.");
             }
         } else {
             // Input Rarity

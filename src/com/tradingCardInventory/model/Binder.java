@@ -83,10 +83,10 @@ public class Binder {
         System.out.println("──────────────────────────────────────────────────────────────────");
         System.out.printf("                       Binder: %s\n", this.name);
         System.out.println("──────────────────────────────────────────────────────────────────");
-        if(this.cards.size()>0){
+        if(!this.cards.isEmpty()){
             System.out.printf("%-25s %-12s %-12s %-10s%n", "Name", "Rarity", "Variant", "Value");
-            for(int i=0; i<cards.size(); i++){
-                cards.get(i).viewCardDetails();
+            for (Card card : cards) {
+                card.viewCardDetails();
             }
         }
         else{
@@ -118,16 +118,8 @@ public class Binder {
         return name;
     }
 
-    public void setCards(List<Card> cards) {
-        this.cards = cards;
-    }
-
     public List<Card> getCards() {
         return cards;
-    }
-
-    public int getBinderCardsSize(){
-        return this.cards.size();
     }
 
 }
