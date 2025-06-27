@@ -70,9 +70,11 @@ public class CollectionController {
                     //Display Card / Collection
                     this.display();
                     break;
-                case 4:
+                case 0:
                     running = false;
                     break;
+                default:
+                    System.out.println("Invalid option. Please choose between 0 and 3.\n");
             }
         }
     }
@@ -94,14 +96,13 @@ public class CollectionController {
         System.out.println("1. Add Card");
         System.out.println("2. Increase / Decrease Card Count");
         System.out.println("3. Display Card / Collection");
-        System.out.println("4. Exit");
+        System.out.println("0. Exit");
         System.out.print("Enter Choice: ");
 
-        try {
+        try { //out of bounds handling (input is not 0-3)
             input = scanner.nextInt();
             scanner.nextLine();
         } catch (InputMismatchException e) {
-            System.out.println("Invalid input! Please enter a number.");
             scanner.nextLine(); // clear the wrong input
         }
 
@@ -129,9 +130,9 @@ public class CollectionController {
             System.out.println("-------------------------------------------");
             System.out.println("1. Increase Card Count");
             System.out.println("2. Decrease Card Count");
-            System.out.println("3. Exit");
+            System.out.println("0. Exit");
             System.out.print("Enter Choice: ");
-            input = scanner.nextInt();
+            input = scanner.nextInt(); //needs error handling
             scanner.nextLine();
             System.out.println("-------------------------------------------");
 
@@ -148,7 +149,7 @@ public class CollectionController {
                     String decreaseCardName = this.scanner.nextLine();
                     this.collection.decreaseCardCount(decreaseCardName);
                     break;
-                case 3:
+                case 0:
                     running = false;
                     break;
             }
@@ -177,10 +178,10 @@ public class CollectionController {
             System.out.println("-------------------------------------------");
             System.out.println("1. View Card");
             System.out.println("2. View Collection");
-            System.out.println("3. Exit");
+            System.out.println("0. Exit");
             System.out.print("Enter Choice: ");
             input = scanner.nextInt();
-            scanner.nextLine();
+            scanner.nextLine(); //error handling
             System.out.println("-------------------------------------------");
 
             switch(input) {
@@ -200,7 +201,7 @@ public class CollectionController {
                     //View Collection
                     this.collection.displayCollection();
                     break;
-                case 3:
+                case 0:
                     running = false;
                     break;
             }
@@ -231,7 +232,7 @@ public class CollectionController {
 
         if(foundCard != null){
             System.out.println("Card already Exists! Would you like to increase the card count? [Y/N]: ");
-            String response = this.scanner.nextLine();
+            String response = this.scanner.nextLine(); //need pa ba nito idk
             if (response.equals("Y")){
                 foundCard.incrementCount(1);
             }

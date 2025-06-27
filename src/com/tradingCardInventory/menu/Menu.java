@@ -3,6 +3,8 @@ package com.tradingCardInventory.menu;
 import com.tradingCardInventory.manager.ManageBinders;
 import com.tradingCardInventory.manager.ManageDeck;
 import com.tradingCardInventory.model.Collection;
+
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /*
@@ -14,12 +16,12 @@ public class Menu {
     // Properties and Attributes
     Scanner scanner = new Scanner(System.in);
 
-    private Collection collection;
-    private ManageBinders manageBinder;
-    private ManageDeck manageDeck;
-    private CollectionController collectionUI;
-    private BindersController binderUI;
-    private DeckController deckUI;
+    private final Collection collection;
+    private final ManageBinders manageBinder;
+    private final ManageDeck manageDeck;
+    private final CollectionController collectionController;
+    private final BindersController bindersController;
+    private final DeckController decksController;
 
     /*
      * Constructor initializes all components of the system and wires them together.
@@ -32,9 +34,9 @@ public class Menu {
         this.collection = new Collection();
         this.manageBinder = new ManageBinders(collection);
         this.manageDeck= new ManageDeck(collection);
-        this.collectionUI = new CollectionController(collection, this.scanner);
-        this.binderUI = new BindersController(manageBinder, this.scanner);
-        this.deckUI = new DeckController(manageDeck, this.scanner);
+        this.collectionController = new CollectionController(collection, this.scanner);
+        this.bindersController = new BindersController(manageBinder, this.scanner);
+        this.decksController = new DeckController(manageDeck, this.scanner);
     }
 
     /*
@@ -46,22 +48,28 @@ public class Menu {
 
         boolean running = true;
 
+        //Continues to run until the user  chooses to exit ( Case 0 )
         while(running){
+
+            //Calls Main Menu UI
             int input = displayMainMenu();
 
+            //Calls appropriate
             switch (input){
                 case 1:
-                    collectionUI.collectionMenu();
+                    collectionController.collectionMenu();
                     break;
                 case 2:
-                    binderUI.manageBinderMenu();
+                    bindersController.manageBinderMenu();
                     break;
                 case 3:
-                    deckUI.manageDeckMenu();
+                    decksController.manageDeckMenu();
                     break;
-                case 4:
+                case 0:
                     running = false;
                     break;
+                default:
+                    System.out.println("Invalid option. Please choose between 0 and 3.\n");
             }
         }
     }
@@ -72,20 +80,29 @@ public class Menu {
      * @return the user’s chosen option as an integer
      */
     public int displayMainMenu(){
-        int input = 0;
+
+        int input = -1;
+
+        //Prints UI for Main Menu
         System.out.println("-------------------------------------------");
         System.out.println("MCO1 - Trading Card Inventory System");
         System.out.println("-------------------------------------------");
         System.out.println("1. Manage Collection");
         System.out.println("2. Manage Binders");
         System.out.println("3. Manage Decks");
-        System.out.println("4. Exit");
+        System.out.println("0. Exit");
         System.out.println("-------------------------------------------");
         System.out.print("Enter Choice: ");
-        input = scanner.nextInt();
-        scanner.nextLine();
+
+        //Error handling for Main Menu
+        try {
+            input = scanner.nextInt();
+            scanner.nextLine();
+        } catch (InputMismatchException e) {
+            scanner.nextLine(); // clear the wrong input
+        }
+
         System.out.println("-------------------------------------------\n");
         return input;
     }
-
 }

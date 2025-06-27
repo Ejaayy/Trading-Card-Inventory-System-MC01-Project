@@ -52,9 +52,9 @@ public class DeckController {
         System.out.println("3. Add card to a deck");
         System.out.println("4. Remove card from a deck");
         System.out.println("5. View Deck");
-        System.out.println("6. Exit");
+        System.out.println("0. Exit");
         System.out.print("Enter Choice: ");
-        input = scanner.nextInt();
+        input = scanner.nextInt(); //errorr
         scanner.nextLine();
         System.out.println("\n-------------------------------------------");
 
@@ -119,11 +119,11 @@ public class DeckController {
                     String removeCardName = scanner.nextLine();
 
                     //Input and search Deck in deck list
-                    System.out.print("Enter which Deck to remove card in: ");
+                    System.out.print("Enter which Deck to remove card from: ");
                     String removeDeckName = scanner.nextLine();
 
-                    boolean deckstatus = manageDeck.removeCardFromDeck(removeCardName, removeDeckName);
-                    if(deckstatus){
+                    boolean deckStatus = manageDeck.removeCardFromDeck(removeCardName, removeDeckName);
+                    if(deckStatus){
                         System.out.printf("Success! Card: %s has been removed from deck: %s\n", removeCardName, removeDeckName);
                     }else{
                         System.out.println("Failed to remove card from deck");
