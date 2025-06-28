@@ -132,11 +132,12 @@ public class CollectionController {
      */
     public void increaseDecrease(){
 
-        int input = -1;
         boolean running = true;
 
         //Continues to run until the user  chooses to exit ( Case 0 )
         while(running) {
+
+            int input = -1;
 
             //Prints UI for Increase or Decrease
             System.out.println("Increase or Decrease Card Count");
@@ -167,7 +168,7 @@ public class CollectionController {
                         this.collection.changeCardCount(increaseCardName, 1);
                     break;
                 case 2:
-                    // Increase Card
+                    // Decrease Card
                     System.out.println("[0. Exit]");
                     System.out.print("Enter Card Name: ");
                     String decreaseCardName = this.scanner.nextLine();
@@ -194,11 +195,12 @@ public class CollectionController {
      * - Allows user to view a card or the full collection until they choose to exit.
      */
     public void display(){
-
-        int input = -1;
+        
         boolean running = true;
 
         while(running) {
+
+            int input = -1;
 
             System.out.println("View Card and View Collection Menu");
             System.out.println("-------------------------------------------");
@@ -269,7 +271,7 @@ public class CollectionController {
             //Checks if Card already exists
             if(foundCard != null){
                 //Confirms user if user wants to continue adding that card
-                System.out.println("Card already Exists! Would you like to increase the card count? [Y/N]: ");
+                System.out.print("Card already Exists! Would you like to increase the card count? [Y/N]: ");
                 String response = this.scanner.nextLine();
 
                 if (response.equalsIgnoreCase("Y") && !response.equals("0")){

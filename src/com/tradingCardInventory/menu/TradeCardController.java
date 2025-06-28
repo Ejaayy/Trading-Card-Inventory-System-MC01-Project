@@ -155,9 +155,9 @@ public class TradeCardController {
         System.out.printf("Value : $%.2f%n", outgoingCard.getActualValue());
         System.out.println("───────────────────────────────\n");
 
-        // Check if the trade is fair (within $1 difference)
-        if(incomingCard.getActualValue() - outgoingCard.getActualValue() > -1 && incomingCard.getActualValue() - outgoingCard.getActualValue() < 1){
-            System.out.println("Value difference is less than $1.");
+        // Check if the trade difference is more than a dollar
+        if(incomingCard.getActualValue() - outgoingCard.getActualValue() <= -1 || incomingCard.getActualValue() - outgoingCard.getActualValue() >= 1){
+            System.out.println("Value difference is greater than or equal to $1.");
         }
 
         // Confirm trade

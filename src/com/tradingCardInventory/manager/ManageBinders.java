@@ -156,8 +156,8 @@ public class ManageBinders {
                 //shows the trade menu and if the user accepts the trade
                 if(tradeCard.displayTradeMenu(incomingCard, this.collection.searchCard(cardName)).equals("1")){
                     //decrease outgoing card count and add incoming card to the binder
-                    this.collection.decreaseCardCount(cardName, 1);
-                    this.collection.decreaseCardCount(incomingCard.getName(), -1);
+                    this.collection.changeCardCount(cardName, -1);
+                    this.collection.changeCardCount(incomingCard.getName(), 1);
                     this.addCardToBinder(incomingCard.getName(), binderName);
                     System.out.println("Cards Traded! Added " + incomingCard.getName() + " to " + binderName + ".");
                 } else {
@@ -167,7 +167,7 @@ public class ManageBinders {
                 }
             }else{
                 //decrease outgoing card count and add incoming card to the binder
-                this.collection.decreaseCardCount(cardName, 1);
+                this.collection.changeCardCount(cardName, -1);
                 this.collection.addCard(incomingCard);
                 this.addCardToBinder(incomingCard.getName(), binderName);
                 System.out.println("Cards Traded! Added " + incomingCard.getName() + " to " + binderName + ".");

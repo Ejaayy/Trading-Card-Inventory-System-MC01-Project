@@ -103,7 +103,9 @@ public class ManageDeck {
         //Checks if that card exists in that deck
         Card checkCardinDeck = deck.searchCard(cardName);
 
+        //If it finds an existing copy in deck
         if(checkCardinDeck != null) {
+            System.out.println("No duplicate cards allowed in deck");
             return false;
         }
 

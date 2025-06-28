@@ -71,7 +71,6 @@ public class BindersController {
     public void manageBinderMenu(){
 
         boolean running = true;
-        int input;
         String binderName;
         String cardName;
 
@@ -79,7 +78,7 @@ public class BindersController {
         while(running) {
 
             //Calls Binder Menu template
-            input = manageBinderMenuTemplate();
+            int input = manageBinderMenuTemplate();
 
             switch (input) {
                 case 1:
@@ -89,8 +88,15 @@ public class BindersController {
                     String nameCreate = scanner.nextLine();
 
                     if(!nameCreate.equals("0")){
-                        manageBinder.createBinder(nameCreate);
-                        System.out.println("Success! Binder created successfully!");
+
+                        //Checks if binder already exists
+                        if(manageBinder.searchBinder(nameCreate) != null){
+                            System.out.println("Binder already exists!");
+                        }else{
+                            //Creates unique binder
+                            manageBinder.createBinder(nameCreate);
+                            System.out.println("Success! Binder created successfully!");
+                        }
                     }
                     break;
                 case 2:
@@ -212,12 +218,12 @@ public class BindersController {
      */
     public void removeCardFromBinder(){
         //Input and search for Card in Collection
-        System.out.print("Enter Card Name from Collection: ");
+        System.out.print("Enter Card Name to remove: ");
         String cardName = scanner.nextLine();
 
         if(!cardName.equals("0")){
             //Input and search Binder in Binders list
-            System.out.println("Enter which Binder to add card in: ");
+            System.out.print("Enter which Binder to remove card in: ");
             String binderName = scanner.nextLine();
 
             if(!binderName.equals("0")){

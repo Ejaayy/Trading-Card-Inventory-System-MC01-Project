@@ -63,10 +63,10 @@ public class Deck {
     /*
      * Checks if the deck has reached its maximum capacity.
      *
-     * @return true if the deck has 20 or more cards, false otherwise
+     * @return true if the deck has 10 or more cards, false otherwise
      */
     public boolean isFull(){
-        return this.cards.size() >= 20;
+        return this.cards.size() >= 10;
     }
 
     /*
@@ -89,7 +89,6 @@ public class Deck {
             System.out.printf("%-25s%n", "Name");
             for (Card card : this.cards) {
                 System.out.println(card.getName());
-                System.out.println();
             }
         }
 

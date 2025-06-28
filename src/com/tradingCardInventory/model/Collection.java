@@ -124,28 +124,17 @@ public class Collection {
             System.out.println("Card not found.");
         }
         else{
-            foundCard.incrementCount(count);
-            System.out.println("Increment Successful!\n");
-        }
-    }
-
-    /*
-     * Decrements the count of a card by a specific amount.
-     *
-     * @param name the name of the card
-     * @param count the number to subtract
-     */
-    public void decreaseCardCount(String name, int count){
-
-        //Searches if card exists and decrements if it is
-        Card foundCard = this.searchCard(name);
-        if (foundCard == null){
-            System.out.println("Card not found.");
-            System.out.println();
-        }
-        else{
-            if(foundCard.getCount() >= count){
-                foundCard.incrementCount(-count);
+            if(count==-1){ //means decrement
+                //Check if foundCard count is not 0
+                if(foundCard.getCount() > 0){
+                    foundCard.incrementCount(count);
+                    System.out.println("Decrement Successful!\n");
+                }else{
+                    System.out.println("Card not found");
+                }
+            }else{ //means increment
+                foundCard.incrementCount(count);
+                System.out.println("Increment Successful!\n");
             }
         }
     }

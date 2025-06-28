@@ -81,23 +81,31 @@ public class DeckController {
 
         //Continues to run until the user  chooses to exit ( Case 0 )
         while(running) {
+
             int input = manageDeckMenuTemplate();
+
             switch (input) {
                 case 1:
                     //Create New Deck
                     System.out.println("[0. Exit]");
-                    System.out.println("Enter name for Deck: ");
+                    System.out.print("Enter name for Deck: ");
                     deckName = scanner.nextLine();
 
                     if(!deckName.equals("0")){
-                        manageDeck.createDeck(deckName);
-                        System.out.println("Success! Deck created successfully");
+
+                        //Checks if deck already exists
+                        if(manageDeck.searchDeck(deckName)!= null){
+                            System.out.println("Deck already exists!");
+                        }else{
+                            manageDeck.createDeck(deckName);
+                            System.out.println("Success! Deck created successfully");
+                        }
                     }
                     break;
                 case 2:
                     //Delete a Deck
                     System.out.println("[0. Exit]");
-                    System.out.println("Enter name of Deck to delete: ");
+                    System.out.print("Enter name of Deck to delete: ");
                     String deckDelete = scanner.nextLine();
 
                     if(!deckDelete.equals("0")){
@@ -171,12 +179,14 @@ public class DeckController {
 
                         //Prompts user to view specific card in deck
                         if(deck != null){
-                            System.out.println("Enter Card in Deck to View: ");
-                            String deckCardName = scanner.nextLine();
+                            if(!deck.getCards().isEmpty()){
+                                System.out.print("Enter Card in Deck to View: ");
+                                String deckCardName = scanner.nextLine();
 
-                            if(!deckCardName.equals("0")){
-                                if(!manageDeck.viewSpecificCardinDeck(deckCardName, deck)){
-                                    System.out.println("Card not found.");
+                                if(!deckCardName.equals("0")){
+                                    if(!manageDeck.viewSpecificCardinDeck(deckCardName, deck)){
+                                        System.out.println("Card not found.");
+                                    }
                                 }
                             }
                         }else{
