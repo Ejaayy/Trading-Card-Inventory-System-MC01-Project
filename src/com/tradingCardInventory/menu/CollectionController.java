@@ -271,7 +271,7 @@ public class CollectionController {
             //Checks if Card already exists
             if(foundCard != null){
                 //Confirms user if user wants to continue adding that card
-                System.out.print("Card already Exists! Would you like to increase the card count? [Y/N]: ");
+                System.out.print("Card was found in Records! Would you like to increase the card count? [Y/N]: ");
                 String response = this.scanner.nextLine();
 
                 if (response.equalsIgnoreCase("Y") && !response.equals("0")){
