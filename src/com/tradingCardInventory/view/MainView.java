@@ -14,8 +14,11 @@ public class MainView extends JFrame {
     public MainView() {
         super("Trading Card Inventory - Main Menu");
 
-        setLayout(new BorderLayout());
-        setSize(500, 800);
+        BackgroundPanel background = new BackgroundPanel("MainMenuBackground.png");
+        background.setLayout(new BorderLayout());
+        setContentPane(background);
+
+        setSize(900, 600);
         setLocationRelativeTo(null); // center window
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -26,59 +29,62 @@ public class MainView extends JFrame {
     }
 
     private void init() {
-        // Title Panel
+        // ----------- Create Buttons -----------
+        btnCollection = new JButton("Manage Collection");
+        btnBinders = new JButton("Manage Binders");
+        btnDecks = new JButton("Manage Decks");
+        btnExit = new JButton("Exit");
+
+        // Style all buttons
+        JButton[] buttons = {btnCollection, btnBinders, btnDecks, btnExit};
+        for (JButton btn : buttons) {
+            btn.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+            btn.setBackground(new Color(33, 150, 243));
+            btn.setForeground(Color.WHITE);
+            btn.setFocusPainted(false);
+            btn.setBorder(BorderFactory.createEmptyBorder(8, 16, 8, 16));
+            btn.setPreferredSize(new Dimension(160, 40)); // Size without forcing layout issues
+        }
+
+        // ----------- NORTH TITLE BAR -----------
         JPanel panelNorth = new JPanel();
-        panelNorth.setBackground(new Color(18, 52, 86));
+        panelNorth.setOpaque(false);
         JLabel lblTitle = new JLabel("Trading Card - Main Menu");
         lblTitle.setForeground(Color.WHITE);
-        lblTitle.setFont(new Font("Arial", Font.BOLD, 24));
+        lblTitle.setFont(new Font("Arial", Font.BOLD, 20));
         panelNorth.add(lblTitle);
         add(panelNorth, BorderLayout.NORTH);
 
-        // Center Button Panel
+        // ----------- CENTER PANEL (Button Row) -----------
         JPanel panelCenter = new JPanel();
-        //panelCenter.setLayout(new GridLayout(4, 1, 10, 10));
-        panelCenter.setBorder(BorderFactory.createEmptyBorder(30, 50, 30, 50));
+        panelCenter.setLayout(new BoxLayout(panelCenter, BoxLayout.Y_AXIS));
+        panelCenter.setOpaque(false);
+        panelCenter.setBorder(BorderFactory.createEmptyBorder(50, 80, 0, 80)); // adjust top/left spacing
 
-        btnCollection = new JButton("Manage Collection");
-        btnCollection.setFont(new Font("Segoe UI", Font.PLAIN, 14)); // clean font
-        btnCollection.setBackground(new Color(33, 150, 243));        // modern blue
-        btnCollection.setForeground(Color.WHITE);                    // white text
-        btnCollection.setFocusPainted(false);                        // remove focus outline
-        btnCollection.setBorder(BorderFactory.createEmptyBorder(8, 16, 8, 16)); // padding
+        // Horizontal Button Row
+        JPanel buttonRow = new JPanel();
+        buttonRow.setLayout(new BoxLayout(buttonRow, BoxLayout.X_AXIS));
+        buttonRow.setOpaque(false);
+        buttonRow.setAlignmentX(Component.LEFT_ALIGNMENT); // line up with title
 
-        btnBinders = new JButton("Manage Binders");
-        btnBinders.setFont(new Font("Segoe UI", Font.PLAIN, 14)); // clean font
-        btnBinders.setBackground(new Color(33, 150, 243));        // modern blue
-        btnBinders.setForeground(Color.WHITE);                    // white text
-        btnBinders.setFocusPainted(false);                        // remove focus outline
-        btnBinders.setBorder(BorderFactory.createEmptyBorder(8, 16, 8, 16)); // padding
+        panelCenter.add(Box.createVerticalStrut(230));
 
-        btnDecks = new JButton("Manage Decks");
-        btnDecks.setFont(new Font("Segoe UI", Font.PLAIN, 14)); // clean font
-        btnDecks.setBackground(new Color(33, 150, 243));        // modern blue
-        btnDecks.setForeground(Color.WHITE);                    // white text
-        btnDecks.setFocusPainted(false);                        // remove focus outline
-        btnDecks.setBorder(BorderFactory.createEmptyBorder(8, 16, 8, 16)); // padding
+        buttonRow.add(btnCollection);
+        buttonRow.add(Box.createHorizontalStrut(20));
+        buttonRow.add(btnBinders);
+        buttonRow.add(Box.createHorizontalStrut(20));
+        buttonRow.add(btnDecks);
 
-        btnExit = new JButton("Exit");
-        btnExit.setFont(new Font("Segoe UI", Font.PLAIN, 14)); // clean font
-        btnExit.setBackground(new Color(33, 150, 243));        // modern blue
-        btnExit.setForeground(Color.WHITE);                    // white text
-        btnExit.setFocusPainted(false);                        // remove focus outline
-        btnExit.setBorder(BorderFactory.createEmptyBorder(8, 16, 8, 16)); // padding
-
-        btnCollection.setMaximumSize(new Dimension(200, 40));
-        btnBinders.setMaximumSize(new Dimension(200, 40));
-        btnDecks.setMaximumSize(new Dimension(200, 40));
-        btnExit.setMaximumSize(new Dimension(200, 40));
-
-        panelCenter.add(btnCollection);
-        panelCenter.add(btnBinders);
-        panelCenter.add(btnDecks);
-        panelCenter.add(btnExit);
+        panelCenter.add(buttonRow);
+        panelCenter.add(Box.createVerticalGlue()); // pushes everything up
 
         add(panelCenter, BorderLayout.CENTER);
+
+        // ----------- SOUTH PANEL (Exit Button) -----------
+        JPanel panelSouth = new JPanel();
+        panelSouth.setOpaque(false);
+        panelSouth.add(btnExit);
+        add(panelSouth, BorderLayout.SOUTH);
     }
 
     // ---------- Listener Setters (for Controller) ----------
