@@ -102,10 +102,10 @@ public class Menu {
 
         //Error handling for Main Menu
         try {
-            input = scanner.nextInt();
-            scanner.nextLine();
+            input = this.scanner.nextInt();
+            this.scanner.nextLine();
         } catch (InputMismatchException e) {
-            scanner.nextLine(); // clear the wrong input
+            this.scanner.nextLine(); // clear the wrong input
         }
 
         System.out.println("-------------------------------------------\n");

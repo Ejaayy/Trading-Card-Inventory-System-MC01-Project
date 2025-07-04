@@ -12,7 +12,7 @@ public class Main {
         // Create a new Menu instance which handles the UI and logic
         Menu menu = new Menu();
 
-        // Run the menu system (main loop)
+        // Run the menu system (main loop) TESTING
         menu.run();
 
     }
