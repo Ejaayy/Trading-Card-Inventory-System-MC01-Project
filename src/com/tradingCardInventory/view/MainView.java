@@ -2,13 +2,10 @@ package com.tradingCardInventory.view;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
 
 public class MainView extends JFrame {
 
-    private JButton btnCollection;
-    private JButton btnBinders;
-    private JButton btnDecks;
+    private JButton btnStart;
     private JButton btnExit;
 
     public MainView() {
@@ -30,28 +27,30 @@ public class MainView extends JFrame {
 
     private void init() {
         // ----------- Create Buttons -----------
-        btnCollection = new JButton("Manage Collection");
-        btnBinders = new JButton("Manage Binders");
-        btnDecks = new JButton("Manage Decks");
+        btnStart = new JButton("Start");
         btnExit = new JButton("Exit");
 
         // Style all buttons
-        JButton[] buttons = {btnCollection, btnBinders, btnDecks, btnExit};
-        for (JButton btn : buttons) {
-            btn.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-            btn.setBackground(new Color(33, 150, 243));
-            btn.setForeground(Color.WHITE);
-            btn.setFocusPainted(false);
-            btn.setBorder(BorderFactory.createEmptyBorder(8, 16, 8, 16));
-            btn.setPreferredSize(new Dimension(160, 40)); // Size without forcing layout issues
-        }
+        btnStart.setBackground(new Color(33, 150, 243));  // Material Blue 500
+        btnStart.setForeground(Color.WHITE);
+        btnStart.setFocusPainted(false);
+        btnStart.setFont(new Font("Segoe UI", Font.BOLD, 20));
+        btnStart.setBorder(BorderFactory.createEmptyBorder(5, 75, 5, 75));
+        btnStart.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+        btnExit.setBackground(new Color(33, 150, 243));  // Material Blue 500
+        btnExit.setForeground(Color.WHITE);
+        btnExit.setFocusPainted(false);
+        btnExit.setFont(new Font("Segoe UI", Font.PLAIN, 15));
+        btnExit.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+        btnExit.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         // ----------- NORTH TITLE BAR -----------
         JPanel panelNorth = new JPanel();
         panelNorth.setOpaque(false);
         JLabel lblTitle = new JLabel("Trading Card - Main Menu");
         lblTitle.setForeground(Color.WHITE);
-        lblTitle.setFont(new Font("Arial", Font.BOLD, 20));
+        lblTitle.setFont(new Font("Archivo Black", Font.BOLD, 20));
         panelNorth.add(lblTitle);
         add(panelNorth, BorderLayout.NORTH);
 
@@ -59,7 +58,7 @@ public class MainView extends JFrame {
         JPanel panelCenter = new JPanel();
         panelCenter.setLayout(new BoxLayout(panelCenter, BoxLayout.Y_AXIS));
         panelCenter.setOpaque(false);
-        panelCenter.setBorder(BorderFactory.createEmptyBorder(50, 80, 0, 80)); // adjust top/left spacing
+        panelCenter.setBorder(BorderFactory.createEmptyBorder(50, 150, 80, 80)); // adjust top/left spacing
 
         // Horizontal Button Row
         JPanel buttonRow = new JPanel();
@@ -68,15 +67,10 @@ public class MainView extends JFrame {
         buttonRow.setAlignmentX(Component.LEFT_ALIGNMENT); // line up with title
 
         panelCenter.add(Box.createVerticalStrut(230));
-
-        buttonRow.add(btnCollection);
-        buttonRow.add(Box.createHorizontalStrut(20));
-        buttonRow.add(btnBinders);
-        buttonRow.add(Box.createHorizontalStrut(20));
-        buttonRow.add(btnDecks);
-
         panelCenter.add(buttonRow);
-        panelCenter.add(Box.createVerticalGlue()); // pushes everything up
+
+        buttonRow.add(btnStart);
+        buttonRow.add(Box.createHorizontalStrut(20));
 
         add(panelCenter, BorderLayout.CENTER);
 
@@ -85,23 +79,5 @@ public class MainView extends JFrame {
         panelSouth.setOpaque(false);
         panelSouth.add(btnExit);
         add(panelSouth, BorderLayout.SOUTH);
-    }
-
-    // ---------- Listener Setters (for Controller) ----------
-
-    public void addCollectionListener(ActionListener listener) {
-        btnCollection.addActionListener(listener);
-    }
-
-    public void addBindersListener(ActionListener listener) {
-        btnBinders.addActionListener(listener);
-    }
-
-    public void addDecksListener(ActionListener listener) {
-        btnDecks.addActionListener(listener);
-    }
-
-    public void addExitListener(ActionListener listener) {
-        btnExit.addActionListener(listener);
     }
 }
