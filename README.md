@@ -2,7 +2,7 @@
 
 ## 📌 Update Log
 - **2025-06-29**: Created new Github Branch for MC02
-
+- **2025-07-18**: Added Start Page
 
 ## 🔥 TO DO
 - **Look for Program holes**
