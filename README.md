@@ -5,8 +5,6 @@
 - **2025-07-18**: Added Start Page
 
 ## 🔥 TO DO
-- **Look for Program holes**
-- **UI improvements kung kasya**
 - **MVC**
 
 
