@@ -61,4 +61,23 @@ public class MenuController {
         });
     }
 
+    private void setupMainMenuListeners() {
+        mainMenuPanel.getBtnManageCollection().addActionListener(e -> {
+            // open collection module
+            collectionController.run(); // or whatever method handles the logic
+        });
+
+        mainMenuPanel.getBtnManageBinders().addActionListener(e -> {
+            bindersController.run();
+        });
+
+        mainMenuPanel.getBtnManageDecks().addActionListener(e -> {
+            decksController.run();
+        });
+
+        mainMenuPanel.getBtnExit().addActionListener(e -> {
+            System.exit(0); // Exit the program
+        });
+    }
+
 }

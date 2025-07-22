@@ -17,4 +17,16 @@ public class MainMenuPanel extends JPanel {
         add(btnManageBinders);
         add(btnManageDecks);
     }
+
+    public JButton getBtnManageCollection() {
+        return btnManageCollection;
+    }
+
+    public JButton getBtnManageBinders() {
+        return btnManageBinders;
+    }
+
+    public JButton getBtnManageDecks() {
+        return btnManageDecks;
+    }
 }
