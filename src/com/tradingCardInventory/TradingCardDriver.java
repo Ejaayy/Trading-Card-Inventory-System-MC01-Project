@@ -1,7 +1,7 @@
 package com.tradingCardInventory;
 
-import com.tradingCardInventory.menu.Menu;
-import com.tradingCardInventory.view.MainView;
+import com.tradingCardInventory.menu.MenuController;
+import com.tradingCardInventory.view.StartMenuPanel;
 
 /*
  * Entry point of the Trading Card Inventory System.
@@ -11,10 +11,7 @@ public class TradingCardDriver {
     public static void main(String[] args){
 
         // Create a new Menu instance which handles the UI and logic
-        Menu menu = new Menu();
-
-        // Run the menu system (main loop) TESTING
-        //menu.run();
-        new MainView();
+        MenuController menu = new MenuController();
+        menu.run();
     }
 }
