@@ -1,4 +1,4 @@
-package com.tradingCardInventory.view;
+package com.tradingCardInventory.view.panels.MainMenuView;
 
 import javax.swing.*;
 
@@ -31,13 +31,5 @@ public class StartMenuPanel extends JPanel {
     public JButton getBtnExit() {
         return btnExit;
     }
-    // Style all buttons
-   // btnStart.setBackground(new Color(33, 150, 243));  // Material Blue 500
-    //btnStart.setForeground(Color.WHITE);
-   //btnStart.setFocusPainted(false);
-    //btnStart.setFont(new Font("Segoe UI", Font.BOLD, 20));
-    //btnStart.setBorder(BorderFactory.createEmptyBorder(5, 75, 5, 75));
-    //btnStart.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
 
 }

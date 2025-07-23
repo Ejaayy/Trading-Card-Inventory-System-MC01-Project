@@ -1,8 +1,14 @@
 package com.tradingCardInventory.menu;
 
 import com.tradingCardInventory.manager.ManageBinders;
+import com.tradingCardInventory.view.MainView;
+import com.tradingCardInventory.view.panels.ManageBindersView.ManageBindersPanel;
+import com.tradingCardInventory.view.panels.ManageCollectionView.ManageCollectionPanel;
+import com.tradingCardInventory.view.panels.NavigationView.NavigationPanel;
 
+import javax.swing.*;
 import java.util.InputMismatchException;
+import java.util.LinkedHashMap;
 import java.util.Scanner;
 
 /*
@@ -14,8 +20,10 @@ public class BindersController {
 
     //Properties
    private final ManageBinders manageBinder;
-   private Scanner scanner;
-
+   private Scanner scanner =  new Scanner(System.in);
+   private MainView mainView;
+   private MenuController menuController;
+   //private ManageBindersPanel manageBindersPanel;
     //Methods
 
     /*
@@ -24,11 +32,35 @@ public class BindersController {
      * @param manageBinder reference to the ManageBinders logic class
      * @param scanner input reader for user interaction
      */
-    public BindersController(ManageBinders manageBinder, Scanner scanner){
+    public BindersController(ManageBinders manageBinder, MainView mainView, MenuController menuController){
         this.manageBinder = manageBinder;
-        this.scanner = scanner;
+        this.mainView = mainView;
+        this.menuController = menuController;
     }
 
+    public void run(){
+
+        //Used LinkedHashMap so that it will be ordered in NavBar
+        mainView.setLeftPanel(new NavigationPanel(new LinkedHashMap<>() {{
+            put("Create Binder", ev ->  mainView.setCenterPanel(createPlaceholderPanel("Manage Trades")));
+            put("Delete Binder", ev -> mainView.setCenterPanel(createPlaceholderPanel("Manage Trades")));
+            put("Add Card to Binder", ev -> mainView.setCenterPanel(createPlaceholderPanel("Manage Decks")));
+            put("Remove Card from Binder", ev -> mainView.setCenterPanel(createPlaceholderPanel("Manage Decks")));
+            put("TradeCard", ev -> mainView.setCenterPanel(createPlaceholderPanel("Manage Decks")));
+            put("View Deck", ev -> mainView.setCenterPanel(createPlaceholderPanel("Manage Decks")));
+            put("Back", ev -> menuController.loadMainMenu());
+        }}));
+
+        //Setup center panel content
+        mainView.setCenterPanel(new ManageBindersPanel());
+
+    }
+
+    //DUMMY PANELS
+    private JPanel createPlaceholderPanel(String title) {
+        JPanel panel = new JPanel();
+        return panel;
+    }
     /*
      * Displays the Manage Binder menu and prompts the user for input.
      *
@@ -36,7 +68,6 @@ public class BindersController {
      */
     public int manageBinderMenuTemplate(){
 
-        //
         int input = -1;
 
         Scanner scanner = new Scanner(System.in);

@@ -2,8 +2,13 @@ package com.tradingCardInventory.menu;
 
 import com.tradingCardInventory.manager.ManageDeck;
 import com.tradingCardInventory.model.Deck;
+import com.tradingCardInventory.view.MainView;
+import com.tradingCardInventory.view.panels.ManageDecksView.ManageDecksPanel;
+import com.tradingCardInventory.view.panels.NavigationView.NavigationPanel;
 
+import javax.swing.*;
 import java.util.InputMismatchException;
+import java.util.LinkedHashMap;
 import java.util.Scanner;
 
 /*
@@ -15,8 +20,9 @@ public class DeckController {
 
     // Properties
     private final ManageDeck manageDeck;
-    private Scanner scanner;
-
+    private Scanner scanner = new Scanner(System.in);
+    private MainView mainView;
+    private MenuController menuController;
     //Methods
 
     /*
@@ -25,12 +31,33 @@ public class DeckController {
      * @param manageDeck object that manages deck operations
      * @param scanner input reader for user interaction
      */
-    public DeckController(ManageDeck manageDeck, Scanner scanner){
+    public DeckController(ManageDeck manageDeck, MainView mainView, MenuController menuController){
         this.manageDeck = manageDeck;
-        this.scanner = scanner;
+        this.mainView = mainView;
+        this.menuController = menuController;
+    }
+    public void run(){
+
+        //Used LinkedHashMap so that it will be ordered in NavBar
+        mainView.setLeftPanel(new NavigationPanel(new LinkedHashMap<>() {{
+            put("Create Deck", ev ->  mainView.setCenterPanel(createPlaceholderPanel("Manage Trades")));
+            put("Delete Deck", ev -> mainView.setCenterPanel(createPlaceholderPanel("Manage Trades")));
+            put("Add Card", ev -> mainView.setCenterPanel(createPlaceholderPanel("Manage Decks")));
+            put("Remove Card", ev -> mainView.setCenterPanel(createPlaceholderPanel("Manage Decks")));
+            put("View Deck", ev -> mainView.setCenterPanel(createPlaceholderPanel("Manage Decks")));
+            put("Back", ev -> menuController.loadMainMenu());
+        }}));
+
+        //Setup center panel content
+        mainView.setCenterPanel(new ManageDecksPanel());
 
     }
 
+    //DUMMY PANELS
+    private JPanel createPlaceholderPanel(String title) {
+        JPanel panel = new JPanel();
+        return panel;
+    }
     /*
      * Template for displaying the Manage Deck menu and retrieving user input.
      *

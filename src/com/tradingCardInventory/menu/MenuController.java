@@ -1,14 +1,20 @@
 package com.tradingCardInventory.menu;
 
+import com.sun.tools.javac.Main;
 import com.tradingCardInventory.manager.ManageBinders;
 import com.tradingCardInventory.manager.ManageDeck;
 import com.tradingCardInventory.model.Collection;
 import com.tradingCardInventory.view.MainView;
-import com.tradingCardInventory.view.StartMenuPanel;
-import com.tradingCardInventory.view.MainMenuPanel;
+import com.tradingCardInventory.view.panels.MainMenuView.StartMenuPanel;
+import com.tradingCardInventory.view.panels.MainMenuView.MainMenuCenterPanel;
+import com.tradingCardInventory.view.panels.NavigationView.NavigationPanel;
 
-import java.util.InputMismatchException;
+import javax.swing.*;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Scanner;
+
+import static javax.swing.UIManager.put;
 
 /*
  * Menu class serves as the main controller that initializes all components of the system
@@ -25,9 +31,10 @@ public class MenuController {
     private final CollectionController collectionController;
     private final BindersController bindersController;
     private final DeckController decksController;
+
     private MainView mainView;
     private StartMenuPanel startMenuPanel;
-    private MainMenuPanel mainMenuPanel;
+    private MainMenuCenterPanel mainMenuPanel;
 
     /*
      * Constructor initializes all components of the system and wires them together.
@@ -37,15 +44,16 @@ public class MenuController {
      * - Ready to run the menu-based system with all modules initialized.
      */
     public MenuController(){
+        this.mainView = new MainView();
         this.collection = new Collection();
         this.manageBinder = new ManageBinders(collection);
         this.manageDeck= new ManageDeck(collection);
-        this.collectionController = new CollectionController(collection, this.scanner);
-        this.bindersController = new BindersController(manageBinder, this.scanner);
-        this.decksController = new DeckController(manageDeck, this.scanner);
-        this.mainView = new MainView();
+        this.collectionController = new CollectionController(collection, mainView, this);
+        this.bindersController = new BindersController(manageBinder, mainView, this);
+        this.decksController = new DeckController(manageDeck, mainView, this);
+
         this.startMenuPanel = new StartMenuPanel();
-        this.mainMenuPanel = new MainMenuPanel();
+        this.mainMenuPanel = new MainMenuCenterPanel();
     }
 
     public void run() {
@@ -53,7 +61,16 @@ public class MenuController {
         mainView.setVisible(true);
 
         startMenuPanel.getBtnStart().addActionListener(e -> {
-            mainView.setPanel(mainMenuPanel); // Switch to Main Menu
+            //Used LinkedHashMap so that it will be ordered in NavBar
+            mainView.setLeftPanel(new NavigationPanel(new LinkedHashMap<>() {{
+                put("Manage Collection", ev -> collectionController.run());
+                put("Manage Binders", ev -> bindersController.run());
+                put("Manage Decks", ev -> decksController.run());
+                put("Back", ev -> mainView.setPanel(startMenuPanel));
+            }}));
+
+            //Setup center panel content
+            mainView.setCenterPanel(new MainMenuCenterPanel());
         });
 
         startMenuPanel.getBtnExit().addActionListener(e ->{
@@ -61,23 +78,21 @@ public class MenuController {
         });
     }
 
-    private void setupMainMenuListeners() {
-        mainMenuPanel.getBtnManageCollection().addActionListener(e -> {
-            // open collection module
-            collectionController.run(); // or whatever method handles the logic
-        });
+    public void loadMainMenu() {
+        mainView.setLeftPanel(new NavigationPanel(new LinkedHashMap<>() {{
+            put("Manage Collection", ev -> collectionController.run());
+            put("Manage Binders", ev -> bindersController.run());
+            put("Manage Decks", ev -> decksController.run());
+            put("Back", ev -> mainView.setPanel(startMenuPanel));
+        }}));
 
-        mainMenuPanel.getBtnManageBinders().addActionListener(e -> {
-            bindersController.run();
-        });
-
-        mainMenuPanel.getBtnManageDecks().addActionListener(e -> {
-            decksController.run();
-        });
-
-        mainMenuPanel.getBtnExit().addActionListener(e -> {
-            System.exit(0); // Exit the program
-        });
+        //Setup center panel content
+        mainView.setCenterPanel(new MainMenuCenterPanel());
     }
 
+    //DUMMY PANELS
+    private JPanel createPlaceholderPanel(String title) {
+        JPanel panel = new JPanel();
+        return panel;
+    }
 }

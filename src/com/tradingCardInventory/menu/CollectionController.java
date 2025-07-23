@@ -4,8 +4,14 @@ import com.tradingCardInventory.model.Card;
 import com.tradingCardInventory.model.Collection;
 import com.tradingCardInventory.options.Rarity;
 import com.tradingCardInventory.options.Variant;
+import com.tradingCardInventory.view.MainView;
+import com.tradingCardInventory.view.panels.MainMenuView.MainMenuCenterPanel;
+import com.tradingCardInventory.view.panels.ManageCollectionView.ManageCollectionPanel;
+import com.tradingCardInventory.view.panels.NavigationView.NavigationPanel;
 
+import javax.swing.*;
 import java.util.InputMismatchException;
+import java.util.LinkedHashMap;
 import java.util.Scanner;
 
 /*
@@ -15,12 +21,14 @@ import java.util.Scanner;
  * It displays menus for collection-related actions, accept and validate user input
  * and call appropriate methods on the Collection model
  */
-public class CollectionController {
+public class CollectionController{
 
     //Properties
     private final Collection collection;
-    private Scanner scanner;
+    private MainView mainView;
+    private MenuController menuController;
 
+    private Scanner scanner = new Scanner(System.in);
     //Methods
 
     /*
@@ -36,9 +44,31 @@ public class CollectionController {
      * - Initializes the controller with references to the collection and scanner.
      */
 
-    public CollectionController(Collection collection, Scanner scanner){
+    public CollectionController(Collection collection, MainView mainView, MenuController menuController) {
         this.collection = collection;
-        this.scanner = scanner;
+        this.mainView = mainView;
+        this.menuController = menuController;
+    }
+
+    public void run(){
+
+        //Used LinkedHashMap so that it will be ordered in NavBar
+        mainView.setLeftPanel(new NavigationPanel(new LinkedHashMap<>() {{
+            put("Add Card", ev ->  mainView.setCenterPanel(createPlaceholderPanel("Manage Trades")));
+            put("Edit Card Count", ev -> mainView.setCenterPanel(createPlaceholderPanel("Manage Trades")));
+            put("Display Collection", ev -> mainView.setCenterPanel(createPlaceholderPanel("Manage Decks")));
+            put("Back", ev -> menuController.loadMainMenu());
+        }}));
+
+        //Setup center panel content
+        mainView.setCenterPanel(new ManageCollectionPanel());
+
+    }
+
+    //DUMMY PANELS
+    private JPanel createPlaceholderPanel(String title) {
+        JPanel panel = new JPanel();
+        return panel;
     }
 
     /*
