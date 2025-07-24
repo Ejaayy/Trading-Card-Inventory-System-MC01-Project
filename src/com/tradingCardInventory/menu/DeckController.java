@@ -45,6 +45,7 @@ public class DeckController {
             put("Add Card", ev -> mainView.setCenterPanel(createPlaceholderPanel("Manage Decks")));
             put("Remove Card", ev -> mainView.setCenterPanel(createPlaceholderPanel("Manage Decks")));
             put("View Deck", ev -> mainView.setCenterPanel(createPlaceholderPanel("Manage Decks")));
+            put("Sell Deck", ev -> mainView.setCenterPanel(createPlaceholderPanel("Manage Decks")));
             put("Back", ev -> menuController.loadMainMenu());
         }}));
 

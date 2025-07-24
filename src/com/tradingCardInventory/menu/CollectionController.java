@@ -57,6 +57,7 @@ public class CollectionController{
             put("Add Card", ev ->  mainView.setCenterPanel(createPlaceholderPanel("Manage Trades")));
             put("Edit Card Count", ev -> mainView.setCenterPanel(createPlaceholderPanel("Manage Trades")));
             put("Display Collection", ev -> mainView.setCenterPanel(createPlaceholderPanel("Manage Decks")));
+            put("Sell Card", ev -> mainView.setCenterPanel(createPlaceholderPanel("Manage Decks")));
             put("Back", ev -> menuController.loadMainMenu());
         }}));
 

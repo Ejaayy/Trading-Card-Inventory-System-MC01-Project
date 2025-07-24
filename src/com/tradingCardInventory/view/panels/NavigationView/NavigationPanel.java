@@ -16,35 +16,47 @@ public class NavigationPanel extends JPanel {
      *
      * @param navItems A map where the key is the button label and the value is the ActionListener for that button.
      */
+    private Image backgroundImage;
+
     public NavigationPanel(Map<String, ActionListener> navItems) {
-        // Set vertical layout (top to bottom)
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        // Load background image
+        backgroundImage = new ImageIcon(getClass().getResource("/com/tradingCardInventory/view/resources/navbg.png")).getImage();
 
-        //Set background color to a light gray for UI clarity
+        // Set BorderLayout instead of BoxLayout
+        setLayout(new BorderLayout());
+        setPreferredSize(new Dimension(250, 600));
         setBackground(new Color(230, 230, 230));
+        setOpaque(false); // so background shows
 
-        // Loop through each entry in the navigation map
+        // Panel to hold navigation buttons vertically
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
+        buttonPanel.add(Box.createRigidArea(new Dimension(0, 100))); //for spacing at top
+        buttonPanel.setOpaque(false);
+
         for (Map.Entry<String, ActionListener> entry : navItems.entrySet()) {
-            String label = entry.getKey();            // Button label
-            ActionListener action = entry.getValue(); // Button action
+            String label = entry.getKey();
+            ActionListener action = entry.getValue();
 
-            // Create the button with label
             JButton button = new JButton(label);
-
-            // Center the button horizontally in the panel
-            button.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-            // Attach the provided action to the button
+            button.setAlignmentX(Component.CENTER_ALIGNMENT); // still center inside Y_AXIS panel
+            button.setMaximumSize(new Dimension(200, 40));
             button.addActionListener(action);
 
-            // Set the button to stretch horizontally but have a fixed height
-            button.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
+            buttonPanel.add(Box.createRigidArea(new Dimension(0, 10))); // spacing
+            buttonPanel.add(button);
+        }
 
-            // Add vertical spacing before each button
-            add(Box.createRigidArea(new Dimension(0, 10)));
+        // Add the button panel to the center or west — depending on your layout
+        add(buttonPanel, BorderLayout.CENTER);
+    }
 
-            // Add the button to the panel
-            add(button);
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        if (backgroundImage != null) {
+            g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
         }
     }
+
 }

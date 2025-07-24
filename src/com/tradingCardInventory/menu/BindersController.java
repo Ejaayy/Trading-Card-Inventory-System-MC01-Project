@@ -47,7 +47,8 @@ public class BindersController {
             put("Add Card to Binder", ev -> mainView.setCenterPanel(createPlaceholderPanel("Manage Decks")));
             put("Remove Card from Binder", ev -> mainView.setCenterPanel(createPlaceholderPanel("Manage Decks")));
             put("TradeCard", ev -> mainView.setCenterPanel(createPlaceholderPanel("Manage Decks")));
-            put("View Deck", ev -> mainView.setCenterPanel(createPlaceholderPanel("Manage Decks")));
+            put("View Binder", ev -> mainView.setCenterPanel(createPlaceholderPanel("Manage Decks")));
+            put("Sell Binder", ev -> mainView.setCenterPanel(createPlaceholderPanel("Manage Decks")));
             put("Back", ev -> menuController.loadMainMenu());
         }}));
 
