@@ -2,8 +2,7 @@ package com.tradingCardInventory.menu;
 
 import com.tradingCardInventory.manager.ManageBinders;
 import com.tradingCardInventory.view.MainView;
-import com.tradingCardInventory.view.panels.ManageBindersView.ManageBindersPanel;
-import com.tradingCardInventory.view.panels.ManageCollectionView.ManageCollectionPanel;
+import com.tradingCardInventory.view.panels.ManageBindersView.ManageBindersMenuPanel;
 import com.tradingCardInventory.view.panels.NavigationView.NavigationPanel;
 
 import javax.swing.*;
@@ -23,7 +22,7 @@ public class BindersController {
    private Scanner scanner =  new Scanner(System.in);
    private MainView mainView;
    private MenuController menuController;
-   //private ManageBindersPanel manageBindersPanel;
+   //private ManageBindersMenuPanel manageBindersPanel;
     //Methods
 
     /*
@@ -53,7 +52,7 @@ public class BindersController {
         }}));
 
         //Setup center panel content
-        mainView.setCenterPanel(new ManageBindersPanel());
+        mainView.setCenterPanel(new ManageBindersMenuPanel());
 
     }
 

@@ -2,8 +2,8 @@ package com.tradingCardInventory.view.panels.ManageBindersView;
 
 import javax.swing.*;
 
-public class ManageBindersPanel extends JPanel {
-    public ManageBindersPanel() {
+public class ManageBindersMenuPanel extends JPanel {
+    public ManageBindersMenuPanel() {
         setLayout(null);
 
         JLabel label = new JLabel("manage binders prototype", SwingConstants.CENTER);

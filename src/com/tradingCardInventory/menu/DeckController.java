@@ -3,7 +3,7 @@ package com.tradingCardInventory.menu;
 import com.tradingCardInventory.manager.ManageDeck;
 import com.tradingCardInventory.model.Deck;
 import com.tradingCardInventory.view.MainView;
-import com.tradingCardInventory.view.panels.ManageDecksView.ManageDecksPanel;
+import com.tradingCardInventory.view.panels.ManageDecksView.ManageDecksMenuPanel;
 import com.tradingCardInventory.view.panels.NavigationView.NavigationPanel;
 
 import javax.swing.*;
@@ -50,7 +50,7 @@ public class DeckController {
         }}));
 
         //Setup center panel content
-        mainView.setCenterPanel(new ManageDecksPanel());
+        mainView.setCenterPanel(new ManageDecksMenuPanel());
 
     }
 

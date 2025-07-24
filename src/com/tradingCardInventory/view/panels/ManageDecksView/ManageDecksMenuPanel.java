@@ -2,8 +2,8 @@ package com.tradingCardInventory.view.panels.ManageDecksView;
 
 import javax.swing.*;
 
-public class ManageDecksPanel extends JPanel {
-    public ManageDecksPanel(){
+public class ManageDecksMenuPanel extends JPanel {
+    public ManageDecksMenuPanel(){
         setLayout(null);
 
         JLabel label = new JLabel("Decks protoype", SwingConstants.CENTER);

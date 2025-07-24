@@ -3,9 +3,9 @@ package com.tradingCardInventory.view.panels.ManageCollectionView;
 import javax.swing.*;
 
 
-public class ManageCollectionPanel extends JPanel {
+public class ManageCollectionMenuPanel extends JPanel {
 
-    public ManageCollectionPanel() {
+    public ManageCollectionMenuPanel() {
         setLayout(null);
 
         JLabel label = new JLabel("Collection prototype", SwingConstants.CENTER);
