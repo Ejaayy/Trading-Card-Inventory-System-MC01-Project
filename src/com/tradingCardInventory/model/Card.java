@@ -74,7 +74,7 @@ public class Card {
         return this.actualValue;
     }
 
-    /*
+
     public Variant getVariant() {
         return this.variant;
     }
@@ -83,9 +83,6 @@ public class Card {
         return this.rarity;
     }
 
-    public double getBaseValue(){
-        return this.baseValue;
-    }
-     */
+
 
 }

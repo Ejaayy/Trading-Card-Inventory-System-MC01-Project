@@ -6,6 +6,7 @@ import com.tradingCardInventory.options.Rarity;
 import com.tradingCardInventory.options.Variant;
 import com.tradingCardInventory.view.MainView;
 import com.tradingCardInventory.view.panels.ManageCollectionView.AddCardPanel;
+import com.tradingCardInventory.view.panels.ManageCollectionView.DisplayCollectionPanel;
 import com.tradingCardInventory.view.panels.ManageCollectionView.ManageCollectionMenuPanel;
 import com.tradingCardInventory.view.panels.NavigationView.NavigationPanel;
 
@@ -56,8 +57,8 @@ public class CollectionController{
         //Used LinkedHashMap so that it will be ordered in NavBar
         mainView.setLeftPanel(new NavigationPanel(new LinkedHashMap<>() {{
             put("Add Card", ev ->  mainView.setCenterPanel(new AddCardPanel(controller)));
-            put("Edit Card Count", ev -> mainView.setCenterPanel(createPlaceholderPanel("Manage Trades")));
-            put("Display Collection", ev -> mainView.setCenterPanel(createPlaceholderPanel("Manage Decks")));
+            put("Edit Card Count", ev ->  mainView.setCenterPanel(createPlaceholderPanel("Manage Decks")));
+            put("Display Collection", ev ->  mainView.setCenterPanel(new DisplayCollectionPanel(controller)));
             put("Sell Card", ev -> mainView.setCenterPanel(createPlaceholderPanel("Manage Decks")));
             put("Back", ev -> menuController.loadMainMenu());
         }}));
@@ -73,6 +74,9 @@ public class CollectionController{
         return panel;
     }
 
+    public Collection getCollection() {
+        return collection;
+    }
 
     /*
      * Menu logic for handling increases and decreases in specific Cards.

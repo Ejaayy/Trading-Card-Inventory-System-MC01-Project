@@ -47,12 +47,12 @@ public class AddCardPanel extends JPanel {
             //Sets card variant to none if rarity is not legendary nor rare
             //fixed
             if (!enableVariants) {
-                cardVariant.setSelectedItem("NONE");
+                cardVariant.setSelectedItem("NORMAL");
             }
         });
 
         formPanel.add(new JLabel("Variant:"));
-        String[] variants = { "NONE", "NORMAL", "EXTENDED_ART", "FULL_ART", "ALT_ART" };
+        String[] variants = { "NORMAL", "EXTENDED_ART", "FULL_ART", "ALT_ART" };
         cardVariant = new JComboBox<>(variants);
         formPanel.add(cardVariant);
 

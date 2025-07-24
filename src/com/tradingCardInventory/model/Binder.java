@@ -1,5 +1,7 @@
 package com.tradingCardInventory.model;
 
+import com.tradingCardInventory.options.BinderType;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -13,6 +15,7 @@ public class Binder {
     // Properties / Attributes
 
     private final String name;
+    private final BinderType type;
     private final List<Card> cards; //20 cards max in 1 binder
 
     // Method
@@ -30,6 +33,7 @@ public class Binder {
     public Binder(String name){
         //creates the space for Card objects
         this.cards = new ArrayList<>();
+        this.type = null;
         this.name = name;
     }
 

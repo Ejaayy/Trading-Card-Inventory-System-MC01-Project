@@ -172,10 +172,9 @@ public class Collection {
         return this.collection;
     }
 
-    /*
 
     public Card getCard(String name){
         return this.searchCard(name);
     }
-     */
+
 }
