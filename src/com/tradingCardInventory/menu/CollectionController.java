@@ -144,10 +144,9 @@ public class CollectionController{
 
 
 
-    public void addInputCard(String cardName, String rarityInput, String variantInput, double valueInput) {
+    public boolean addInputCard(String cardName, String rarityInput, String variantInput, double valueInput) {
         if (cardName == null || cardName.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Card name cannot be empty!");
-            return;
+            return false;
         }
 
         Card existing = collection.searchCard(cardName);
@@ -158,7 +157,7 @@ public class CollectionController{
                 existing.incrementCount(1);
                 JOptionPane.showMessageDialog(null, "Card incremented!");
             }
-            return;
+            return true;
         }
 
         try {
@@ -167,14 +166,14 @@ public class CollectionController{
             double value = valueInput;
             if (value <= 0) {
                 JOptionPane.showMessageDialog(null, "Value must be greater than 0.");
-                return;
+                return false;
             }
 
             collection.addCard(cardName, rarity, variant, value);
-            JOptionPane.showMessageDialog(null, "Card added successfully!");
+            return true;
 
         } catch (IllegalArgumentException e) {
-            JOptionPane.showMessageDialog(null, "Invalid input: " + e.getMessage());
+            return false;
         }
     }
 }

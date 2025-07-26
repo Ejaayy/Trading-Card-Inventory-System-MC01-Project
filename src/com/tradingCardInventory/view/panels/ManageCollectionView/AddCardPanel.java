@@ -85,8 +85,13 @@ public class AddCardPanel extends JPanel {
 
             try {
                 double value = Double.parseDouble(valueText);
-                collectionController.addInputCard(name, rarity, variant, value);
-                JOptionPane.showMessageDialog(this, "Card added successfully!");
+                boolean status = collectionController.addInputCard(name, rarity, variant, value);
+                if(status){
+                    JOptionPane.showMessageDialog(this, "Card added successfully!");
+                }
+                else {
+                    JOptionPane.showMessageDialog(this, "Add Card failed! Please enter valid inputs.");
+                }
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(this, "Please enter a valid number for card value.");
             }
