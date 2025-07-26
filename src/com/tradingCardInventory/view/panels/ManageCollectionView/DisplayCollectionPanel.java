@@ -2,6 +2,7 @@ package com.tradingCardInventory.view.panels.ManageCollectionView;
 
 import com.tradingCardInventory.menu.CollectionController;
 import com.tradingCardInventory.model.Card;
+import com.tradingCardInventory.view.resources.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -37,13 +38,13 @@ public class DisplayCollectionPanel extends JPanel {
         add(titlePanel, BorderLayout.NORTH);
 
         // ---------- CENTER: Card Grid Panel ----------
-        JPanel cardGridPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 20, 20)); // 3 columns, gaps
+        JPanel cardGridPanel = new JPanel(new WrapLayout(FlowLayout.LEFT, 20, 20));
         cardGridPanel.setBackground(Color.DARK_GRAY);
         cardGridPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15)); // margin
 
         for (Card card : collectionController.getCollection().getAllCards()) {
             JPanel cardPanel = new JPanel();
-            cardPanel.setPreferredSize(new Dimension(150, 200));
+            cardPanel.setPreferredSize(new Dimension(170, 220));
             cardPanel.setBackground(Color.WHITE);
             cardPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
             cardPanel.setLayout(new BoxLayout(cardPanel, BoxLayout.Y_AXIS));

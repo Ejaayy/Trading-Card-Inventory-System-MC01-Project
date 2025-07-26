@@ -1,14 +1,21 @@
 package com.tradingCardInventory.view.panels.ManageDecksView;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class ManageDecksMenuPanel extends JPanel {
+
+    private Image backgroundImage;
+
     public ManageDecksMenuPanel(){
-        setLayout(null);
+        backgroundImage = new ImageIcon(getClass().getResource("/com/tradingCardInventory/view/resources/ManageDecksBG.png")).getImage();
+    }
 
-        JLabel label = new JLabel("Decks protoype", SwingConstants.CENTER);
-        label.setBounds(50, 100, 400, 30); // x, y, width, height — adjust as needed
-
-        add(label);
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        if (backgroundImage != null) {
+            g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+        }
     }
 }

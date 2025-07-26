@@ -13,6 +13,7 @@ public class MainView extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(900, 600);
         setLayout(new BorderLayout());
+        setResizable(false);
     }
 
     public void setTopPanel(JPanel panel) {

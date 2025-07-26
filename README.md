@@ -4,8 +4,9 @@
 - **2025-06-29**: Created new Github Branch for MC02
 - **2025-07-18**: Added Start Page
 - **2025-07-22**: Added Main Menu and re-initialized GUI for better formatting
-- **2025-07-24**: Added Navigation Buttons
-- 
+- **2025-07-24**: Added Navigation Buttons & Add Card
+- **2025-07-26**: Fixed WrapLayout of Display Collection + Added BG
+
 ## 🔥 TO DO
 - Fix specific functions with GUI
 - Update Models according to specs
