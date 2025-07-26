@@ -116,25 +116,26 @@ public class Collection {
      * @param name the name of the card
      * @param count the number to add
      */
-    public void changeCardCount(String name, int count){
+    public boolean changeCardCount(String name, int count){
 
         //Searches if card exists and increments if it is
         Card foundCard = this.searchCard(name);
         if (foundCard == null){
             System.out.println("Card not found.");
+            return false;
         }
         else{
             if(count==-1){ //means decrement
                 //Check if foundCard count is not 0
                 if(foundCard.getCount() > 0){
                     foundCard.incrementCount(count);
-                    System.out.println("Decrement Successful!\n");
+                    return true;
                 }else{
-                    System.out.println("Card not found");
+                    return false;
                 }
             }else{ //means increment
                 foundCard.incrementCount(count);
-                System.out.println("Increment Successful!\n");
+                return true;
             }
         }
     }

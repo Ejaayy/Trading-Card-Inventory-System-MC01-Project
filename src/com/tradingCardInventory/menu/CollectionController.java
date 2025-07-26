@@ -7,6 +7,7 @@ import com.tradingCardInventory.options.Variant;
 import com.tradingCardInventory.view.MainView;
 import com.tradingCardInventory.view.panels.ManageCollectionView.AddCardPanel;
 import com.tradingCardInventory.view.panels.ManageCollectionView.DisplayCollectionPanel;
+import com.tradingCardInventory.view.panels.ManageCollectionView.EditCardCountPanel;
 import com.tradingCardInventory.view.panels.ManageCollectionView.ManageCollectionMenuPanel;
 import com.tradingCardInventory.view.panels.NavigationView.NavigationPanel;
 
@@ -57,7 +58,7 @@ public class CollectionController{
         //Used LinkedHashMap so that it will be ordered in NavBar
         mainView.setLeftPanel(new NavigationPanel(new LinkedHashMap<>() {{
             put("Add Card", ev ->  mainView.setCenterPanel(new AddCardPanel(controller)));
-            put("Edit Card Count", ev ->  mainView.setCenterPanel(createPlaceholderPanel("Manage Decks")));
+            put("Edit Card Count", ev ->  mainView.setCenterPanel(new EditCardCountPanel(controller)));
             put("Display Collection", ev ->  mainView.setCenterPanel(new DisplayCollectionPanel(controller)));
             put("Sell Card", ev -> mainView.setCenterPanel(createPlaceholderPanel("Manage Decks")));
             put("Back", ev -> menuController.loadMainMenu());
@@ -88,61 +89,11 @@ public class CollectionController{
      * Post-condition:
      * - Updates the count of a card based on user input until user exits the menu.
      */
-    public void increaseDecrease(){
+    public boolean increaseDecrease(String cardName, int count) {
 
-        boolean running = true;
+        return this.collection.changeCardCount(cardName, count);
 
-        //Continues to run until the user  chooses to exit ( Case 0 )
-        while(running) {
-
-            int input = -1;
-
-            //Prints UI for Increase or Decrease
-            System.out.println("Increase or Decrease Card Count");
-            System.out.println("-------------------------------------------");
-            System.out.println("1. Increase Card Count");
-            System.out.println("2. Decrease Card Count");
-            System.out.println("0. Exit");
-            System.out.print("Enter Choice: ");
-
-            //Error handling for Collection Menu
-            try {
-                input = scanner.nextInt();
-                scanner.nextLine();
-            } catch (InputMismatchException e) {
-                scanner.nextLine(); // clear the wrong input
-            }
-
-            System.out.println("-------------------------------------------");
-
-            //Calls appropriate input based from user's decision
-            switch(input) {
-                case 1:
-                    // Increase Card
-                    System.out.println("[0. Exit]");
-                    System.out.print("Enter Card Name: ");
-                    String increaseCardName = this.scanner.nextLine();
-                    if(!increaseCardName.equals("0"))
-                        this.collection.changeCardCount(increaseCardName, 1);
-                    break;
-                case 2:
-                    // Decrease Card
-                    System.out.println("[0. Exit]");
-                    System.out.print("Enter Card Name: ");
-                    String decreaseCardName = this.scanner.nextLine();
-                    if(!decreaseCardName.equals("0"))
-                        this.collection.changeCardCount(decreaseCardName, -1);
-                    break;
-                case 0:
-                    running = false;
-                    break;
-                default:
-                    System.out.println("Invalid option. Please choose between 0 and 2.\n");
-            }
-        }
     }
-
-
 
     public boolean addInputCard(String cardName, String rarityInput, String variantInput, double valueInput) {
         if (cardName == null || cardName.isEmpty()) {
