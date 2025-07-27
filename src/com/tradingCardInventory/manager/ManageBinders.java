@@ -210,4 +210,17 @@ public class ManageBinders {
         }
         return null;
     }
+
+    public List<Binder> getBinders(){
+        return this.binders;
+    }
+
+    public List<Card> getCards(String binderName){
+
+        Binder binder = this.searchBinder(binderName);
+        if(binder != null){ //binder exists
+            return binder.getCards();
+        }
+        return null;
+    }
 }

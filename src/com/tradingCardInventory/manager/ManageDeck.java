@@ -1,5 +1,6 @@
 package com.tradingCardInventory.manager;
 
+import com.tradingCardInventory.model.Binder;
 import com.tradingCardInventory.model.Card;
 import com.tradingCardInventory.model.Collection;
 import com.tradingCardInventory.model.Deck;
@@ -180,5 +181,18 @@ public class ManageDeck {
     public boolean viewSpecificCardinDeck(String cardName, Deck deck){
 
         return deck.displayCard(cardName);
+    }
+
+    public List<Deck> getDecks(){
+        return this.decks;
+    }
+
+    public List<Card> getCards(String deckName){
+
+        Deck deck = this.searchDeck(deckName);
+        if(deck != null){ //binder exists
+            return deck.getCards();
+        }
+        return null;
     }
 }

@@ -1,6 +1,8 @@
 package com.tradingCardInventory.menu;
 
 import com.tradingCardInventory.manager.ManageDeck;
+import com.tradingCardInventory.model.Binder;
+import com.tradingCardInventory.model.Card;
 import com.tradingCardInventory.model.Deck;
 import com.tradingCardInventory.view.MainView;
 
@@ -8,9 +10,7 @@ import com.tradingCardInventory.view.panels.ManageDecksView.*;
 import com.tradingCardInventory.view.panels.NavigationView.NavigationPanel;
 
 import javax.swing.*;
-import java.util.InputMismatchException;
-import java.util.LinkedHashMap;
-import java.util.Scanner;
+import java.util.*;
 
 /*
  * DeckController handles all user interaction related to managing decks.
@@ -45,7 +45,7 @@ public class DeckController {
             put("Delete Deck", ev -> mainView.setCenterPanel(new DeleteDeckPanel(deckController)));
             put("Add Card to Deck", ev -> mainView.setCenterPanel(new AddCardPanel(deckController)));
             put("Remove Card", ev -> mainView.setCenterPanel(new RemoveCardPanel(deckController)));
-            put("View Deck", ev -> mainView.setCenterPanel(createPlaceholderPanel("Manage Decks")));
+            put("View Deck", ev -> mainView.setCenterPanel(new ViewDeckPanel(deckController)));
             put("Sell Deck", ev -> mainView.setCenterPanel(createPlaceholderPanel("Manage Decks")));
             put("Back", ev -> menuController.loadMainMenu());
         }}));
@@ -97,6 +97,21 @@ public class DeckController {
     public boolean removeCardFromDeck(String deckName, String cardName){
         return manageDeck.removeCardFromDeck(deckName, cardName);
     }
+
+    public List<String> getAllDeckNames(){
+        List<String> deckNames = new ArrayList<>();
+
+        for(Deck deck: manageDeck.getDecks()){
+            deckNames.add(deck.getName());
+        }
+
+        return deckNames;
+    }
+
+    public List<Card> getCards(String deckName){
+        return manageDeck.getCards(deckName);
+    }
+
     /*
      * Main logic loop for displaying and executing deck management options.
      * Handles menu input, deck/card operations, and user feedback.

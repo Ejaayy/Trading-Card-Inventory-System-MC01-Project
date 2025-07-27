@@ -2,15 +2,14 @@ package com.tradingCardInventory.menu;
 
 import com.tradingCardInventory.manager.ManageBinders;
 import com.tradingCardInventory.model.Binder;
+import com.tradingCardInventory.model.Card;
 import com.tradingCardInventory.view.MainView;
 import com.tradingCardInventory.view.panels.ManageBindersView.*;
 import com.tradingCardInventory.view.panels.ManageDecksView.AddCardPanel;
 import com.tradingCardInventory.view.panels.NavigationView.NavigationPanel;
 
 import javax.swing.*;
-import java.util.InputMismatchException;
-import java.util.LinkedHashMap;
-import java.util.Scanner;
+import java.util.*;
 
 /*
  * BindersController is responsible for handling user input and interactions
@@ -48,7 +47,7 @@ public class BindersController {
             put("Add Card to Binder", ev -> mainView.setCenterPanel(new AddCardToBinderPanel(bindersController)));
             put("Remove Card from Binder", ev -> mainView.setCenterPanel(new RemoveCardFromBinderPanel(bindersController)));
             put("TradeCard", ev -> mainView.setCenterPanel(createPlaceholderPanel("Manage Decks")));
-            put("View Binder", ev -> mainView.setCenterPanel(createPlaceholderPanel("Manage Decks")));
+            put("View Binder", ev -> mainView.setCenterPanel(new ViewBinderPanel(bindersController)));
             put("Sell Binder", ev -> mainView.setCenterPanel(createPlaceholderPanel("Manage Decks")));
             put("Back", ev -> menuController.loadMainMenu());
         }}));
@@ -224,5 +223,19 @@ public class BindersController {
     public boolean removeCardFromBinder(String cardName, String binderName){
         return manageBinder.removeCardFromBinder(cardName, binderName);
 
+    }
+
+    public List<String> getAllBinderNames(){
+        List<String> binderNames = new ArrayList<>();
+
+        for(Binder binder: manageBinder.getBinders()){
+            binderNames.add(binder.getName());
+        }
+
+        return binderNames;
+    }
+
+    public List<Card> getCards(String binderName){
+        return manageBinder.getCards(binderName);
     }
 }
