@@ -1,7 +1,9 @@
 package com.tradingCardInventory.menu;
 
 import com.tradingCardInventory.manager.ManageBinders;
+import com.tradingCardInventory.model.Binder;
 import com.tradingCardInventory.view.MainView;
+import com.tradingCardInventory.view.panels.ManageBindersView.CreateBinderPanel;
 import com.tradingCardInventory.view.panels.ManageBindersView.ManageBindersMenuPanel;
 import com.tradingCardInventory.view.panels.NavigationView.NavigationPanel;
 
@@ -38,10 +40,10 @@ public class BindersController {
     }
 
     public void run(){
-
+        BindersController bindersController = this;
         //Used LinkedHashMap so that it will be ordered in NavBar
         mainView.setLeftPanel(new NavigationPanel(new LinkedHashMap<>() {{
-            put("Create Binder", ev ->  mainView.setCenterPanel(createPlaceholderPanel("Manage Trades")));
+            put("Create Binder", ev ->  mainView.setCenterPanel(new CreateBinderPanel(bindersController)));
             put("Delete Binder", ev -> mainView.setCenterPanel(createPlaceholderPanel("Manage Trades")));
             put("Add Card to Binder", ev -> mainView.setCenterPanel(createPlaceholderPanel("Manage Decks")));
             put("Remove Card from Binder", ev -> mainView.setCenterPanel(createPlaceholderPanel("Manage Decks")));
@@ -61,38 +63,16 @@ public class BindersController {
         JPanel panel = new JPanel();
         return panel;
     }
-    /*
-     * Displays the Manage Binder menu and prompts the user for input.
-     *
-     * @return the user's selected menu option
-     */
-    public int manageBinderMenuTemplate(){
 
-        int input = -1;
-
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("-------------------------------------------");
-        System.out.println("MCO1 - Manage Binder Menu");
-        System.out.println("-------------------------------------------");
-        System.out.println("1. Create New Binder");
-        System.out.println("2. Delete a Binder");
-        System.out.println("3. Add card to a Binder");
-        System.out.println("4. Remove card from a Binder");
-        System.out.println("5. Trade Card");
-        System.out.println("6. View Binder");
-        System.out.println("0. Exit");
-        System.out.print("Enter Choice: ");
-
-        //Error handling for Binders Menu
-        try {
-            input = scanner.nextInt();
-            scanner.nextLine();
-        } catch (InputMismatchException e) {
-            scanner.nextLine(); // clear the wrong input
+    public boolean createBinder(String binderName){
+        Binder found = manageBinder.searchBinder(binderName);;
+        if(found == null){ //if it doesnt exist
+            manageBinder.createBinder(binderName);
+            return true;
         }
-        System.out.println("-------------------------------------------");
-
-        return input;
+        else{
+            return false;
+        }
     }
 
     /*
@@ -109,9 +89,9 @@ public class BindersController {
         while(running) {
 
             //Calls Binder Menu template
-            int input = manageBinderMenuTemplate();
+            //int input = manageBinderMenuTemplate();
 
-            switch (input) {
+            switch (1) {
                 case 1:
                     //Create New Binder
                     System.out.println("[0. Exit]");
