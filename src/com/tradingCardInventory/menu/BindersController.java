@@ -4,6 +4,7 @@ import com.tradingCardInventory.manager.ManageBinders;
 import com.tradingCardInventory.model.Binder;
 import com.tradingCardInventory.view.MainView;
 import com.tradingCardInventory.view.panels.ManageBindersView.CreateBinderPanel;
+import com.tradingCardInventory.view.panels.ManageBindersView.DeleteBinderPanel;
 import com.tradingCardInventory.view.panels.ManageBindersView.ManageBindersMenuPanel;
 import com.tradingCardInventory.view.panels.NavigationView.NavigationPanel;
 
@@ -44,7 +45,7 @@ public class BindersController {
         //Used LinkedHashMap so that it will be ordered in NavBar
         mainView.setLeftPanel(new NavigationPanel(new LinkedHashMap<>() {{
             put("Create Binder", ev ->  mainView.setCenterPanel(new CreateBinderPanel(bindersController)));
-            put("Delete Binder", ev -> mainView.setCenterPanel(createPlaceholderPanel("Manage Trades")));
+            put("Delete Binder", ev -> mainView.setCenterPanel(new DeleteBinderPanel(bindersController)));
             put("Add Card to Binder", ev -> mainView.setCenterPanel(createPlaceholderPanel("Manage Decks")));
             put("Remove Card from Binder", ev -> mainView.setCenterPanel(createPlaceholderPanel("Manage Decks")));
             put("TradeCard", ev -> mainView.setCenterPanel(createPlaceholderPanel("Manage Decks")));
@@ -68,6 +69,17 @@ public class BindersController {
         Binder found = manageBinder.searchBinder(binderName);;
         if(found == null){ //if it doesnt exist
             manageBinder.createBinder(binderName);
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public boolean deleteBinder(String binderName){
+        Binder found = manageBinder.searchBinder(binderName);;
+        if(found != null){ //if it exists
+            manageBinder.deleteBinder( binderName);
             return true;
         }
         else{
