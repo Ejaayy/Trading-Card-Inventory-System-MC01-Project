@@ -15,7 +15,7 @@ public class DeleteDeckPanel extends JPanel {
 
         // ---------- NORTH: Title ----------
         JPanel titlePanel = new JPanel();
-        JLabel titleLabel = new JLabel("Create a New Deck", SwingConstants.CENTER);
+        JLabel titleLabel = new JLabel("Delete Deck", SwingConstants.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 18));
         titlePanel.add(titleLabel);
         titlePanel.setBackground(Color.GRAY);
@@ -41,7 +41,7 @@ public class DeleteDeckPanel extends JPanel {
         add(formPanel, BorderLayout.CENTER);
 
         // ---------- SOUTH: Submit Button ----------
-        submitButton = new JButton("Create Deck");
+        submitButton = new JButton("Delete Deck");
         JPanel bottomPanel = new JPanel();
         bottomPanel.add(submitButton);
         bottomPanel.setBackground(Color.GRAY);

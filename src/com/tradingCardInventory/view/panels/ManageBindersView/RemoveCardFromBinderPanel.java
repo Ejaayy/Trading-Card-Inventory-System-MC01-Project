@@ -1,4 +1,68 @@
 package com.tradingCardInventory.view.panels.ManageBindersView;
 
-public class RemoveCardFromBinderPanel {
+import com.tradingCardInventory.menu.BindersController;
+
+import javax.swing.*;
+import java.awt.*;
+
+public class RemoveCardFromBinderPanel extends JPanel {
+    private JTextField binderName;
+    private JTextField cardName;
+    private JButton submitButton;
+
+    public RemoveCardFromBinderPanel(BindersController bindersController) {
+        setLayout(new BorderLayout(20, 20));
+
+        // NORTH: Title Panel
+        JPanel titlePanel = new JPanel();
+        JLabel titleLabel = new JLabel("Remove Card to from Binder", SwingConstants.CENTER);
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 18));
+        titlePanel.add(titleLabel);
+        titlePanel.setBackground(Color.gray);
+        titlePanel.setPreferredSize(new Dimension(650, 80));
+        add(titlePanel, BorderLayout.NORTH);
+
+        // CENTER: Form Panel
+        JPanel formPanel = new JPanel(new GridLayout(2, 2, 10, 20));
+        formPanel.setBorder(BorderFactory.createEmptyBorder(10, 40, 20, 40));
+
+        formPanel.add(new JLabel("Binder Name:"));
+        binderName = new JTextField();
+        formPanel.add(binderName);
+
+        formPanel.add(new JLabel("Card Name to remove:"));
+        cardName = new JTextField();
+        formPanel.add(cardName);
+
+        add(formPanel, BorderLayout.CENTER);
+
+        // SOUTH: Submit Button Panel
+        submitButton = new JButton("Submit");
+        JPanel bottomPanel = new JPanel();
+        bottomPanel.add(submitButton);
+        bottomPanel.setBackground(Color.gray);
+        bottomPanel.setPreferredSize(new Dimension(650, 40));
+        add(bottomPanel, BorderLayout.SOUTH);
+
+        // ACTION LISTENER
+        submitButton.addActionListener(e -> {
+            String binder = binderName.getText().trim();
+            String card = cardName.getText().trim();
+
+            if (binder.isEmpty() || card.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Please fill in both fields.");
+                return;
+            }
+
+            boolean success = bindersController.removeCardFromBinder(card, binder);
+
+            if (success) {
+                JOptionPane.showMessageDialog(this, "Card successfully removed from binder!");
+                binderName.setText("");
+                cardName.setText("");
+            } else {
+                JOptionPane.showMessageDialog(this, "Failed to remove card. Binder or Card might not exist.");
+            }
+        });
+    }
 }

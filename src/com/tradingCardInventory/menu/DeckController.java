@@ -3,10 +3,8 @@ package com.tradingCardInventory.menu;
 import com.tradingCardInventory.manager.ManageDeck;
 import com.tradingCardInventory.model.Deck;
 import com.tradingCardInventory.view.MainView;
-import com.tradingCardInventory.view.panels.ManageBindersView.DeleteBinderPanel;
-import com.tradingCardInventory.view.panels.ManageDecksView.CreateDeckPanel;
-import com.tradingCardInventory.view.panels.ManageDecksView.DeleteDeckPanel;
-import com.tradingCardInventory.view.panels.ManageDecksView.ManageDecksMenuPanel;
+
+import com.tradingCardInventory.view.panels.ManageDecksView.*;
 import com.tradingCardInventory.view.panels.NavigationView.NavigationPanel;
 
 import javax.swing.*;
@@ -45,8 +43,8 @@ public class DeckController {
         mainView.setLeftPanel(new NavigationPanel(new LinkedHashMap<>() {{
             put("Create Deck", ev ->  mainView.setCenterPanel(new CreateDeckPanel(deckController)));
             put("Delete Deck", ev -> mainView.setCenterPanel(new DeleteDeckPanel(deckController)));
-            put("Add Card", ev -> mainView.setCenterPanel(createPlaceholderPanel("Manage Decks")));
-            put("Remove Card", ev -> mainView.setCenterPanel(createPlaceholderPanel("Manage Decks")));
+            put("Add Card to Deck", ev -> mainView.setCenterPanel(new AddCardPanel(deckController)));
+            put("Remove Card", ev -> mainView.setCenterPanel(new RemoveCardPanel(deckController)));
             put("View Deck", ev -> mainView.setCenterPanel(createPlaceholderPanel("Manage Decks")));
             put("Sell Deck", ev -> mainView.setCenterPanel(createPlaceholderPanel("Manage Decks")));
             put("Back", ev -> menuController.loadMainMenu());
@@ -92,6 +90,13 @@ public class DeckController {
         }
     }
 
+    public boolean addCardToDeck(String deckName, String cardName){
+        return manageDeck.addCardToDeck(cardName, deckName);
+    }
+
+    public boolean removeCardFromDeck(String deckName, String cardName){
+        return manageDeck.removeCardFromDeck(deckName, cardName);
+    }
     /*
      * Main logic loop for displaying and executing deck management options.
      * Handles menu input, deck/card operations, and user feedback.

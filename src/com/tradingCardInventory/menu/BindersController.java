@@ -3,9 +3,8 @@ package com.tradingCardInventory.menu;
 import com.tradingCardInventory.manager.ManageBinders;
 import com.tradingCardInventory.model.Binder;
 import com.tradingCardInventory.view.MainView;
-import com.tradingCardInventory.view.panels.ManageBindersView.CreateBinderPanel;
-import com.tradingCardInventory.view.panels.ManageBindersView.DeleteBinderPanel;
-import com.tradingCardInventory.view.panels.ManageBindersView.ManageBindersMenuPanel;
+import com.tradingCardInventory.view.panels.ManageBindersView.*;
+import com.tradingCardInventory.view.panels.ManageDecksView.AddCardPanel;
 import com.tradingCardInventory.view.panels.NavigationView.NavigationPanel;
 
 import javax.swing.*;
@@ -46,8 +45,8 @@ public class BindersController {
         mainView.setLeftPanel(new NavigationPanel(new LinkedHashMap<>() {{
             put("Create Binder", ev ->  mainView.setCenterPanel(new CreateBinderPanel(bindersController)));
             put("Delete Binder", ev -> mainView.setCenterPanel(new DeleteBinderPanel(bindersController)));
-            put("Add Card to Binder", ev -> mainView.setCenterPanel(createPlaceholderPanel("Manage Decks")));
-            put("Remove Card from Binder", ev -> mainView.setCenterPanel(createPlaceholderPanel("Manage Decks")));
+            put("Add Card to Binder", ev -> mainView.setCenterPanel(new AddCardToBinderPanel(bindersController)));
+            put("Remove Card from Binder", ev -> mainView.setCenterPanel(new RemoveCardFromBinderPanel(bindersController)));
             put("TradeCard", ev -> mainView.setCenterPanel(createPlaceholderPanel("Manage Decks")));
             put("View Binder", ev -> mainView.setCenterPanel(createPlaceholderPanel("Manage Decks")));
             put("Sell Binder", ev -> mainView.setCenterPanel(createPlaceholderPanel("Manage Decks")));
@@ -141,12 +140,12 @@ public class BindersController {
                 case 3:
                     //Add card to a Binder
                     System.out.println("[0. Exit]");
-                    this.addCardToBinder();
+                    //this.addCardToBinder();
                     break;
                 case 4:
                     //Remove card from a Binder
                     System.out.println("[0. Exit]");
-                    this.removeCardFromBinder();
+                    //this.removeCardFromBinder();
                     break;
                 case 5:
                     //Trade Card
@@ -212,53 +211,18 @@ public class BindersController {
      * Handles user input to add a card from the collection to a binder.
      * Displays a success/failure message based on the result.
      */
-    public void addCardToBinder(){
-        //Input and search for Card in Collection
-        System.out.print("Enter Card Name from Collection: ");
-        String cardName = scanner.nextLine();
+    public boolean addCardToBinder(String cardName, String binderName){
 
-        if(!cardName.equals("0")){
-            //Input and search Binder in Binders list
-            System.out.print("Enter which Binder to add card in: ");
-            String binderName = scanner.nextLine();
+        return manageBinder.addCardToBinder(cardName, binderName);
 
-            if(!binderName.equals("0")){
-                //Calls to add that specific card to that specific binder
-                boolean status = manageBinder.addCardToBinder(cardName, binderName);
-                if(status){
-                    System.out.printf("Success! Card: %s has been added to Binder: %s\n", cardName, binderName);
-                }
-                else{
-                    System.out.println("Failed to add card to binder");
-                }
-            }
-        }
     }
 
     /*
      * Handles user input to remove a card from a binder.
      * Displays a success/failure message based on the result.
      */
-    public void removeCardFromBinder(){
-        //Input and search for Card in Collection
-        System.out.print("Enter Card Name to remove: ");
-        String cardName = scanner.nextLine();
+    public boolean removeCardFromBinder(String cardName, String binderName){
+        return manageBinder.removeCardFromBinder(cardName, binderName);
 
-        if(!cardName.equals("0")){
-            //Input and search Binder in Binders list
-            System.out.print("Enter which Binder to remove card in: ");
-            String binderName = scanner.nextLine();
-
-            if(!binderName.equals("0")){
-                //Calls to remove that specific card to that specific binder
-                boolean status = manageBinder.removeCardFromBinder(cardName, binderName);
-                if(status){
-                    System.out.printf("Success! Card: %s has been removed from Binder: %s\n", cardName, binderName);
-                }
-                else{
-                    System.out.println("Failed to remove card from binder");
-                }
-            }
-        }
     }
 }
