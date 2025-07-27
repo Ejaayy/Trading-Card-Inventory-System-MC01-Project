@@ -3,6 +3,9 @@ package com.tradingCardInventory.menu;
 import com.tradingCardInventory.manager.ManageDeck;
 import com.tradingCardInventory.model.Deck;
 import com.tradingCardInventory.view.MainView;
+import com.tradingCardInventory.view.panels.ManageBindersView.DeleteBinderPanel;
+import com.tradingCardInventory.view.panels.ManageDecksView.CreateDeckPanel;
+import com.tradingCardInventory.view.panels.ManageDecksView.DeleteDeckPanel;
 import com.tradingCardInventory.view.panels.ManageDecksView.ManageDecksMenuPanel;
 import com.tradingCardInventory.view.panels.NavigationView.NavigationPanel;
 
@@ -37,11 +40,11 @@ public class DeckController {
         this.menuController = menuController;
     }
     public void run(){
-
+        DeckController deckController = this;
         //Used LinkedHashMap so that it will be ordered in NavBar
         mainView.setLeftPanel(new NavigationPanel(new LinkedHashMap<>() {{
-            put("Create Deck", ev ->  mainView.setCenterPanel(createPlaceholderPanel("Manage Trades")));
-            put("Delete Deck", ev -> mainView.setCenterPanel(createPlaceholderPanel("Manage Trades")));
+            put("Create Deck", ev ->  mainView.setCenterPanel(new CreateDeckPanel(deckController)));
+            put("Delete Deck", ev -> mainView.setCenterPanel(new DeleteDeckPanel(deckController)));
             put("Add Card", ev -> mainView.setCenterPanel(createPlaceholderPanel("Manage Decks")));
             put("Remove Card", ev -> mainView.setCenterPanel(createPlaceholderPanel("Manage Decks")));
             put("View Deck", ev -> mainView.setCenterPanel(createPlaceholderPanel("Manage Decks")));
@@ -69,33 +72,24 @@ public class DeckController {
      * Post-condition:
      * - User input is returned
      */
-    public int manageDeckMenuTemplate(){
-        int input = -1;
-        Scanner scanner = new Scanner(System.in);
-
-        //Shows Deck Menu UI
-        System.out.println("-------------------------------------------");
-        System.out.println("MCO1 - Manage Deck Menu");
-        System.out.println("-------------------------------------------");
-        System.out.println("1. Create New Deck");
-        System.out.println("2. Delete a Deck");
-        System.out.println("3. Add card to a deck");
-        System.out.println("4. Remove card from a deck");
-        System.out.println("5. View Deck");
-        System.out.println("0. Exit");
-        System.out.print("Enter Choice: ");
-
-        //Error handling for Decks Menu
-        try {
-            input = scanner.nextInt();
-            scanner.nextLine();
-        } catch (InputMismatchException e) {
-            scanner.nextLine(); // clear the wrong input
+    public boolean createDeck(String deckName){
+        //Checks if deck already exists
+        if(manageDeck.searchDeck(deckName)!= null){
+            return  false;
+        }else {
+            manageDeck.createDeck(deckName);
+            return true;
         }
+    }
 
-        System.out.println("\n-------------------------------------------");
-
-        return input;
+    public boolean deleteDeck(String deckName){
+        //Checks if deck already exists
+        if(manageDeck.searchDeck(deckName)!= null){ //if it exists
+            manageDeck.deleteDeck(deckName);
+            return  true;
+        }else {
+            return false;
+        }
     }
 
     /*
@@ -110,9 +104,9 @@ public class DeckController {
         //Continues to run until the user  chooses to exit ( Case 0 )
         while(running) {
 
-            int input = manageDeckMenuTemplate();
+            //int input = manageDeckMenuTemplate();
 
-            switch (input) {
+            switch (1) {
                 case 1:
                     //Create New Deck
                     System.out.println("[0. Exit]");
