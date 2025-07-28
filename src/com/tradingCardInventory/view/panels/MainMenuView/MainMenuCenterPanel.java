@@ -1,19 +1,29 @@
 package com.tradingCardInventory.view.panels.MainMenuView;
 
+import com.tradingCardInventory.menu.CollectionController;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class MainMenuCenterPanel extends JPanel {
     private Image backgroundImage;
 
-    public MainMenuCenterPanel() {
+    public MainMenuCenterPanel(CollectionController collectionController) {
         setLayout(null);
         backgroundImage = new ImageIcon(getClass().getResource("/com/tradingCardInventory/view/resources/MainMenuBG.png")).getImage();
 
-        JLabel label = new JLabel("Welcome to the Trading Card Inventory!", SwingConstants.CENTER);
-        label.setBounds(50, 100, 400, 30); // x, y, width, height — adjust as needed
+        JPanel currencyPanel = new JPanel();
+        currencyPanel.setLayout(new  FlowLayout(FlowLayout.CENTER));
+        currencyPanel.setOpaque(false);
+        currencyPanel.setBounds(225, 20, 200, 30);
 
-        add(label);
+        JLabel currencyLabel = new JLabel("Balance: " + collectionController.getCollection().getAmount());
+        currencyLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        currencyLabel.setForeground(Color.WHITE);
+        currencyPanel.add(currencyLabel);
+
+        add(currencyPanel);
+
     }
 
     @Override

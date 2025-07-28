@@ -53,7 +53,7 @@ public class MenuController {
         this.decksController = new DeckController(manageDeck, mainView, this);
 
         this.startMenuPanel = new StartMenuPanel();
-        this.mainMenuPanel = new MainMenuCenterPanel();
+        this.mainMenuPanel = new MainMenuCenterPanel(collectionController);
     }
 
     public void run() {
@@ -70,7 +70,7 @@ public class MenuController {
             }}));
 
             //Setup center panel content
-            mainView.setCenterPanel(new MainMenuCenterPanel());
+            mainView.setCenterPanel(new MainMenuCenterPanel(collectionController));
         });
 
         startMenuPanel.getBtnExit().addActionListener(e ->{
@@ -87,7 +87,7 @@ public class MenuController {
         }}));
 
         //Setup center panel content
-        mainView.setCenterPanel(new MainMenuCenterPanel());
+        mainView.setCenterPanel(new MainMenuCenterPanel(collectionController));
     }
 
     //DUMMY PANELS

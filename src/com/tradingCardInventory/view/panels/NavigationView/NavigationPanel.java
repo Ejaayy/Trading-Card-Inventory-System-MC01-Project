@@ -49,6 +49,7 @@ public class NavigationPanel extends JPanel {
 
         // Add the button panel to the center or west — depending on your layout
         add(buttonPanel, BorderLayout.CENTER);
+
     }
 
     @Override

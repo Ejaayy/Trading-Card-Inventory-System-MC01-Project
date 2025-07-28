@@ -72,8 +72,6 @@ public class ViewBinderPanel extends JPanel {
                 JLabel valueLabel = new JLabel("Value: " + card.getActualValue());
                 valueLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-                JLabel countLabel = new JLabel("Count: " + card.getCount());
-                countLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
                 cardPanel.add(Box.createVerticalStrut(10));
                 cardPanel.add(nameLabel);
@@ -81,7 +79,6 @@ public class ViewBinderPanel extends JPanel {
                 cardPanel.add(rarityLabel);
                 cardPanel.add(variantLabel);
                 cardPanel.add(valueLabel);
-                cardPanel.add(countLabel);
                 cardPanel.add(Box.createVerticalGlue());
 
                 cardGridPanel.add(cardPanel);
