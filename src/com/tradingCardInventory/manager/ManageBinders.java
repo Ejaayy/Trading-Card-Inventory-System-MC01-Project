@@ -1,9 +1,9 @@
 package com.tradingCardInventory.manager;
 
-import com.tradingCardInventory.model.Binder;
+import com.tradingCardInventory.model.Binders.Binder;
 import com.tradingCardInventory.model.Card;
 import com.tradingCardInventory.model.Collection;
-import com.tradingCardInventory.menu.TradeCardController;
+import com.tradingCardInventory.controllers.TradeCardController;
 
 import java.util.ArrayList;
 import java.util.Comparator;

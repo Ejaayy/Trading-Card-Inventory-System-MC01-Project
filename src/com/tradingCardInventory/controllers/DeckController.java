@@ -1,9 +1,8 @@
-package com.tradingCardInventory.menu;
+package com.tradingCardInventory.controllers;
 
 import com.tradingCardInventory.manager.ManageDeck;
-import com.tradingCardInventory.model.Binder;
 import com.tradingCardInventory.model.Card;
-import com.tradingCardInventory.model.Deck;
+import com.tradingCardInventory.model.Decks.Deck;
 import com.tradingCardInventory.view.MainView;
 
 import com.tradingCardInventory.view.panels.ManageDecksView.*;

@@ -1,6 +1,6 @@
 package com.tradingCardInventory.view.panels.MainMenuView;
 
-import com.tradingCardInventory.menu.CollectionController;
+import com.tradingCardInventory.controllers.CollectionController;
 
 import javax.swing.*;
 import java.awt.*;

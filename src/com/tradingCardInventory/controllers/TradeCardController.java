@@ -1,4 +1,4 @@
-package com.tradingCardInventory.menu;
+package com.tradingCardInventory.controllers;
 
 import com.tradingCardInventory.model.Card;
 import com.tradingCardInventory.model.Collection;

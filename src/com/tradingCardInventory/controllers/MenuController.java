@@ -1,6 +1,5 @@
-package com.tradingCardInventory.menu;
+package com.tradingCardInventory.controllers;
 
-import com.sun.tools.javac.Main;
 import com.tradingCardInventory.manager.ManageBinders;
 import com.tradingCardInventory.manager.ManageDeck;
 import com.tradingCardInventory.model.Collection;
@@ -11,10 +10,7 @@ import com.tradingCardInventory.view.panels.NavigationView.NavigationPanel;
 
 import javax.swing.*;
 import java.util.LinkedHashMap;
-import java.util.Map;
 import java.util.Scanner;
-
-import static javax.swing.UIManager.put;
 
 /*
  * Menu class serves as the main controller that initializes all components of the system

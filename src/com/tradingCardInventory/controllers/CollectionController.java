@@ -1,4 +1,4 @@
-package com.tradingCardInventory.menu;
+package com.tradingCardInventory.controllers;
 
 import com.tradingCardInventory.model.Card;
 import com.tradingCardInventory.model.Collection;
@@ -12,7 +12,6 @@ import com.tradingCardInventory.view.panels.ManageCollectionView.ManageCollectio
 import com.tradingCardInventory.view.panels.NavigationView.NavigationPanel;
 
 import javax.swing.*;
-import java.util.InputMismatchException;
 import java.util.LinkedHashMap;
 import java.util.Scanner;
 

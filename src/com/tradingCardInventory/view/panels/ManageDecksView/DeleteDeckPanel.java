@@ -1,6 +1,6 @@
 package com.tradingCardInventory.view.panels.ManageDecksView;
 
-import com.tradingCardInventory.menu.DeckController;
+import com.tradingCardInventory.controllers.DeckController;
 
 import javax.swing.*;
 import java.awt.*;

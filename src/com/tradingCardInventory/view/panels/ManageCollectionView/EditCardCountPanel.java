@@ -1,11 +1,9 @@
 package com.tradingCardInventory.view.panels.ManageCollectionView;
 
-import com.tradingCardInventory.menu.CollectionController;
+import com.tradingCardInventory.controllers.CollectionController;
 import com.tradingCardInventory.model.Card;
-import com.tradingCardInventory.view.resources.*;
 
 import javax.swing.*;
-import javax.swing.event.DocumentEvent;
 import java.awt.*;
 
 public class EditCardCountPanel extends JPanel {

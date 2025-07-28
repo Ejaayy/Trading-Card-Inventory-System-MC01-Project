@@ -1,5 +1,6 @@
-package com.tradingCardInventory.model;
+package com.tradingCardInventory.model.Binders;
 
+import com.tradingCardInventory.model.Card;
 import com.tradingCardInventory.options.BinderType;
 
 import java.util.ArrayList;
@@ -10,13 +11,13 @@ import java.util.List;
  * Represents a binder that can hold up to 20 trading cards.
  * Provides functionality to add, remove, search, and display cards.
  */
-public class Binder {
+public abstract class Binder {
 
     // Properties / Attributes
 
-    private final String name;
-    private final BinderType type;
-    private final List<Card> cards; //20 cards max in 1 binder
+    protected final String name;
+    protected final BinderType type;
+    protected final List<Card> cards; //20 cards max in 1 binder
 
     // Method
 

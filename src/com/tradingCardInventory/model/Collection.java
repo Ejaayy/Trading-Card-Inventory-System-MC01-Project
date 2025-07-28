@@ -13,7 +13,7 @@ public class Collection {
 
     // Properties / Attributes
     private final List<Card> collection;
-    private double currentAmount;
+    private double currentAmount = 0;
 
     //Methods
 
@@ -22,7 +22,6 @@ public class Collection {
      */
     public Collection() {
         this.collection = new ArrayList<>(); // initialize it
-        this.currentAmount = 0;
     }
 
     public boolean changeAmount(double amount) {

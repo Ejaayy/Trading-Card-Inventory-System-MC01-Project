@@ -1,6 +1,6 @@
 package com.tradingCardInventory;
 
-import com.tradingCardInventory.menu.MenuController;
+import com.tradingCardInventory.controllers.MenuController;
 
 /*
  * Entry point of the Trading Card Inventory System.

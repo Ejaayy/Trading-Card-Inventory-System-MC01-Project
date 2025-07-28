@@ -1,4 +1,6 @@
-package com.tradingCardInventory.model;
+package com.tradingCardInventory.model.Decks;
+
+import com.tradingCardInventory.model.Card;
 
 import java.util.ArrayList;
 import java.util.Comparator;

@@ -1,11 +1,10 @@
-package com.tradingCardInventory.menu;
+package com.tradingCardInventory.controllers;
 
 import com.tradingCardInventory.manager.ManageBinders;
-import com.tradingCardInventory.model.Binder;
+import com.tradingCardInventory.model.Binders.Binder;
 import com.tradingCardInventory.model.Card;
 import com.tradingCardInventory.view.MainView;
 import com.tradingCardInventory.view.panels.ManageBindersView.*;
-import com.tradingCardInventory.view.panels.ManageDecksView.AddCardPanel;
 import com.tradingCardInventory.view.panels.NavigationView.NavigationPanel;
 
 import javax.swing.*;

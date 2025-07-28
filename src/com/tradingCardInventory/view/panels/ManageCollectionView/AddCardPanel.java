@@ -1,6 +1,6 @@
 package com.tradingCardInventory.view.panels.ManageCollectionView;
 
-import com.tradingCardInventory.menu.CollectionController;
+import com.tradingCardInventory.controllers.CollectionController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,17 +11,20 @@ public class AddCardPanel extends JPanel {
     private JComboBox<String> cardVariant;
     private JTextField cardValue;
     private JButton submitButton;
+    private Image backgroundImage;
 
     public AddCardPanel(CollectionController collectionController) {
         setLayout(new BorderLayout(20, 20)); // Set BorderLayout for main panel
+        backgroundImage = new ImageIcon(getClass().getResource("/com/tradingCardInventory/view/resources/NormalBG.png")).getImage();
 
         // NORTH: Title
         JPanel titlePanel = new JPanel();
         JLabel titleLabel = new JLabel("Add a New Card", SwingConstants.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 18));
         titlePanel.add(titleLabel);
-        titlePanel.setBackground(Color.gray);
+        titlePanel.setForeground(Color.WHITE);
         titlePanel.setPreferredSize(new Dimension(650, 80));
+        titlePanel.setOpaque(false);
         add(titlePanel, BorderLayout.NORTH);
 
         // CENTER: Form panel
@@ -65,16 +68,17 @@ public class AddCardPanel extends JPanel {
         cardRarity.setPreferredSize(new Dimension(200, 25));
         cardVariant.setPreferredSize(new Dimension(200, 25));
 
+        formPanel.setOpaque(false);
         add(formPanel, BorderLayout.CENTER);
-
 
         // SOUTH: Submit button
         submitButton = new JButton("Submit");
         JPanel bottomPanel = new JPanel();
         bottomPanel.add(submitButton);
-        bottomPanel.setBackground(Color.gray);
+        bottomPanel.setOpaque(false);
         bottomPanel.setPreferredSize(new Dimension(650, 40));
         add(bottomPanel, BorderLayout.SOUTH);
+
 
         // Action Listener
         submitButton.addActionListener(e -> {
@@ -96,6 +100,14 @@ public class AddCardPanel extends JPanel {
                 JOptionPane.showMessageDialog(this, "Please enter a valid number for card value.");
             }
         });
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        if (backgroundImage != null) {
+            g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+        }
     }
 
 }

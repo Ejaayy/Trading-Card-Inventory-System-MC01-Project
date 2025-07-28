@@ -1,6 +1,6 @@
 package com.tradingCardInventory.view.panels.ManageDecksView;
 
-import com.tradingCardInventory.menu.DeckController;
+import com.tradingCardInventory.controllers.DeckController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,7 +31,7 @@ public class CreateDeckPanel extends JPanel {
         formPanel.add(deckName);
 
         formPanel.add(new JLabel("Deck Type:"));
-        String[] types = { "type1", "type2", "type3", "type4" };
+        String[] types = { "Normal Deck", "Sellable Deck"};
         deckType = new JComboBox<>(types);
         formPanel.add(deckType);
 

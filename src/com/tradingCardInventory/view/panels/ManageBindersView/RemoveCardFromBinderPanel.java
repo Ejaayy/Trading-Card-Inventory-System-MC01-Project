@@ -1,6 +1,6 @@
 package com.tradingCardInventory.view.panels.ManageBindersView;
 
-import com.tradingCardInventory.menu.BindersController;
+import com.tradingCardInventory.controllers.BindersController;
 
 import javax.swing.*;
 import java.awt.*;

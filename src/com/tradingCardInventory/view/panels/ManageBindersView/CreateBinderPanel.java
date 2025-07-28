@@ -1,6 +1,6 @@
 package com.tradingCardInventory.view.panels.ManageBindersView;
 
-import com.tradingCardInventory.menu.BindersController;
+import com.tradingCardInventory.controllers.BindersController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,7 +31,7 @@ public class CreateBinderPanel extends JPanel {
         formPanel.add(binderName);
 
         formPanel.add(new JLabel("Binder Type:"));
-        String[] types = { "type1", "type2", "type3", "type4" };
+        String[] types = { "Non-curated Binder", "Sellable Binder - Pauper", "Sellable Binder - Pauper", "Sellable Binder - Pauper", "Sellable Binder - Luxury", "Collector Binder"};
         binderType = new JComboBox<>(types);
         formPanel.add(binderType);
 

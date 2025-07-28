@@ -1,6 +1,6 @@
 package com.tradingCardInventory.view.panels.ManageDecksView;
 
-import com.tradingCardInventory.menu.DeckController;
+import com.tradingCardInventory.controllers.DeckController;
 import com.tradingCardInventory.model.Card;
 import com.tradingCardInventory.view.resources.WrapLayout;
 
