@@ -175,15 +175,18 @@ public class TradeCardPanel extends JPanel {
 
                 if (checkBox.isSelected()) {
                     //Card already exists
-                    collectionController.increaseDecrease(existingCards.getItemAt(0), 1); //increment count in Collection
-                    bindersController.removeCardFromBinder(cardName.getText(), binders.getItemAt(0));
-                    bindersController.addCardToBinder(existingCards.getItemAt(0), binders.getItemAt(0));
+                    collectionController.increaseDecrease((String) existingCards.getSelectedItem(), 1); //increment count in Collection
+                    bindersController.removeCardFromBinder((String) cards.getSelectedItem(), (String) binders.getSelectedItem());
+                    collectionController.increaseDecrease((String) cards.getSelectedItem(), -1);
+                    bindersController.addCardToBinder((String) existingCards.getSelectedItem(), (String) binders.getSelectedItem());
+
                     success = true;
                 } else {
                     //Card does not exist yet
-                    collectionController.addInputCard(cardName.getText(), cardRarity.getItemAt(0), cardVariant.getItemAt(0), Double.parseDouble(cardValue.getText()));
-                    bindersController.removeCardFromBinder(existingCards.getItemAt(0), binders.getItemAt(0));
-                    bindersController.addCardToBinder( collectionController.getCollection().searchCard(cardName.getText()).getName(), binders.getItemAt(0));
+                    collectionController.addInputCard(cardName.getText(), (String) cardRarity.getSelectedItem(), (String) cardVariant.getSelectedItem(), Double.parseDouble(cardValue.getText()));
+                    bindersController.removeCardFromBinder((String) cards.getSelectedItem(), (String )binders.getSelectedItem());
+                    collectionController.increaseDecrease((String) cards.getSelectedItem(), -1);
+                    bindersController.addCardToBinder( collectionController.getCollection().searchCard(cardName.getText()).getName(), (String) binders.getSelectedItem());
                     success = true;
                 }
 
