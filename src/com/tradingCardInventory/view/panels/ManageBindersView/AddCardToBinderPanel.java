@@ -23,8 +23,9 @@ public class AddCardToBinderPanel extends JPanel {
         add(titlePanel, BorderLayout.NORTH);
 
         // CENTER: Form Panel
-        JPanel formPanel = new JPanel(new GridLayout(2, 2, 10, 20));
-        formPanel.setBorder(BorderFactory.createEmptyBorder(10, 40, 20, 40));
+        JPanel formPanel = new JPanel(new GridLayout(1, 2, 10, 20));
+        JPanel rightPanel = new JPanel();
+        JPanel leftPanel = new JPanel();
 
         formPanel.add(new JLabel("Binder Name:"));
         binderName = new JTextField();
