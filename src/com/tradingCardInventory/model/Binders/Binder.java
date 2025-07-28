@@ -31,10 +31,10 @@ public abstract class Binder {
      * Post-condition:
      * - A binder is initialized with an empty list of cards.
      */
-    public Binder(String name){
+    public Binder(String name, BinderType binderType) {
         //creates the space for Card objects
         this.cards = new ArrayList<>();
-        this.type = null;
+        this.type = binderType;
         this.name = name;
     }
 

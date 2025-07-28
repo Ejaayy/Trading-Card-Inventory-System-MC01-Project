@@ -5,7 +5,8 @@
 - **2025-07-18**: Added Start Page
 - **2025-07-22**: Added Main Menu and re-initialized GUI for better formatting
 - **2025-07-24**: Added Navigation Buttons & Add Card
-- **2025-07-26**: Fixed WrapLayout of Display Collection + Added BG
+- **2025-07-26**: Fixed WrapLayout of Fixed WrapLayout of Display Collection + Added BG for menusFixed WrapLayout of Display Collection + Added BG for menus
+- **2025-07-28**: Implemented TradeCard + Binder & Deck Data Types
 
 ## 🔥 TO DO
 - Fix specific functions with GUI

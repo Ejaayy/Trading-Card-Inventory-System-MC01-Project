@@ -13,8 +13,8 @@ import java.util.List;
 public class Deck {
 
     // Properties / Attributes
-    private final String name;
-    private final List<Card> cards; //10 cards max in 1 deck
+    protected final String name;
+    protected final List<Card> cards; //10 cards max in 1 deck
 
     // Methods
 

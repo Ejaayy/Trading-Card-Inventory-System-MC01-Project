@@ -1,9 +1,9 @@
 package com.tradingCardInventory.manager;
 
-import com.tradingCardInventory.model.Binders.Binder;
+import com.tradingCardInventory.model.Binders.*;
 import com.tradingCardInventory.model.Card;
 import com.tradingCardInventory.model.Collection;
-import com.tradingCardInventory.controllers.TradeCardController;
+import com.tradingCardInventory.options.BinderType;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -19,7 +19,6 @@ public class ManageBinders {
     // Properties / Attributes
     private final List<Binder> binders;
     private final Collection collection;
-    private final TradeCardController tradeCard;
 
     // Methods
 
@@ -31,17 +30,31 @@ public class ManageBinders {
     public ManageBinders(Collection collection){
         this.binders = new ArrayList<>();
         this.collection = collection;
-        this.tradeCard = new TradeCardController(collection);
     }
 
     /*
      * Creates a new binder and adds it to the list.
      *
      * @param name the name of the new binder
+     *
+     * Notes:
+     * Binder Constructors:
+     * Non-curated Binder: NonCuratedBinder()
+     * Pauper Binder:      PauperBinder()
+     * Rares Binder:       RaresBinder()
+     * Luxury Binder:      LuxuryBinder()
+     * Collector Binder:   CollectorBinder()
      */
-    public void createBinder(String name){
+    public void createBinder(String name, BinderType binderType){
+        Binder binder = null;
         //Creates and adds new Binder to the list
-        Binder binder = new Binder(name);
+        switch(binderType){
+            case NonCurated -> binder = new NonCuratedBinder(name, binderType);
+            case Pauper -> binder = new PauperBinder(name, binderType);
+            case Luxury -> binder = new LuxuryBinder(name, binderType);
+            case Rares -> binder = new RaresBinder(name, binderType);
+            case Collector ->  binder = new CollectorBinder(name, binderType);
+        }
         this.binders.add(binder);
     }
 
@@ -144,7 +157,8 @@ public class ManageBinders {
      * @param cardName   name of the outgoing card
      * @param binderName name of the binder involved
      */
-    public void tradeCard(String cardName, String binderName) {
+    /*
+    public void tradeCard(String cardName, String binderName, String incomingCardName) {
         //runs the trade card menu and assigns the return value to incoming card
         //if incoming card exists, a trade was confirmed and incoming card will be the new card
         //if incoming card is null/doesn't exist, then the trade was rejected and the old card should be kept
@@ -178,7 +192,7 @@ public class ManageBinders {
             System.out.println("Returning " + cardName + " to " + binderName + ".");
         }
     }
-
+*/
     /*
      * Displays a specific binder if it exists.
      *
@@ -209,6 +223,14 @@ public class ManageBinders {
             if(binders.get(i).getName().equalsIgnoreCase(name)) return binders.get(i);
         }
         return null;
+    }
+
+    public void sellBinder(String binderName){
+        SellableBinder foundBinder = (SellableBinder) searchBinder(binderName);
+        if(foundBinder != null){
+            this.collection.changeAmount(foundBinder.getBinderValue());
+            this.binders.remove(foundBinder);
+        }
     }
 
     public List<Binder> getBinders(){

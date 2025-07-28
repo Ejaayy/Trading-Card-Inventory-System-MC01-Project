@@ -1,11 +1,12 @@
 package com.tradingCardInventory.model.Binders;
 import com.tradingCardInventory.model.Card;
+import com.tradingCardInventory.options.BinderType;
 
 public abstract class SellableBinder extends Binder {
-    private double binderValue;
+    protected double binderValue;
 
-    public SellableBinder(String name) {
-        super(name);
+    public SellableBinder(String name, BinderType binderType) {
+        super(name, binderType);
         binderValue = 0.0;
     }
 
@@ -19,10 +20,6 @@ public abstract class SellableBinder extends Binder {
         updateBinderValue();
     }
 
-    public int sell(){
-        return 0;
-    }
-
     public double getBinderValue(){
         return binderValue;
     }
@@ -31,7 +28,7 @@ public abstract class SellableBinder extends Binder {
         this.binderValue = binderValue;
     }
 
-    private void updateBinderValue(){
+    protected void updateBinderValue(){
         double cardValueSum = 0;
 
         for(Card card : this.cards){

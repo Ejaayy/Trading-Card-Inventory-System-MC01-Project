@@ -1,5 +1,6 @@
 package com.tradingCardInventory.manager;
 
+import com.tradingCardInventory.model.Decks.DeckSellable;
 import com.tradingCardInventory.model.Card;
 import com.tradingCardInventory.model.Collection;
 import com.tradingCardInventory.model.Decks.Deck;
@@ -180,6 +181,14 @@ public class ManageDeck {
     public boolean viewSpecificCardinDeck(String cardName, Deck deck){
 
         return deck.displayCard(cardName);
+    }
+
+    public void sellDeck(String deckName){
+        DeckSellable foundDeck = (DeckSellable) searchDeck(deckName);
+        if(foundDeck != null){
+            this.collection.changeAmount(foundDeck.getDeckValue());
+            this.decks.remove(foundDeck);
+        }
     }
 
     public List<Deck> getDecks(){

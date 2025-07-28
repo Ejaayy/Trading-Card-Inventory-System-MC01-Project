@@ -31,7 +31,7 @@ public class CreateBinderPanel extends JPanel {
         formPanel.add(binderName);
 
         formPanel.add(new JLabel("Binder Type:"));
-        String[] types = { "Non-curated Binder", "Sellable Binder - Pauper", "Sellable Binder - Pauper", "Sellable Binder - Pauper", "Sellable Binder - Luxury", "Collector Binder"};
+        String[] types = { "NonCurated", "Pauper", "Rares", "Luxury", "Collector"};
         binderType = new JComboBox<>(types);
         formPanel.add(binderType);
 
@@ -58,7 +58,7 @@ public class CreateBinderPanel extends JPanel {
                 return;
             }
 
-            boolean status = bindersController.createBinder(name);
+            boolean status = bindersController.createBinder(name, binderType.getItemAt(0));
             if (status ) {
                 JOptionPane.showMessageDialog(this, "Binder created successfully!");
                 binderName.setText(""); // Clear input

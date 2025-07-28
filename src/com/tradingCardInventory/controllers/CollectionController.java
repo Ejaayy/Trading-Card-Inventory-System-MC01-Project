@@ -12,7 +12,9 @@ import com.tradingCardInventory.view.panels.ManageCollectionView.ManageCollectio
 import com.tradingCardInventory.view.panels.NavigationView.NavigationPanel;
 
 import javax.swing.*;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Scanner;
 
 /*
@@ -76,6 +78,16 @@ public class CollectionController{
 
     public Collection getCollection() {
         return collection;
+    }
+
+    public List<String> getAllCardNames(){
+        List<String> cardNames = new ArrayList<>();
+
+        for(Card card: collection.getAllCards()){
+            cardNames.add(card.getName());
+        }
+
+        return cardNames;
     }
 
     /*
