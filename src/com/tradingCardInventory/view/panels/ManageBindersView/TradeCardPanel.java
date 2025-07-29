@@ -170,37 +170,51 @@ public class TradeCardPanel extends JPanel {
         // Submit logic
         submitButton.addActionListener(e -> {
             try {
-
                 boolean success = false;
+                String selectedOutgoingCard = (String) cards.getSelectedItem();
+                double outgoingValue = collectionController.getCollection().searchCard(selectedOutgoingCard).getActualValue();
+                double incomingValue = checkBox.isSelected()
+                        ? collectionController.getCollection().searchCard((String) existingCards.getSelectedItem()).getActualValue()
+                        : Double.parseDouble(cardValue.getText().trim());
+
+                if (Math.abs(outgoingValue - incomingValue) > 1.0) {
+                    int result = JOptionPane.showConfirmDialog(this,
+                            "Card value difference is more than 1. Proceed with trade?",
+                            "Warning", JOptionPane.YES_NO_OPTION);
+                    if (result != JOptionPane.YES_OPTION) return;
+                }
 
                 if (checkBox.isSelected()) {
-                    //Card already exists
-                    collectionController.increaseDecrease((String) existingCards.getSelectedItem(), 1); //increment count in Collection
-                    bindersController.removeCardFromBinder((String) cards.getSelectedItem(), (String) binders.getSelectedItem());
-                    collectionController.increaseDecrease((String) cards.getSelectedItem(), -1);
-                    bindersController.addCardToBinder((String) existingCards.getSelectedItem(), (String) binders.getSelectedItem());
-
-                    success = true;
+                    success = collectionController.increaseDecrease((String) existingCards.getSelectedItem(), 1);
+                    success &= bindersController.removeCardFromBinder(selectedOutgoingCard, (String) binders.getSelectedItem());
+                    success &= collectionController.increaseDecrease(selectedOutgoingCard, -1);
+                    success &= bindersController.addCardToBinder((String) existingCards.getSelectedItem(), (String) binders.getSelectedItem());
                 } else {
-                    //Card does not exist yet
-                    collectionController.addInputCard(cardName.getText(), (String) cardRarity.getSelectedItem(), (String) cardVariant.getSelectedItem(), Double.parseDouble(cardValue.getText()));
-                    bindersController.removeCardFromBinder((String) cards.getSelectedItem(), (String )binders.getSelectedItem());
-                    collectionController.increaseDecrease((String) cards.getSelectedItem(), -1);
-                    bindersController.addCardToBinder( collectionController.getCollection().searchCard(cardName.getText()).getName(), (String) binders.getSelectedItem());
-                    success = true;
+                    success = collectionController.addInputCard(
+                            cardName.getText().trim(),
+                            (String) cardRarity.getSelectedItem(),
+                            (String) cardVariant.getSelectedItem(),
+                            incomingValue);
+                    success &= bindersController.removeCardFromBinder(selectedOutgoingCard, (String) binders.getSelectedItem());
+                    success &= collectionController.increaseDecrease(selectedOutgoingCard, -1);
+                    success &= bindersController.addCardToBinder(cardName.getText().trim(), (String) binders.getSelectedItem());
                 }
 
-
-
-                if (success) {
-                    JOptionPane.showMessageDialog(this, "Trade successful!");
-                } else {
-                    JOptionPane.showMessageDialog(this, "Trade failed. Check your inputs.");
-                }
-            } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(this, "Card value must be a valid number.");
+                JOptionPane.showMessageDialog(this, success ? "Trade successful!" : "Trade failed. Check your inputs.");
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Oops! Something went wrong: " + ex.getMessage());
             }
         });
+    }
+
+    private void updateCards(BindersController bindersController) {
+        cards.removeAllItems();
+        String selectedBinder = (String) binders.getSelectedItem();
+        if (selectedBinder != null) {
+            for (String cardName : bindersController.getAllBinderCardNames(selectedBinder)) {
+                cards.addItem(cardName);
+            }
+        }
     }
 
     @Override

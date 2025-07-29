@@ -111,6 +111,8 @@ public class ManageBinders {
             return false;
         }
 
+        //Check if Binder allows that specific card
+
         binder.addCard(card);
         card.incrementCount(-1); //decrement in collection because it was moved to binder
         return true;
@@ -151,49 +153,6 @@ public class ManageBinders {
     }
 
     /*
-     * Facilitates a card trade from a binder. Adds a new card to the collection
-     * and removes the traded one if values are within $1 range.
-     *
-     * @param cardName   name of the outgoing card
-     * @param binderName name of the binder involved
-     */
-    /*
-    public void tradeCard(String cardName, String binderName, String incomingCardName) {
-        //runs the trade card menu and assigns the return value to incoming card
-        //if incoming card exists, a trade was confirmed and incoming card will be the new card
-        //if incoming card is null/doesn't exist, then the trade was rejected and the old card should be kept
-        Card incomingCard = tradeCard.tradeCardMenu(this.collection.searchCard(cardName));
-
-        if(incomingCard != null){
-            //special case: if the incoming card exists in the collection
-            if(this.collection.searchCard(incomingCard.getName()) != null){
-                //shows the trade menu and if the user accepts the trade
-                if(tradeCard.displayTradeMenu(incomingCard, this.collection.searchCard(cardName)).equals("1")){
-                    //decrease outgoing card count and add incoming card to the binder
-                    this.collection.changeCardCount(cardName, -1);
-                    this.collection.changeCardCount(incomingCard.getName(), 1);
-                    this.addCardToBinder(incomingCard.getName(), binderName);
-                    System.out.println("Cards Traded! Added " + incomingCard.getName() + " to " + binderName + ".");
-                } else {
-                    //return outgoing card to binder
-                    this.addCardToBinder(cardName, binderName);
-                    System.out.println("Returning " + cardName + " to " + binderName + ".");
-                }
-            }else{
-                //decrease outgoing card count and add incoming card to the binder
-                this.collection.changeCardCount(cardName, -1);
-                this.collection.addCard(incomingCard);
-                this.addCardToBinder(incomingCard.getName(), binderName);
-                System.out.println("Cards Traded! Added " + incomingCard.getName() + " to " + binderName + ".");
-            }
-        } else {
-            //return outgoing card to binder
-            this.addCardToBinder(cardName, binderName);
-            System.out.println("Returning " + cardName + " to " + binderName + ".");
-        }
-    }
-*/
-    /*
      * Displays a specific binder if it exists.
      *
      * @param binderName name of the binder to view
@@ -225,11 +184,30 @@ public class ManageBinders {
         return null;
     }
 
-    public void sellBinder(String binderName){
+    /*
+     * Sells the binder with the given name
+     *
+     * @param name name of the binder
+     * Preconditions: This function will not be called on non-sellable binders
+     */
+    public boolean sellBinder(String binderName){
+        //typecast returned binder into SellableBinder
         SellableBinder foundBinder = (SellableBinder) searchBinder(binderName);
         if(foundBinder != null){
+            //Stores cards into a temporary variable so their count can be decreased after the binder is removed
+            List<Card> tempCards = foundBinder.getCards();
+
             this.collection.changeAmount(foundBinder.getBinderValue());
+            System.out.println(foundBinder.getBinderValue());
             this.binders.remove(foundBinder);
+
+            //
+            for (Card card : tempCards) {
+                card.incrementCount(-1);
+            }
+            return true;
+        } else {
+            return false;
         }
     }
 

@@ -5,6 +5,7 @@ import com.tradingCardInventory.options.BinderType;
 import com.tradingCardInventory.options.Rarity;
 import com.tradingCardInventory.options.Variant;
 
+import javax.swing.*;
 import java.util.Comparator;
 
 public class LuxuryBinder extends SellableBinder {
@@ -19,7 +20,10 @@ public class LuxuryBinder extends SellableBinder {
             super.addCard(card);
             if(this.customValue<this.binderValue){
                 this.customValue = this.binderValue;
+                JOptionPane.showMessageDialog(null, "Success! Card Added", "Notification", JOptionPane.ERROR_MESSAGE);
             }
+        }else{
+            JOptionPane.showMessageDialog(null, "Invalid card type!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 

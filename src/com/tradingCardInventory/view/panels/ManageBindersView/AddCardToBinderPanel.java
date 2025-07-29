@@ -55,7 +55,7 @@ public class AddCardToBinderPanel extends JPanel {
                 return;
             }
 
-            boolean success = bindersController.addCardToBinder(card, binder); // You must implement this in BindersController
+            boolean success = bindersController.addCardToBinder(card, binder);
 
             if (success) {
                 JOptionPane.showMessageDialog(this, "Card successfully added to binder!");

@@ -25,7 +25,8 @@ public class Collection {
     }
 
     public boolean changeAmount(double amount) {
-        if(this.currentAmount + amount >= 0){
+        if (this.currentAmount + amount >= 0) {
+            this.currentAmount += amount;
             return true;
         }
         return false;

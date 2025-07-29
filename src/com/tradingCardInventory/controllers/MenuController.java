@@ -86,6 +86,10 @@ public class MenuController {
         mainView.setCenterPanel(new MainMenuCenterPanel(collectionController));
     }
 
+    public MainMenuCenterPanel getMainMenuPanel() {
+        return mainMenuPanel;
+    }
+
     //DUMMY PANELS
     private JPanel createPlaceholderPanel(String title) {
         JPanel panel = new JPanel();

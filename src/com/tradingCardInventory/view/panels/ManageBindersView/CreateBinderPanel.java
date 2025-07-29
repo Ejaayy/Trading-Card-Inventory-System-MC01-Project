@@ -58,7 +58,7 @@ public class CreateBinderPanel extends JPanel {
                 return;
             }
 
-            boolean status = bindersController.createBinder(name, binderType.getItemAt(0));
+            boolean status = bindersController.createBinder(name, type);
             if (status ) {
                 JOptionPane.showMessageDialog(this, "Binder created successfully!");
                 binderName.setText(""); // Clear input

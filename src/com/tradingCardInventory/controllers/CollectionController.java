@@ -5,10 +5,7 @@ import com.tradingCardInventory.model.Collection;
 import com.tradingCardInventory.options.Rarity;
 import com.tradingCardInventory.options.Variant;
 import com.tradingCardInventory.view.MainView;
-import com.tradingCardInventory.view.panels.ManageCollectionView.AddCardPanel;
-import com.tradingCardInventory.view.panels.ManageCollectionView.DisplayCollectionPanel;
-import com.tradingCardInventory.view.panels.ManageCollectionView.EditCardCountPanel;
-import com.tradingCardInventory.view.panels.ManageCollectionView.ManageCollectionMenuPanel;
+import com.tradingCardInventory.view.panels.ManageCollectionView.*;
 import com.tradingCardInventory.view.panels.NavigationView.NavigationPanel;
 
 import javax.swing.*;
@@ -61,7 +58,7 @@ public class CollectionController{
             put("Add Card", ev ->  mainView.setCenterPanel(new AddCardPanel(controller)));
             put("Edit Card Count", ev ->  mainView.setCenterPanel(new EditCardCountPanel(controller)));
             put("Display Collection", ev ->  mainView.setCenterPanel(new DisplayCollectionPanel(controller)));
-            put("Sell Card", ev -> mainView.setCenterPanel(createPlaceholderPanel("Manage Decks")));
+            put("Sell Card", ev -> mainView.setCenterPanel(new SellCardPanel(controller, menuController)));
             put("Back", ev -> menuController.loadMainMenu());
         }}));
 
@@ -137,5 +134,20 @@ public class CollectionController{
         } catch (IllegalArgumentException e) {
             return false;
         }
+    }
+
+    public boolean sellCard(String cardName, MenuController menuController) {
+        Card card = collection.searchCard(cardName);
+
+        if(card == null) {
+            return false;
+        }
+
+        collection.changeAmount(card.getActualValue());
+        card.incrementCount(-1);
+        menuController.getMainMenuPanel().updateBalanceDisplay();
+        System.out.println("Sold the card for" + card.getActualValue());
+        System.out.println(collection.getAmount());
+        return true;
     }
 }

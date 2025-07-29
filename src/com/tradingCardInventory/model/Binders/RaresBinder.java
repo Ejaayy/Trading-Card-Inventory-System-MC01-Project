@@ -4,6 +4,7 @@ import com.tradingCardInventory.model.Card;
 import com.tradingCardInventory.options.BinderType;
 import com.tradingCardInventory.options.Rarity;
 
+import javax.swing.*;
 import java.util.Comparator;
 
 public class RaresBinder extends SellableBinder {
@@ -14,6 +15,9 @@ public class RaresBinder extends SellableBinder {
     public void addCard(Card card){
         if(card.getRarity() == Rarity.RARE && card.getRarity() == Rarity.LEGENDARY) {
             super.addCard(card);
+            JOptionPane.showMessageDialog(null, "Success! Card Added", "Notification", JOptionPane.ERROR_MESSAGE);
+        }else{
+            JOptionPane.showMessageDialog(null, "Invalid card type!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 

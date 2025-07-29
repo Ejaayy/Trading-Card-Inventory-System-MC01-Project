@@ -1,7 +1,7 @@
 package com.tradingCardInventory.controllers;
 
 import com.tradingCardInventory.manager.ManageBinders;
-import com.tradingCardInventory.model.Binders.Binder;
+import com.tradingCardInventory.model.Binders.*;
 import com.tradingCardInventory.model.Card;
 import com.tradingCardInventory.options.BinderType;
 import com.tradingCardInventory.view.MainView;
@@ -50,7 +50,7 @@ public class BindersController {
             put("Remove Card from Binder", ev -> mainView.setCenterPanel(new RemoveCardFromBinderPanel(bindersController)));
             put("TradeCard", ev -> mainView.setCenterPanel(new TradeCardPanel(collectionController, bindersController)));
             put("View Binder", ev -> mainView.setCenterPanel(new ViewBinderPanel(bindersController)));
-            put("Sell Binder", ev -> mainView.setCenterPanel(createPlaceholderPanel("Manage Decks")));
+            put("Sell Binder", ev -> mainView.setCenterPanel(new SellBinderPanel(bindersController)));
             put("Back", ev -> menuController.loadMainMenu());
         }}));
 
@@ -92,7 +92,6 @@ public class BindersController {
      * Displays a success/failure message based on the result.
      */
     public boolean addCardToBinder(String cardName, String binderName){
-
         return manageBinder.addCardToBinder(cardName, binderName);
 
     }
@@ -133,5 +132,9 @@ public class BindersController {
 
     public List<Card> getCards(String binderName){
         return manageBinder.getCards(binderName);
+    }
+
+    public boolean sellBinder(String binderName) {
+       return manageBinder.sellBinder(binderName);
     }
 }
