@@ -20,22 +20,28 @@ public class AddCardPanel extends JPanel {
         // NORTH: Title
         JPanel titlePanel = new JPanel();
         JLabel titleLabel = new JLabel("Add a New Card", SwingConstants.CENTER);
+        titleLabel.setForeground(Color.WHITE);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 18));
         titlePanel.add(titleLabel);
-        titlePanel.setForeground(Color.WHITE);
         titlePanel.setPreferredSize(new Dimension(650, 80));
         titlePanel.setOpaque(false);
         add(titlePanel, BorderLayout.NORTH);
 
         // CENTER: Form panel
         JPanel formPanel = new JPanel(new GridLayout(4, 2, 5, 20));
+        formPanel.setForeground(Color.WHITE);
+        formPanel.setOpaque(true);
         formPanel.setBorder(BorderFactory.createEmptyBorder(10, 40, 180, 40));
 
-        formPanel.add(new JLabel("Card Name:"));
+        JLabel cardNameLabel = new JLabel("Card Name");
+        cardNameLabel.setForeground(Color.WHITE);
+        formPanel.add(cardNameLabel);
         cardName = new JTextField();
         formPanel.add(cardName);
 
-        formPanel.add(new JLabel("Rarity:"));
+        JLabel cardRarityLabel = new JLabel("Card Rarity");
+        cardRarityLabel.setForeground(Color.WHITE);
+        formPanel.add(cardRarityLabel);
         String[] rarities = { "COMMON", "UNCOMMON", "RARE", "LEGENDARY" };
         cardRarity = new JComboBox<>(rarities);
         formPanel.add(cardRarity);
@@ -54,12 +60,16 @@ public class AddCardPanel extends JPanel {
             }
         });
 
-        formPanel.add(new JLabel("Variant:"));
+        JLabel cardVariantLabel = new JLabel("Card Variant");
+        cardVariantLabel.setForeground(Color.WHITE);
+        formPanel.add(cardVariantLabel);
         String[] variants = { "NORMAL", "EXTENDED_ART", "FULL_ART", "ALT_ART" };
         cardVariant = new JComboBox<>(variants);
         formPanel.add(cardVariant);
 
-        formPanel.add(new JLabel("Card Value:"));
+        JLabel cardValueLabel = new JLabel("Card Value");
+        cardValueLabel.setForeground(Color.WHITE);
+        formPanel.add(cardValueLabel);
         cardValue = new JTextField();
         formPanel.add(cardValue);
 

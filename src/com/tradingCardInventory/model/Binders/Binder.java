@@ -48,9 +48,10 @@ public abstract class Binder {
      * Post-condition:
      * - card is added to the list and the list is sorted
      */
-    public void addCard(Card card){
+    public boolean addCard(Card card){
         this.cards.add(card);
         this.cards.sort(Comparator.comparing(Card::getName));
+        return true;
     }
 
     /*
@@ -76,29 +77,7 @@ public abstract class Binder {
         return this.cards.size() >= 20;
     }
 
-    /*
-     * Displays the contents of the binder, including card details or a message if it's empty.
-     *
-     * Pre-condition:
-     * - cards must be viewable using viewCardDetails()
-     * Post-condition:
-     * - Binder information is printed to the console
-     */
-    public void viewBinder(){
-        System.out.println("──────────────────────────────────────────────────────────────────");
-        System.out.printf("                       Binder: %s\n", this.name);
-        System.out.println("──────────────────────────────────────────────────────────────────");
-        if(!this.cards.isEmpty()){
-            System.out.printf("%-25s %-12s %-12s %-10s%n", "Name", "Rarity", "Variant", "Value");
-            for (Card card : cards) {
-                card.viewCardDetails();
-            }
-        }
-        else{
-            System.out.println("                  THIS BINDER IS EMPTY");
-        }
-        System.out.println("──────────────────────────────────────────────────────────────────");
-    }
+
 
     /*
      * Searches for a card in the collection by name (case-insensitive).

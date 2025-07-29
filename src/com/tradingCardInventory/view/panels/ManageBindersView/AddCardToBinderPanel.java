@@ -6,8 +6,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public class AddCardToBinderPanel extends JPanel {
-    private JTextField binderName;
-    private JTextField cardName;
+    private JComboBox<String> binders;
+    private JComboBox<String> cards;
     private JButton submitButton;
 
     public AddCardToBinderPanel(BindersController bindersController) {
@@ -23,17 +23,25 @@ public class AddCardToBinderPanel extends JPanel {
         add(titlePanel, BorderLayout.NORTH);
 
         // CENTER: Form Panel
-        JPanel formPanel = new JPanel(new GridLayout(1, 2, 10, 20));
-        JPanel rightPanel = new JPanel();
-        JPanel leftPanel = new JPanel();
+        JPanel formPanel = new JPanel(new GridLayout(2, 2, 10, 20));
+        formPanel.setBorder(BorderFactory.createEmptyBorder(10, 40, 20, 40));
 
+        //Drop down for all existing Binders
         formPanel.add(new JLabel("Binder Name:"));
-        binderName = new JTextField();
-        formPanel.add(binderName);
+        binders = new JComboBox<>();
+        binders.addItem("");
+        for (String binderName : bindersController.getAllBinderNames()) {
+            binders.addItem(binderName);
+        }
+        formPanel.add(binders);
 
-        formPanel.add(new JLabel("Card Name to add:"));
-        cardName = new JTextField();
-        formPanel.add(cardName);
+        formPanel.add(new JLabel("Card Name to Add:"));
+        cards = new JComboBox<>();
+        cards.addItem("");
+        for (String cardName : bindersController.getCollectionCardNames()) {
+            cards.addItem(cardName);
+        }
+        formPanel.add(cards);
 
         add(formPanel, BorderLayout.CENTER);
 
@@ -47,9 +55,11 @@ public class AddCardToBinderPanel extends JPanel {
 
         // ACTION LISTENER
         submitButton.addActionListener(e -> {
-            String binder = binderName.getText().trim();
-            String card = cardName.getText().trim();
+            String binder = (String) binders.getSelectedItem();
+            String card = (String)  cards.getSelectedItem();
 
+            assert binder != null;
+            assert  card != null;
             if (binder.isEmpty() || card.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Please fill in both fields.");
                 return;
@@ -59,8 +69,11 @@ public class AddCardToBinderPanel extends JPanel {
 
             if (success) {
                 JOptionPane.showMessageDialog(this, "Card successfully added to binder!");
-                binderName.setText("");
-                cardName.setText("");
+                cards.removeAllItems();
+                cards.addItem("");
+                for (String cardName : bindersController.getCollectionCardNames()) {
+                    cards.addItem(cardName);
+                }
             } else {
                 JOptionPane.showMessageDialog(this, "Failed to add card. Binder or Card might not exist.");
             }

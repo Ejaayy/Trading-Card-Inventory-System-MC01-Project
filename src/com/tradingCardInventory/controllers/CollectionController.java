@@ -28,7 +28,6 @@ public class CollectionController{
     private MainView mainView;
     private MenuController menuController;
 
-    private Scanner scanner = new Scanner(System.in);
     //Methods
 
     /*
@@ -67,12 +66,6 @@ public class CollectionController{
 
     }
 
-    //DUMMY PANELS
-    private JPanel createPlaceholderPanel(String title) {
-        JPanel panel = new JPanel();
-        return panel;
-    }
-
     public Collection getCollection() {
         return collection;
     }
@@ -87,16 +80,6 @@ public class CollectionController{
         return cardNames;
     }
 
-    /*
-     * Menu logic for handling increases and decreases in specific Cards.
-     *
-     * Pre-condition:
-     * - Scanner and Collection instance must be initialized.
-     * - Collection must have methods: increaseCardCount(String), decreaseCardCount(String).
-     *
-     * Post-condition:
-     * - Updates the count of a card based on user input until user exits the menu.
-     */
     public boolean increaseDecrease(String cardName, int count) {
 
         return this.collection.changeCardCount(cardName, count);

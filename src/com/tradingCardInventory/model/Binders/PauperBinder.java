@@ -12,12 +12,14 @@ public class PauperBinder extends SellableBinder{
         super(name, binderType);
     }
 
-    public void addCard(Card card){
-        if(card.getRarity() == Rarity.COMMON && card.getRarity() == Rarity.UNCOMMON) {
-            JOptionPane.showMessageDialog(null, "Success! Card Added", "Notification", JOptionPane.ERROR_MESSAGE);
+    public boolean addCard(Card card){
+        if(card.getRarity() == Rarity.COMMON || card.getRarity() == Rarity.UNCOMMON) {
             super.addCard(card);
+            JOptionPane.showMessageDialog(null, "Success! Card Added", "Notification", JOptionPane.ERROR_MESSAGE);
+            return true;
         }else{
             JOptionPane.showMessageDialog(null, "Invalid card type!", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
         }
     }
 }

@@ -46,7 +46,7 @@ public class MenuController {
         this.manageDeck= new ManageDeck(collection);
         this.collectionController = new CollectionController(collection, mainView, this);
         this.bindersController = new BindersController(manageBinder, mainView, this, collectionController);
-        this.decksController = new DeckController(manageDeck, mainView, this);
+        this.decksController = new DeckController(manageDeck, mainView, this, collectionController);
 
         this.startMenuPanel = new StartMenuPanel();
         this.mainMenuPanel = new MainMenuCenterPanel(collectionController);

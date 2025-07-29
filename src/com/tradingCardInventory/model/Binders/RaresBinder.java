@@ -12,12 +12,14 @@ public class RaresBinder extends SellableBinder {
         super(name, binderType);
     }
 
-    public void addCard(Card card){
-        if(card.getRarity() == Rarity.RARE && card.getRarity() == Rarity.LEGENDARY) {
+    public boolean addCard(Card card){
+        if(card.getRarity() == Rarity.RARE || card.getRarity() == Rarity.LEGENDARY) {
             super.addCard(card);
             JOptionPane.showMessageDialog(null, "Success! Card Added", "Notification", JOptionPane.ERROR_MESSAGE);
+            return true;
         }else{
             JOptionPane.showMessageDialog(null, "Invalid card type!", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
         }
     }
 

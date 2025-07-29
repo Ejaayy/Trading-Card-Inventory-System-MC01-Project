@@ -72,58 +72,6 @@ public class Collection {
     }
 
     /*
-     * Displays all cards in the collection that have a count > 0.
-     *
-     * Post-condition:
-     * - Prints a table of card names and their counts, or a message if empty.
-     */
-    public void displayCollection() {
-        System.out.println("──────────────────────────────────────────");
-        System.out.printf("              Collection%n");
-        System.out.println("──────────────────────────────────────────");
-
-        //Prints UI based on status of collection if its empty
-        if (this.isEmpty()) {
-            System.out.println("           Collection is empty");
-        } else {
-            System.out.printf("%-25s %-6s%n", "Name", "Count");
-            for (Card card : this.collection) {
-                if (card.getCount() > 0) {
-                    System.out.printf("%-25s   %-6d%n", card.getName(), card.getCount());
-                }
-            }
-        }
-
-        System.out.println("──────────────────────────────────────────");
-    }
-
-    /*
-     * Displays a single card's details if it exists and has a count > 0.
-     *
-     * @param cardName the name of the card to display
-     * @return true if the card was found and displayed, false otherwise
-     */
-    public boolean displayCard(String cardName){
-
-        Card foundCard = this.searchCard(cardName);
-
-        // If the card doesn't exist or has zero count, return false
-        if(foundCard == null || foundCard.getCount() <= 0){
-            return false;
-        }
-        else{
-            // Display formatted card header
-            System.out.println("──────────────────────────────────────────────────────────────────");
-            System.out.printf("                      Viewing Card: %s\n", foundCard.getName());
-            System.out.println("──────────────────────────────────────────────────────────────────");
-            System.out.printf("%-25s %-12s %-12s %-10s%n", "Name", "Rarity", "Variant", "Value");
-            foundCard.viewCardDetails();
-            System.out.println("──────────────────────────────────────────────────────────────────");
-            return true;
-        }
-    }
-
-    /*
      * Increments the count of a card by a specific amount.
      *
      * @param name the name of the card

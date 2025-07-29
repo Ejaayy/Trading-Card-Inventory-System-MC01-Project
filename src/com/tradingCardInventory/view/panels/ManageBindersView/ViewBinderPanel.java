@@ -6,6 +6,7 @@ import com.tradingCardInventory.view.resources.WrapLayout;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Objects;
 
 public class ViewBinderPanel extends JPanel {
 
@@ -32,6 +33,7 @@ public class ViewBinderPanel extends JPanel {
         searchPanel.setOpaque(false);
 
         binders = new JComboBox<>();
+        binders.addItem("");
         for (String binderName : bindersController.getAllBinderNames()) {
             binders.addItem(binderName);
         }
@@ -44,8 +46,7 @@ public class ViewBinderPanel extends JPanel {
 
         binders.addActionListener(e -> {
             String selectedBinder = (String) binders.getSelectedItem();
-            if (selectedBinder == null){
-                binders.addItem("None");
+            if (Objects.equals(selectedBinder, "")){
                 return;
             }
 

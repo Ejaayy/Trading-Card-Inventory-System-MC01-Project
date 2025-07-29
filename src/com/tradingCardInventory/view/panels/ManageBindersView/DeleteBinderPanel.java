@@ -6,8 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class DeleteBinderPanel extends JPanel {
-    private JTextField binderName;
-    private JComboBox<String> binderType;
+    private JComboBox<String> binders;
     private JButton submitButton;
 
     public DeleteBinderPanel(BindersController bindersController) {
@@ -23,20 +22,18 @@ public class DeleteBinderPanel extends JPanel {
         add(titlePanel, BorderLayout.NORTH);
 
         // ---------- CENTER: Form Panel ----------
-        JPanel formPanel = new JPanel(new GridLayout(2, 2, 10, 20));
+        JPanel formPanel = new JPanel(new GridLayout(1, 2, 10, 20));
         formPanel.setBorder(BorderFactory.createEmptyBorder(40, 40, 100, 40));
 
         formPanel.add(new JLabel("Binder Name:"));
-        binderName = new JTextField();
-        formPanel.add(binderName);
+        binders = new JComboBox<>();
+        binders.addItem("");
+        for (String binderName : bindersController.getAllBinderNames()) {
+            binders.addItem(binderName);
+        }
+        formPanel.add(binders);
 
-        formPanel.add(new JLabel("Binder Type:"));
-        String[] types = { "type1", "type2", "type3", "type4" };
-        binderType = new JComboBox<>(types);
-        formPanel.add(binderType);
-
-        binderName.setPreferredSize(new Dimension(200, 25));
-        binderType.setPreferredSize(new Dimension(200, 25));
+        binders.setPreferredSize(new Dimension(200, 25));
 
         add(formPanel, BorderLayout.CENTER);
 
@@ -50,10 +47,10 @@ public class DeleteBinderPanel extends JPanel {
 
         // ---------- Action Listener ----------
         submitButton.addActionListener(e -> {
-            String name = binderName.getText();
-            String type = (String) binderType.getSelectedItem();
+            String name = (String)  binders.getSelectedItem();
 
-            if (name.trim().isEmpty()) {
+            assert name != null;
+            if (name.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Please enter a binder name.");
                 return;
             }
@@ -61,8 +58,7 @@ public class DeleteBinderPanel extends JPanel {
             boolean status = bindersController.deleteBinder(name);
             if (status ) {
                 JOptionPane.showMessageDialog(this, "Binder deleted successfully!");
-                binderName.setText(""); // Clear input
-                binderType.setSelectedIndex(0);
+                binders.removeItem(name);
             } else {
                 JOptionPane.showMessageDialog(this, "Binder deletion failed. Binder may not exist.");
             }

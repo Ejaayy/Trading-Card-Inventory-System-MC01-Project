@@ -8,7 +8,6 @@ import com.tradingCardInventory.view.MainView;
 import com.tradingCardInventory.view.panels.ManageBindersView.*;
 import com.tradingCardInventory.view.panels.NavigationView.NavigationPanel;
 
-import javax.swing.*;
 import java.util.*;
 
 /*
@@ -20,12 +19,10 @@ public class BindersController {
 
     //Properties
    private final ManageBinders manageBinder;
-   private Scanner scanner =  new Scanner(System.in);
    private MainView mainView;
    private MenuController menuController;
    private CollectionController collectionController;
-   //private ManageBindersMenuPanel manageBindersPanel;
-    //Methods
+
 
     /*
      * Instantiates necessary properties in the constructor.
@@ -59,11 +56,6 @@ public class BindersController {
 
     }
 
-    //DUMMY PANELS
-    private JPanel createPlaceholderPanel(String title) {
-        JPanel panel = new JPanel();
-        return panel;
-    }
 
     public boolean createBinder(String binderName, String binderType){
         Binder found = manageBinder.searchBinder(binderName);;
@@ -93,7 +85,6 @@ public class BindersController {
      */
     public boolean addCardToBinder(String cardName, String binderName){
         return manageBinder.addCardToBinder(cardName, binderName);
-
     }
 
     /*
@@ -115,6 +106,16 @@ public class BindersController {
         return binderNames;
     }
 
+    public List<String> getAllSellableBinderNames(){
+        List<String> binderNames = new ArrayList<>();
+        for(Binder binder: manageBinder.getBinders()){
+            if(binder instanceof  SellableBinder){
+                binderNames.add(binder.getName());
+            }
+        }
+        return binderNames;
+    }
+
     public List<String> getAllBinderCardNames(String binderName){
         List<String> binderNames = new ArrayList<>();
 
@@ -130,11 +131,25 @@ public class BindersController {
         return null;
     }
 
+    public List<String> getCollectionCardNames(){
+        List<String> collectionCardNames = new ArrayList<>();
+        for(String cardName: collectionController.getAllCardNames()){
+            if(collectionController.getCollection().getCard(cardName).getCount() > 0){
+                collectionCardNames.add(cardName);
+            }
+        }
+        return collectionCardNames;
+    }
+
     public List<Card> getCards(String binderName){
         return manageBinder.getCards(binderName);
     }
 
     public boolean sellBinder(String binderName) {
        return manageBinder.sellBinder(binderName);
+    }
+
+    public ManageBinders getManageBinder() {
+        return manageBinder;
     }
 }

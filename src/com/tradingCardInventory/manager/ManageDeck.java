@@ -4,6 +4,8 @@ import com.tradingCardInventory.model.Decks.DeckSellable;
 import com.tradingCardInventory.model.Card;
 import com.tradingCardInventory.model.Collection;
 import com.tradingCardInventory.model.Decks.Deck;
+import com.tradingCardInventory.options.DeckType;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,9 +36,13 @@ public class ManageDeck {
      *
      * @param name the name of the new deck
      */
-    public void createDeck(String name){
-      Deck deck = new Deck(name);
-      this.decks.add(deck);
+    public void createDeck(String name, DeckType deckType){
+        Deck deck = null;
+        switch(deckType){
+            case Normal -> deck = new Deck(name, deckType);
+            case Sellable -> deck = new DeckSellable(name, deckType);
+        }
+        this.decks.add(deck);
     }
 
     /*
@@ -132,12 +138,14 @@ public class ManageDeck {
 
         // Check for nulls before using them
         if (card == null || deck == null) {
+            System.out.println("card or deck does not exist");
             return false;
         }
 
         //checks if the card is in the deck
         Card foundCard = deck.searchCard(cardName);
         if (foundCard == null) {
+            System.out.println("card not in deck");
             return false;
         }
 
@@ -147,28 +155,6 @@ public class ManageDeck {
         return true;
     }
 
-    /*
-     * Searches for a specific deck by name and displays its contents.
-     *
-     * @param deckName the name of the deck to search for and view
-     * @return the Deck object if found, otherwise returns null
-     *
-     * Pre-condition:
-     * - The deck name should match an existing deck (case-insensitive if implemented that way)
-     * Post-condition:
-     * - If the deck is found, its contents are printed via viewDeck()
-     */
-    public Deck viewSpecificDeck(String deckName){
-
-        Deck foundDeck = searchDeck(deckName);
-        if(foundDeck == null){
-            return foundDeck;
-        }
-        else{
-            foundDeck.viewDeck();
-        }
-        return foundDeck;
-    }
 
     /*
      * Displays a specific card within a given deck.
@@ -178,17 +164,15 @@ public class ManageDeck {
      * @return true if the card was found and displayed, false otherwise
      *
      */
-    public boolean viewSpecificCardinDeck(String cardName, Deck deck){
 
-        return deck.displayCard(cardName);
-    }
-
-    public void sellDeck(String deckName){
+    public boolean sellDeck(String deckName){
         DeckSellable foundDeck = (DeckSellable) searchDeck(deckName);
         if(foundDeck != null){
             this.collection.changeAmount(foundDeck.getDeckValue());
             this.decks.remove(foundDeck);
+            return true;
         }
+        return false;
     }
 
     public List<Deck> getDecks(){

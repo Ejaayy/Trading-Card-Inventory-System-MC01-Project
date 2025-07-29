@@ -6,6 +6,7 @@ import com.tradingCardInventory.view.resources.WrapLayout;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Objects;
 
 public class ViewDeckPanel extends JPanel {
     private Image backgroundImage;
@@ -31,6 +32,7 @@ public class ViewDeckPanel extends JPanel {
         searchPanel.setOpaque(false);
 
         decks = new JComboBox<>();
+        decks.addItem("");
         for (String deckName : deckController.getAllDeckNames()) {
             decks.addItem(deckName);
         }
@@ -43,8 +45,7 @@ public class ViewDeckPanel extends JPanel {
 
         decks.addActionListener(e -> {
             String selectedBinder = (String) decks.getSelectedItem();
-            if (selectedBinder == null){
-                decks.addItem("None");
+            if (Objects.equals(selectedBinder, "")){
                 return;
             }
 

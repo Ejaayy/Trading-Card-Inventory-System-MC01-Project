@@ -2,9 +2,11 @@ package com.tradingCardInventory.view.panels.ManageBindersView;
 
 import com.tradingCardInventory.controllers.BindersController;
 import com.tradingCardInventory.controllers.CollectionController;
+import com.tradingCardInventory.model.Binders.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Objects;
 
 public class TradeCardPanel extends JPanel {
 
@@ -51,6 +53,7 @@ public class TradeCardPanel extends JPanel {
 
         //Drop down for all existing Binders
         binders = new JComboBox<>();
+        binders.addItem("");
         for (String binderName : bindersController.getAllBinderNames()) {
             binders.addItem(binderName);
         }
@@ -61,11 +64,12 @@ public class TradeCardPanel extends JPanel {
 
         cards = new JComboBox<>();
         binders.addActionListener(e -> {
-
-            for (String cardName : bindersController.getAllBinderCardNames(binders.getItemAt(0))) {
-                cards.addItem(cardName);
+            cards.removeAllItems();
+            if(!Objects.equals(binders.getSelectedItem(), "")) {
+                for (String cardName : bindersController.getAllBinderCardNames((String) binders.getSelectedItem())) {
+                    cards.addItem(cardName);
+                }
             }
-
         });
         outgoingPanel.add(binders);
         outgoingPanel.add(cards);
@@ -184,20 +188,28 @@ public class TradeCardPanel extends JPanel {
                     if (result != JOptionPane.YES_OPTION) return;
                 }
 
-                if (checkBox.isSelected()) {
-                    success = collectionController.increaseDecrease((String) existingCards.getSelectedItem(), 1);
-                    success &= bindersController.removeCardFromBinder(selectedOutgoingCard, (String) binders.getSelectedItem());
-                    success &= collectionController.increaseDecrease(selectedOutgoingCard, -1);
-                    success &= bindersController.addCardToBinder((String) existingCards.getSelectedItem(), (String) binders.getSelectedItem());
-                } else {
-                    success = collectionController.addInputCard(
-                            cardName.getText().trim(),
-                            (String) cardRarity.getSelectedItem(),
-                            (String) cardVariant.getSelectedItem(),
-                            incomingValue);
-                    success &= bindersController.removeCardFromBinder(selectedOutgoingCard, (String) binders.getSelectedItem());
-                    success &= collectionController.increaseDecrease(selectedOutgoingCard, -1);
-                    success &= bindersController.addCardToBinder(cardName.getText().trim(), (String) binders.getSelectedItem());
+                if(
+                    ((Objects.equals(cardRarity.getSelectedItem(), "COMMON")   || (Objects.equals(cardRarity.getSelectedItem(), "UNCOMMON")))  && bindersController.getManageBinder().searchBinder((String) binders.getSelectedItem()) instanceof PauperBinder) ||
+                    ((Objects.equals(cardRarity.getSelectedItem(), "RARE")     || (Objects.equals(cardRarity.getSelectedItem(), "LEGENDARY"))) && bindersController.getManageBinder().searchBinder((String) binders.getSelectedItem()) instanceof RaresBinder) ||
+                    ((!Objects.equals(cardVariant.getSelectedItem(), "NORMAL"))                                                                    && bindersController.getManageBinder().searchBinder((String) binders.getSelectedItem()) instanceof LuxuryBinder) ||
+                    ((!Objects.equals(cardVariant.getSelectedItem(), "NORMAL"))                                                                    && bindersController.getManageBinder().searchBinder((String) binders.getSelectedItem()) instanceof CollectorBinder) ||
+                    (bindersController.getManageBinder().searchBinder((String) binders.getSelectedItem()) instanceof NonCuratedBinder)
+                ){
+                    if (checkBox.isSelected()) {
+                        success = collectionController.increaseDecrease((String) existingCards.getSelectedItem(), 1);
+                        success &= bindersController.removeCardFromBinder(selectedOutgoingCard, (String) binders.getSelectedItem());
+                        success &= collectionController.increaseDecrease(selectedOutgoingCard, -1);
+                        success &= bindersController.addCardToBinder((String) existingCards.getSelectedItem(), (String) binders.getSelectedItem());
+                    } else {
+                        success = collectionController.addInputCard(
+                                cardName.getText().trim(),
+                                (String) cardRarity.getSelectedItem(),
+                                (String) cardVariant.getSelectedItem(),
+                                incomingValue);
+                        success &= bindersController.removeCardFromBinder(selectedOutgoingCard, (String) binders.getSelectedItem());
+                        success &= collectionController.increaseDecrease(selectedOutgoingCard, -1);
+                        success &= bindersController.addCardToBinder(cardName.getText().trim(), (String) binders.getSelectedItem());
+                    }
                 }
 
                 JOptionPane.showMessageDialog(this, success ? "Trade successful!" : "Trade failed. Check your inputs.");

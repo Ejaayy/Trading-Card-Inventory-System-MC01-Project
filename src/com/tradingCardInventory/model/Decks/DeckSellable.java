@@ -1,12 +1,13 @@
 package com.tradingCardInventory.model.Decks;
 
 import com.tradingCardInventory.model.Card;
+import com.tradingCardInventory.options.DeckType;
 
 public class DeckSellable extends Deck{
     private double deckValue;
 
-    public DeckSellable(String name){
-        super(name);
+    public DeckSellable(String name, DeckType deckType){
+        super(name, deckType);
     }
 
     public void addCard(Card card) {
@@ -17,10 +18,6 @@ public class DeckSellable extends Deck{
     public void removeCard(Card card) {
         super.removeCard(card);
         updateDeckValue();
-    }
-
-    public int sell(){
-        return 0;
     }
 
     public double getDeckValue(){

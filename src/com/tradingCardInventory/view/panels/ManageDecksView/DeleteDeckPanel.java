@@ -6,8 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class DeleteDeckPanel extends JPanel {
-    private JTextField deckName;
-    private JComboBox<String> deckType;
+    private JComboBox<String> decks;
     private JButton submitButton;
 
     public DeleteDeckPanel(DeckController deckController) {
@@ -23,20 +22,18 @@ public class DeleteDeckPanel extends JPanel {
         add(titlePanel, BorderLayout.NORTH);
 
         // ---------- CENTER: Form Panel ----------
-        JPanel formPanel = new JPanel(new GridLayout(2, 2, 10, 20));
+        JPanel formPanel = new JPanel(new GridLayout(1, 2, 10, 20));
         formPanel.setBorder(BorderFactory.createEmptyBorder(40, 40, 100, 40));
 
         formPanel.add(new JLabel("Deck Name:"));
-        deckName = new JTextField();
-        formPanel.add(deckName);
+        decks = new JComboBox<>();
+        decks.addItem("");
+        for (String binderName : deckController.getAllDeckNames()) {
+            decks.addItem(binderName);
+        }
+        formPanel.add(decks);
 
-        formPanel.add(new JLabel("Deck Type:"));
-        String[] types = { "type1", "type2", "type3", "type4" };
-        deckType = new JComboBox<>(types);
-        formPanel.add(deckType);
-
-        deckName.setPreferredSize(new Dimension(200, 25));
-        deckType.setPreferredSize(new Dimension(200, 25));
+        decks.setPreferredSize(new Dimension(200, 25));
 
         add(formPanel, BorderLayout.CENTER);
 
@@ -50,18 +47,17 @@ public class DeleteDeckPanel extends JPanel {
 
         // ---------- Action Listener ----------
         submitButton.addActionListener(e -> {
-            String name = deckName.getText();
-            String type = (String) deckType.getSelectedItem();
+            String name = (String) decks.getSelectedItem();
 
-            if (name.trim().isEmpty()) {
+            assert name != null;
+            if (name.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Please enter a deck name.");
                 return;
             }
             boolean status = deckController.deleteDeck(name);
             if (status ) {
                 JOptionPane.showMessageDialog(this, "Deck deleted successfully!");
-                deckName.setText(""); // Clear input
-                deckType.setSelectedIndex(0);
+                decks.removeItem(name); // Clear input
             } else {
                 JOptionPane.showMessageDialog(this, "Deck deletion failed. Maybe the name already exists?");
             }

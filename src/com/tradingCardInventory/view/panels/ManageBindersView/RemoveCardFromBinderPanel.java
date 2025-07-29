@@ -4,10 +4,11 @@ import com.tradingCardInventory.controllers.BindersController;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Objects;
 
 public class RemoveCardFromBinderPanel extends JPanel {
-    private JTextField binderName;
-    private JTextField cardName;
+    private final JComboBox<String> binders;
+    private final JComboBox<String> cards;
     private JButton submitButton;
 
     public RemoveCardFromBinderPanel(BindersController bindersController) {
@@ -26,13 +27,26 @@ public class RemoveCardFromBinderPanel extends JPanel {
         JPanel formPanel = new JPanel(new GridLayout(2, 2, 10, 20));
         formPanel.setBorder(BorderFactory.createEmptyBorder(10, 40, 20, 40));
 
+        //Drop down for all existing Binders
         formPanel.add(new JLabel("Binder Name:"));
-        binderName = new JTextField();
-        formPanel.add(binderName);
+        binders = new JComboBox<>();
+        binders.addItem("");
+        for (String binderName : bindersController.getAllBinderNames()) {
+            binders.addItem(binderName);
+        }
+        formPanel.add(binders);
 
-        formPanel.add(new JLabel("Card Name to remove:"));
-        cardName = new JTextField();
-        formPanel.add(cardName);
+        formPanel.add(new JLabel("Card to Remove:"));
+        cards = new JComboBox<>();
+        binders.addActionListener(e -> {
+            cards.removeAllItems();
+            if(!Objects.equals(binders.getSelectedItem(), "")) {
+                for (String cardName : bindersController.getAllBinderCardNames((String) binders.getSelectedItem())) {
+                    cards.addItem(cardName);
+                }
+            }
+        });
+        formPanel.add(cards);
 
         add(formPanel, BorderLayout.CENTER);
 
@@ -46,9 +60,11 @@ public class RemoveCardFromBinderPanel extends JPanel {
 
         // ACTION LISTENER
         submitButton.addActionListener(e -> {
-            String binder = binderName.getText().trim();
-            String card = cardName.getText().trim();
+            String binder = (String) binders.getSelectedItem();
+            String card = (String) cards.getSelectedItem();
 
+            assert binder != null;
+            assert card != null;
             if (binder.isEmpty() || card.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Please fill in both fields.");
                 return;
@@ -58,8 +74,10 @@ public class RemoveCardFromBinderPanel extends JPanel {
 
             if (success) {
                 JOptionPane.showMessageDialog(this, "Card successfully removed from binder!");
-                binderName.setText("");
-                cardName.setText("");
+                cards.removeItem(card);
+                if(cards.getItemCount() == 0){
+                    cards.addItem("");
+                }
             } else {
                 JOptionPane.showMessageDialog(this, "Failed to remove card. Binder or Card might not exist.");
             }

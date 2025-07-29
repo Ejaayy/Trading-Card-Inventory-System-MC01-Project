@@ -14,13 +14,15 @@ public class CollectorBinder extends Binder {
         super(name, binderType);
     }
 
-    public void addCard(Card card){
-        if(card.getRarity() == Rarity.RARE && card.getRarity() == Rarity.LEGENDARY && card.getVariant()!= Variant.NORMAL) {
+    public boolean addCard(Card card){
+        if((card.getRarity() == Rarity.RARE || card.getRarity() == Rarity.LEGENDARY) && card.getVariant()!= Variant.NORMAL) {
             this.cards.add(card);
             this.cards.sort(Comparator.comparing(Card::getName));
             JOptionPane.showMessageDialog(null, "Success! Card Added", "Notification", JOptionPane.ERROR_MESSAGE);
+            return true;
         }else{
             JOptionPane.showMessageDialog(null, "Invalid card type!", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
         }
     }
 }

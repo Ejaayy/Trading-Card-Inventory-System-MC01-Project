@@ -15,22 +15,26 @@ public class LuxuryBinder extends SellableBinder {
         super(name, binderType);
     }
 
-    public void addCard(Card card){
+    public boolean addCard(Card card){
         if(card.getVariant() != Variant.NORMAL) {
             super.addCard(card);
             if(this.customValue<this.binderValue){
                 this.customValue = this.binderValue;
-                JOptionPane.showMessageDialog(null, "Success! Card Added", "Notification", JOptionPane.ERROR_MESSAGE);
             }
+            JOptionPane.showMessageDialog(null, "Success! Card Added", "Notification", JOptionPane.INFORMATION_MESSAGE);
+            return true;
         }else{
             JOptionPane.showMessageDialog(null, "Invalid card type!", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
         }
     }
 
-    public void setCustomValue(double customValue){
-        if(this.customValue>=this.binderValue) {
+    public boolean setCustomValue(double customValue){
+        if(customValue>=this.binderValue) {
             this.customValue = customValue;
+            return true;
         }
+        return false;
     }
 
     public double getBinderValue(){

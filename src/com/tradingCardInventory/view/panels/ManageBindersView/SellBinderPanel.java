@@ -2,6 +2,7 @@ package com.tradingCardInventory.view.panels.ManageBindersView;
 
 import com.tradingCardInventory.controllers.BindersController;
 import com.tradingCardInventory.controllers.CollectionController;
+import com.tradingCardInventory.model.Binders.LuxuryBinder;
 import com.tradingCardInventory.model.Card;
 import com.tradingCardInventory.view.resources.WrapLayout;
 
@@ -9,11 +10,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Objects;
 
 public class SellBinderPanel extends JPanel {
     private Image backgroundImage;
     private JComboBox<String> binders;
     private JPanel cardGridPanel;
+    private JLabel luxuryPriceLabel;
+    private JTextField luxuryPriceField;
 
     public SellBinderPanel(BindersController bindersController) {
         setLayout(new BorderLayout());
@@ -34,7 +38,8 @@ public class SellBinderPanel extends JPanel {
         searchPanel.setOpaque(false);
 
         binders = new JComboBox<>();
-        for (String binderName : bindersController.getAllBinderNames()) {
+        binders.addItem("");
+        for (String binderName : bindersController.getAllSellableBinderNames()) {
             binders.addItem(binderName);
         }
 
@@ -44,12 +49,29 @@ public class SellBinderPanel extends JPanel {
 
         add(titlePanel, BorderLayout.NORTH);
 
+        luxuryPriceLabel = new JLabel("Luxury Price:");
+        luxuryPriceField = new JTextField(10);
+
+        luxuryPriceLabel.setVisible(false); // hidden by default
+        luxuryPriceField.setVisible(false); // hidden by default
+
+        searchPanel.add(luxuryPriceLabel);
+        searchPanel.add(luxuryPriceField);
+
         binders.addActionListener(e -> {
             String selectedBinder = (String) binders.getSelectedItem();
-            if (selectedBinder == null) {
-                binders.addItem("None");
+            if (Objects.equals(selectedBinder, "")) {
                 return;
             }
+
+            boolean isLuxury = bindersController.getManageBinder().searchBinder(selectedBinder) instanceof LuxuryBinder;
+
+            luxuryPriceLabel.setVisible(isLuxury);
+            luxuryPriceField.setVisible(isLuxury);
+
+            //Refresh the p
+            searchPanel.revalidate();
+            searchPanel.repaint();
 
             java.util.List<Card> binderCards = bindersController.getCards(selectedBinder);
             cardGridPanel.removeAll();
@@ -89,6 +111,7 @@ public class SellBinderPanel extends JPanel {
             cardGridPanel.repaint();
         });
 
+
         // ---------- CENTER: Card Grid Panel ----------
         cardGridPanel = new JPanel(new WrapLayout(FlowLayout.LEFT, 20, 20));
         cardGridPanel.setOpaque(false);
@@ -114,26 +137,51 @@ public class SellBinderPanel extends JPanel {
         sellButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+                //Get the selected Binder
                 String selectedBinder = (String) binders.getSelectedItem();
-                if (selectedBinder == null) {
+                if (Objects.equals(selectedBinder, "")) {
                     JOptionPane.showMessageDialog(SellBinderPanel.this, "No binder selected.");
                     return;
                 }
 
+                // Confirm first
                 int confirm = JOptionPane.showConfirmDialog(SellBinderPanel.this,
                         "Are you sure you want to sell the binder \"" + selectedBinder + "\"?",
                         "Confirm Sell", JOptionPane.YES_NO_OPTION);
 
                 if (confirm == JOptionPane.YES_OPTION) {
+                    // Only if it's luxury, parse the value from the text field
+                    if (bindersController.getManageBinder().searchBinder(selectedBinder) instanceof LuxuryBinder luxuryBinder) {
+                        String priceText = luxuryPriceField.getText().trim();
+                        if (priceText.isEmpty()) {
+                            JOptionPane.showMessageDialog(SellBinderPanel.this, "Please enter a luxury price.");
+                            return;
+                        }
+
+                        try {
+                            double customValue = Double.parseDouble(priceText);
+                            if (customValue <= 0) throw new NumberFormatException();
+                            //Set the price from the text field
+                            boolean valid = luxuryBinder.setCustomValue(customValue);
+                            if(!valid){
+                                JOptionPane.showMessageDialog(SellBinderPanel.this, "Failed to Sell. Set price is lower than binder's actual value.");
+                                return;
+                            }
+                        } catch (NumberFormatException ex) {
+                            JOptionPane.showMessageDialog(SellBinderPanel.this, "Invalid luxury price.");
+                            return;
+                        }
+                    }
+
+                    // Sell the binder
                     boolean success = bindersController.sellBinder(selectedBinder);
                     if (success) {
-
                         binders.removeItem(selectedBinder);
                         cardGridPanel.removeAll();
                         cardGridPanel.revalidate();
                         cardGridPanel.repaint();
                         JOptionPane.showMessageDialog(SellBinderPanel.this, "Binder sold successfully!");
-
                     } else {
                         JOptionPane.showMessageDialog(SellBinderPanel.this, "Failed to sell binder.");
                     }

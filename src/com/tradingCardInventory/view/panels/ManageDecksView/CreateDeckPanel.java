@@ -1,6 +1,7 @@
 package com.tradingCardInventory.view.panels.ManageDecksView;
 
 import com.tradingCardInventory.controllers.DeckController;
+import com.tradingCardInventory.options.DeckType;
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,7 +32,7 @@ public class CreateDeckPanel extends JPanel {
         formPanel.add(deckName);
 
         formPanel.add(new JLabel("Deck Type:"));
-        String[] types = { "Normal Deck", "Sellable Deck"};
+        String[] types = { "Normal", "Sellable"};
         deckType = new JComboBox<>(types);
         formPanel.add(deckType);
 
@@ -51,13 +52,13 @@ public class CreateDeckPanel extends JPanel {
         // ---------- Action Listener ----------
         submitButton.addActionListener(e -> {
             String name = deckName.getText();
-            String type = (String) deckType.getSelectedItem();
+            String type = ((String) deckType.getSelectedItem());
 
             if (name.trim().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Please enter a deck name.");
                 return;
             }
-            boolean status = deckController.createDeck(name);
+            boolean status = deckController.createDeck(name, DeckType.valueOf(type));
             if (status ) {
                 JOptionPane.showMessageDialog(this, "Deck created successfully!");
                 deckName.setText(""); // Clear input

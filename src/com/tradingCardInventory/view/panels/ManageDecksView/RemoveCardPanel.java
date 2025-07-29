@@ -4,10 +4,11 @@ import com.tradingCardInventory.controllers.DeckController;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Objects;
 
 public class RemoveCardPanel extends  JPanel {
-    private JTextField deckName;
-    private JTextField cardName;
+    private final JComboBox<String> decks;
+    private final JComboBox<String> cards;
     private JButton submitButton;
 
     public RemoveCardPanel(DeckController deckController) {
@@ -26,13 +27,26 @@ public class RemoveCardPanel extends  JPanel {
         JPanel formPanel = new JPanel(new GridLayout(2, 2, 10, 20));
         formPanel.setBorder(BorderFactory.createEmptyBorder(10, 40, 20, 40));
 
-        formPanel.add(new JLabel("Deck Name:"));
-        deckName = new JTextField();
-        formPanel.add(deckName);
+        //Drop down for all existing Binders
+        formPanel.add(new JLabel("Binder Name:"));
+        decks = new JComboBox<>();
+        decks.addItem("");
+        for (String binderName : deckController.getAllDeckNames()) {
+            decks.addItem(binderName);
+        }
+        formPanel.add(decks);
 
-        formPanel.add(new JLabel("Card Name to remove:"));
-        cardName = new JTextField();
-        formPanel.add(cardName);
+        formPanel.add(new JLabel("Card to Remove:"));
+        cards = new JComboBox<>();
+        decks.addActionListener(e -> {
+            cards.removeAllItems();
+            if(!Objects.equals(decks.getSelectedItem(), "")) {
+                for (String cardName : deckController.getAllDeckCardNames((String) decks.getSelectedItem())) {
+                    cards.addItem(cardName);
+                }
+            }
+        });
+        formPanel.add(cards);
 
         add(formPanel, BorderLayout.CENTER);
 
@@ -46,20 +60,24 @@ public class RemoveCardPanel extends  JPanel {
 
         // ACTION LISTENER
         submitButton.addActionListener(e -> {
-            String deck = deckName.getText().trim();
-            String card = cardName.getText().trim();
+            String deck = (String) decks.getSelectedItem();
+            String card = (String) cards.getSelectedItem();
 
+            assert deck != null;
+            assert card != null;
             if (deck.isEmpty() || card.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Please fill in both fields.");
                 return;
             }
 
-            boolean success = deckController.removeCardFromDeck(deck, card);
+            boolean success = deckController.removeCardFromDeck(card, deck);
 
             if (success) {
                 JOptionPane.showMessageDialog(this, "Card successfully removed from deck!");
-                deckName.setText("");
-                cardName.setText("");
+                cards.removeItem(card);
+                if(cards.getItemCount() == 0){
+                    cards.addItem("");
+                }
             } else {
                 JOptionPane.showMessageDialog(this, "Failed to remove card. Deck or Card might not exist.");
             }

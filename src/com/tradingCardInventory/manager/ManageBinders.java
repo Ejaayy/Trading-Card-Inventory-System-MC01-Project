@@ -113,9 +113,11 @@ public class ManageBinders {
 
         //Check if Binder allows that specific card
 
-        binder.addCard(card);
-        card.incrementCount(-1); //decrement in collection because it was moved to binder
-        return true;
+        if(binder.addCard(card)) {
+            card.incrementCount(-1); //decrement in collection because it was moved to binder
+            return true;
+        }
+        return false;
     }
 
     /*
@@ -153,24 +155,6 @@ public class ManageBinders {
     }
 
     /*
-     * Displays a specific binder if it exists.
-     *
-     * @param binderName name of the binder to view
-     * @return true if the binder was found and viewed, false otherwise
-     */
-    public boolean viewSpecificBinder(String binderName){
-
-        Binder foundBinder = searchBinder(binderName);
-        if(foundBinder == null){
-            return false;
-        }
-        else{
-            foundBinder.viewBinder();
-        }
-        return true;
-    }
-
-    /*
      * Searches for a binder in the list by name (case-insensitive).
      *
      * @param name name of the binder
@@ -178,8 +162,8 @@ public class ManageBinders {
      */
     public Binder searchBinder(String name){
         //Loops through all binders
-        for(int i=0; i< binders.size(); i++){
-            if(binders.get(i).getName().equalsIgnoreCase(name)) return binders.get(i);
+        for (Binder binder : binders) {
+            if (binder.getName().equalsIgnoreCase(name)) return binder;
         }
         return null;
     }
@@ -194,17 +178,9 @@ public class ManageBinders {
         //typecast returned binder into SellableBinder
         SellableBinder foundBinder = (SellableBinder) searchBinder(binderName);
         if(foundBinder != null){
-            //Stores cards into a temporary variable so their count can be decreased after the binder is removed
-            List<Card> tempCards = foundBinder.getCards();
-
             this.collection.changeAmount(foundBinder.getBinderValue());
             System.out.println(foundBinder.getBinderValue());
             this.binders.remove(foundBinder);
-
-            //
-            for (Card card : tempCards) {
-                card.incrementCount(-1);
-            }
             return true;
         } else {
             return false;

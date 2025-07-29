@@ -10,9 +10,10 @@ public abstract class SellableBinder extends Binder {
         binderValue = 0.0;
     }
 
-    public void addCard(Card card) {
+    public boolean addCard(Card card) {
         super.addCard(card);
         updateBinderValue();
+        return true;
     }
 
     public void removeCard(Card card) {
