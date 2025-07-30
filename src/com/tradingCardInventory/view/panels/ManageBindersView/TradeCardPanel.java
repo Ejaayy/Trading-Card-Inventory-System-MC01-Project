@@ -93,7 +93,9 @@ public class TradeCardPanel extends JPanel {
         for (String cardName : collectionController.getAllCardNames()) {
             existingCards.addItem(cardName);
         }
-        incomingPanel.add(new JLabel("Select Existing Card:"));
+        JLabel selectExistingCardLabel = new JLabel("Select Existing Card:");
+        selectExistingCardLabel.setForeground(Color.WHITE);
+        incomingPanel.add(selectExistingCardLabel);
         incomingPanel.add(existingCards);
 
         // Manual inputs (shown when checkbox is unchecked)
