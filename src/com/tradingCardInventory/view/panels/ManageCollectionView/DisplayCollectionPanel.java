@@ -2,6 +2,7 @@ package com.tradingCardInventory.view.panels.ManageCollectionView;
 
 import com.tradingCardInventory.controllers.CollectionController;
 import com.tradingCardInventory.model.Card;
+import com.tradingCardInventory.options.Rarity;
 import com.tradingCardInventory.view.resources.*;
 
 import javax.swing.*;
@@ -71,7 +72,9 @@ public class DisplayCollectionPanel extends JPanel {
             cardPanel.add(nameLabel);
             cardPanel.add(Box.createVerticalStrut(5));
             cardPanel.add(rarityLabel);
-            cardPanel.add(variantLabel);
+            if(card.getRarity() == Rarity.RARE || card.getRarity() == Rarity.LEGENDARY) {
+                cardPanel.add(variantLabel);
+            }
             cardPanel.add(valueLabel);
             cardPanel.add(countLabel);
             cardPanel.add(Box.createVerticalGlue());

@@ -2,6 +2,7 @@ package com.tradingCardInventory.view.panels.ManageBindersView;
 
 import com.tradingCardInventory.controllers.BindersController;
 import com.tradingCardInventory.model.Card;
+import com.tradingCardInventory.options.Rarity;
 import com.tradingCardInventory.view.resources.WrapLayout;
 
 import javax.swing.*;
@@ -78,7 +79,9 @@ public class ViewBinderPanel extends JPanel {
                 cardPanel.add(nameLabel);
                 cardPanel.add(Box.createVerticalStrut(5));
                 cardPanel.add(rarityLabel);
-                cardPanel.add(variantLabel);
+                if(card.getRarity() == Rarity.RARE || card.getRarity() == Rarity.LEGENDARY) {
+                    cardPanel.add(variantLabel);
+                }
                 cardPanel.add(valueLabel);
                 cardPanel.add(Box.createVerticalGlue());
 

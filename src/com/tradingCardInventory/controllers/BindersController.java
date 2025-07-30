@@ -10,10 +10,17 @@ import com.tradingCardInventory.view.panels.NavigationView.NavigationPanel;
 
 import java.util.*;
 
-/*
- * BindersController is responsible for handling user input and interactions
- * related to managing binders. It serves as the controller in the MVC pattern,
- * communicating between the user interface and the ManageBinders logic.
+/**
+ * The {@code BindersController} class is responsible for handling user interactions
+ * related to managing trading card binders in the application.
+ * It acts as a controller in the MVC (Model-View-Controller) pattern, coordinating
+ * actions between the view and the underlying logic in {@code ManageBinders}.
+ *
+ * <p>It enables users to create, delete, update, view, and sell binders, as well
+ * as add or remove cards from them through the GUI.</p>
+ *
+ * @author Edriene Paingan & Franz Magbitang
+ * @version 2.0
  */
 public class BindersController {
 
@@ -24,11 +31,13 @@ public class BindersController {
    private CollectionController collectionController;
 
 
-    /*
-     * Instantiates necessary properties in the constructor.
+    /**
+     * Constructs a new {@code BindersController} and initializes dependencies.
      *
-     * @param manageBinder reference to the ManageBinders logic class
-     * @param scanner input reader for user interaction
+     * @param manageBinder the logic handler for binder operations
+     * @param mainView the main view used for rendering UI components
+     * @param menuController controller used for returning to the main menu
+     * @param collectionController controller managing the user’s card collection
      */
     public BindersController(ManageBinders manageBinder, MainView mainView, MenuController menuController, CollectionController collectionController) {
         this.manageBinder = manageBinder;
@@ -37,6 +46,9 @@ public class BindersController {
         this.collectionController = collectionController;
     }
 
+    /**
+     * Initializes the left-side navigation panel and sets the default center panel.
+     */
     public void run(){
         BindersController bindersController = this;
         //Used LinkedHashMap so that it will be ordered in NavBar
@@ -56,7 +68,13 @@ public class BindersController {
 
     }
 
-
+    /**
+     * Creates a binder with a given name and type if it does not already exist.
+     *
+     * @param binderName the name of the new binder
+     * @param binderType the type of binder (must match {@link BinderType})
+     * @return {@code true} if creation was successful, {@code false} if the binder already exists
+     */
     public boolean createBinder(String binderName, String binderType){
         Binder found = manageBinder.searchBinder(binderName);;
         if(found == null){ //if it doesnt exist
@@ -68,6 +86,12 @@ public class BindersController {
         }
     }
 
+    /**
+     * Deletes a binder if it exists.
+     *
+     * @param binderName the name of the binder to delete
+     * @return {@code true} if deletion was successful, {@code false} if not found
+     */
     public boolean deleteBinder(String binderName){
         Binder found = manageBinder.searchBinder(binderName);;
         if(found != null){ //if it exists
@@ -79,23 +103,34 @@ public class BindersController {
         }
     }
 
-    /*
-     * Handles user input to add a card from the collection to a binder.
-     * Displays a success/failure message based on the result.
+    /**
+     * Adds a card to a specified binder.
+     *
+     * @param cardName the name of the card to add
+     * @param binderName the name of the target binder
+     * @return {@code true} if the operation succeeded, {@code false} otherwise
      */
     public boolean addCardToBinder(String cardName, String binderName){
         return manageBinder.addCardToBinder(cardName, binderName);
     }
 
-    /*
-     * Handles user input to remove a card from a binder.
-     * Displays a success/failure message based on the result.
+    /**
+     * Removes a card from a specified binder.
+     *
+     * @param cardName the name of the card to remove
+     * @param binderName the name of the target binder
+     * @return {@code true} if successful, {@code false} otherwise
      */
     public boolean removeCardFromBinder(String cardName, String binderName){
         return manageBinder.removeCardFromBinder(cardName, binderName);
 
     }
 
+    /**
+     * Retrieves a list of all binder names currently managed.
+     *
+     * @return a {@code List<String>} of binder names
+     */
     public List<String> getAllBinderNames(){
         List<String> binderNames = new ArrayList<>();
 
@@ -106,6 +141,11 @@ public class BindersController {
         return binderNames;
     }
 
+    /**
+     * Retrieves the names of binders that are instances of {@code SellableBinder}.
+     *
+     * @return a list of names for sellable binders
+     */
     public List<String> getAllSellableBinderNames(){
         List<String> binderNames = new ArrayList<>();
         for(Binder binder: manageBinder.getBinders()){
@@ -116,6 +156,12 @@ public class BindersController {
         return binderNames;
     }
 
+    /**
+     * Gets all card names stored in a specific binder.
+     *
+     * @param binderName the name of the binder to inspect
+     * @return a list of card names, or {@code null} if binder not found
+     */
     public List<String> getAllBinderCardNames(String binderName){
         List<String> binderNames = new ArrayList<>();
 
@@ -131,6 +177,11 @@ public class BindersController {
         return null;
     }
 
+    /**
+     * Gets all card names from the user's collection that are available (count > 0).
+     *
+     * @return a list of available card names in the collection
+     */
     public List<String> getCollectionCardNames(){
         List<String> collectionCardNames = new ArrayList<>();
         for(String cardName: collectionController.getAllCardNames()){
@@ -141,14 +192,31 @@ public class BindersController {
         return collectionCardNames;
     }
 
+    /**
+     * Gets a list of {@code Card} objects stored in the specified binder.
+     *
+     * @param binderName the name of the binder
+     * @return a list of {@code Card} objects, or an empty list if not found
+     */
     public List<Card> getCards(String binderName){
         return manageBinder.getCards(binderName);
     }
 
+    /**
+     * Sells the binder if it meets sellable criteria.
+     *
+     * @param binderName the name of the binder to sell
+     * @return {@code true} if the sale was successful, {@code false} otherwise
+     */
     public boolean sellBinder(String binderName) {
        return manageBinder.sellBinder(binderName);
     }
 
+    /**
+     * Returns the instance of {@code ManageBinders} being used by this controller.
+     *
+     * @return the {@code ManageBinders} reference
+     */
     public ManageBinders getManageBinder() {
         return manageBinder;
     }

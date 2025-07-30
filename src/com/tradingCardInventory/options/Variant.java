@@ -1,8 +1,8 @@
 package com.tradingCardInventory.options;
 
-/*
- * Represents the options for Variants
- * and their corresponding multiplicity values
+/**
+ * Represents the available artwork variants for a trading card,
+ * each with a corresponding value multiplier.
  */
 public enum Variant {
     NORMAL(1.0),
@@ -12,8 +12,8 @@ public enum Variant {
 
     private final double multiplier;
 
-    /*
-     * Constructor to assign the multiplier to the variant.
+    /**
+     * Constructs a {@code Variant} with the given multiplier.
      *
      * @param multiplier the value multiplier for the variant
      */
@@ -21,8 +21,8 @@ public enum Variant {
         this.multiplier = multiplier;
     }
 
-    /*
-     * Returns the multiplier associated with the variant.
+    /**
+     * Returns the value multiplier associated with this variant.
      *
      * @return the multiplier value
      */

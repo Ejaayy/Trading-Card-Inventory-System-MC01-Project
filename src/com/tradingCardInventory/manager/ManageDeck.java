@@ -9,10 +9,18 @@ import com.tradingCardInventory.options.DeckType;
 import java.util.ArrayList;
 import java.util.List;
 
-
-/*
- * ManageDeck handles operations related to managing decks such as
- * creating, deleting, viewing, and modifying deck contents using cards from a shared collection.
+/**
+ * The {@code ManageDeck} class provides core logic for managing decks of trading cards.
+ * It supports operations such as creating decks, adding/removing cards, deleting decks,
+ * and selling decks if applicable.
+ *
+ * <p>Decks are created based on a shared {@link Collection} instance, ensuring consistent card counts
+ * across the system. This class supports both standard and {@code Sellable} decks through {@link DeckType}.</p>
+ *
+ * <p>Each deck has its own rules, such as preventing duplicate cards and maximum size limits.</p>
+ *
+ * @author Edriene Paingan & Franz Magbitang
+ * @version 2.0
  */
 public class ManageDeck {
     // Properties / Attributes
@@ -21,20 +29,21 @@ public class ManageDeck {
 
     // Methods
 
-    /*
-     * Constructor that initializes the deck list and sets the collection reference.
+    /**
+     * Constructs a {@code ManageDeck} instance linked to a shared card collection.
      *
-     * @param collection the shared Collection object
+     * @param collection the {@link Collection} from which cards are drawn and returned
      */
     public ManageDeck(Collection collection){
         this.decks = new ArrayList<>();
         this.collection = collection;
     }
 
-    /*
-     * Creates and adds a new deck with the given name.
+    /**
+     * Creates a new deck and adds it to the managed list.
      *
-     * @param name the name of the new deck
+     * @param name the name of the deck
+     * @param deckType the type of the deck (e.g., Normal or Sellable)
      */
     public void createDeck(String name, DeckType deckType){
         Deck deck = null;
@@ -45,11 +54,11 @@ public class ManageDeck {
         this.decks.add(deck);
     }
 
-    /*
-     * Deletes a deck and returns all its cards back to the collection.
+    /**
+     * Deletes a deck by name and restores its cards back to the collection.
      *
-     * @param deckName the name of the deck to be deleted
-     * @return true if deleted successfully, false otherwise
+     * @param deckName the name of the deck to delete
+     * @return true if the deck existed and was deleted; false otherwise
      */
     public boolean deleteDeck(String deckName){
         Deck foundDeck = searchDeck(deckName);
@@ -66,11 +75,11 @@ public class ManageDeck {
         }
     }
 
-    /*
-     * Searches for a deck by name (case-insensitive).
+    /**
+     * Searches for a deck by its name (case-insensitive).
      *
      * @param name the name of the deck
-     * @return the matching Deck object, or null if not found
+     * @return the {@link Deck} object if found; {@code null} otherwise
      */
     public Deck searchDeck(String name){
         for (Deck deck : this.decks) {
@@ -81,13 +90,14 @@ public class ManageDeck {
         return null;
     }
 
-    /*
-     * Adds a card from the collection into a deck.
-     * Reduces the count of the card in the collection.
+    /**
+     * Adds a card from the collection into a specified deck.
+     * The card must exist in the collection, not already exist in the deck,
+     * and the deck must not be full.
      *
-     * @param cardName the card to add
-     * @param deckName the deck to add the card to
-     * @return true if successful, false if card or deck is invalid or full
+     * @param cardName the name of the card
+     * @param deckName the name of the deck
+     * @return true if the card was successfully added; false otherwise
      */
     public boolean addCardToDeck(String cardName, String deckName) {
 
@@ -121,12 +131,12 @@ public class ManageDeck {
         return true;
     }
 
-    /*
-     * Removes a card from a deck and returns it to the collection.
+    /**
+     * Removes a card from a specified deck and returns it to the collection.
      *
-     * @param cardName the card to remove
-     * @param deckName the deck to remove the card from
-     * @return true if successful, false if not valid or conditions unmet
+     * @param cardName the name of the card
+     * @param deckName the name of the deck
+     * @return true if the card was found and removed; false otherwise
      */
     public boolean removeCardFromDeck(String cardName, String deckName) {
 
@@ -155,16 +165,13 @@ public class ManageDeck {
         return true;
     }
 
-
-    /*
-     * Displays a specific card within a given deck.
+    /**
+     * Sells a deck that implements {@link DeckSellable}.
+     * Its value is added to the collection’s money, and it is removed from the system.
      *
-     * @param cardName the name of the card to search for in the deck
-     * @param deckName the Deck object to search within
-     * @return true if the card was found and displayed, false otherwise
-     *
+     * @param deckName the name of the deck
+     * @return true if the deck was sellable and sold; false otherwise
      */
-
     public boolean sellDeck(String deckName){
         DeckSellable foundDeck = (DeckSellable) searchDeck(deckName);
         if(foundDeck != null){
@@ -175,10 +182,21 @@ public class ManageDeck {
         return false;
     }
 
+    /**
+     * Retrieves the list of all currently managed decks.
+     *
+     * @return list of {@link Deck} objects
+     */
     public List<Deck> getDecks(){
         return this.decks;
     }
 
+    /**
+     * Retrieves all cards within a specific deck.
+     *
+     * @param deckName the name of the deck
+     * @return list of {@link Card} objects if the deck exists; {@code null} otherwise
+     */
     public List<Card> getCards(String deckName){
 
         Deck deck = this.searchDeck(deckName);

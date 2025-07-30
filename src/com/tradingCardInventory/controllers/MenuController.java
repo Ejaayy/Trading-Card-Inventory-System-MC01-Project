@@ -7,37 +7,45 @@ import com.tradingCardInventory.view.MainView;
 import com.tradingCardInventory.view.panels.MainMenuView.StartMenuPanel;
 import com.tradingCardInventory.view.panels.MainMenuView.MainMenuCenterPanel;
 import com.tradingCardInventory.view.panels.NavigationView.NavigationPanel;
-
-import javax.swing.*;
 import java.util.LinkedHashMap;
-import java.util.Scanner;
 
-/*
- * Menu class serves as the main controller that initializes all components of the system
- * and presents the main menu for navigating between the Collection, Binders, and Decks modules.
+/**
+ * The {@code MenuController} class serves as the central controller for the application,
+ * coordinating the initialization and interaction of all major modules:
+ * Collection, Binders, and Decks. It sets up the GUI navigation and loads the appropriate
+ * views using the {@link MainView} interface.
+ *
+ * <p>This controller acts as the entry point of the application and handles switching
+ * between the start menu and the main menu, as well as delegating control to
+ * individual module controllers like {@code CollectionController},
+ * {@code BindersController}, and {@code DeckController}.</p>
+ *
+ * <p>Follows the MVC architecture.</p>
+ *
+ * @author Edriene Paingan & Franz Magbitang
+ * @version 2.0
  */
 public class MenuController {
 
     // Properties and Attributes
-    Scanner scanner = new Scanner(System.in);
-
     private final Collection collection;
     private final ManageBinders manageBinder;
     private final ManageDeck manageDeck;
     private final CollectionController collectionController;
     private final BindersController bindersController;
     private final DeckController decksController;
-
     private MainView mainView;
     private StartMenuPanel startMenuPanel;
     private MainMenuCenterPanel mainMenuPanel;
 
-    /*
-     * Constructor initializes all components of the system and wires them together.
-     * Pre-condition:
-     * - All supporting classes (Collection, ManageBinders, etc.) must be defined.
-     * Post-condition:
-     * - Ready to run the menu-based system with all modules initialized.
+    /**
+     * Constructs the {@code MenuController} and initializes all major system components.
+     *
+     * <p>Pre-condition:
+     * - Supporting classes like {@code Collection}, {@code ManageBinders}, etc., must be defined.</p>
+     *
+     * <p>Post-condition:
+     * - All modules are initialized and ready to be run via {@code run()}.</p>
      */
     public MenuController(){
         this.mainView = new MainView();
@@ -52,6 +60,10 @@ public class MenuController {
         this.mainMenuPanel = new MainMenuCenterPanel(collectionController);
     }
 
+    /**
+     * Launches the application window and sets up the start menu, including button listeners
+     * for "Start" and "Exit".
+     */
     public void run() {
         mainView.setPanel(startMenuPanel); // Show Start Menu first
         mainView.setVisible(true);
@@ -74,6 +86,10 @@ public class MenuController {
         });
     }
 
+    /**
+     * Loads the main menu navigation bar and center panel, allowing users to
+     * choose between managing the collection, binders, or decks.
+     */
     public void loadMainMenu() {
         mainView.setLeftPanel(new NavigationPanel(new LinkedHashMap<>() {{
             put("Manage Collection", ev -> collectionController.run());
@@ -86,13 +102,13 @@ public class MenuController {
         mainView.setCenterPanel(new MainMenuCenterPanel(collectionController));
     }
 
+    /**
+     * Gets the {@link MainMenuCenterPanel} instance managed by this controller.
+     *
+     * @return the main menu panel used in the GUI
+     */
     public MainMenuCenterPanel getMainMenuPanel() {
         return mainMenuPanel;
     }
 
-    //DUMMY PANELS
-    private JPanel createPlaceholderPanel(String title) {
-        JPanel panel = new JPanel();
-        return panel;
-    }
 }

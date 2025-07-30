@@ -7,9 +7,16 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-/*
- * Represents a binder that can hold up to 20 trading cards.
- * Provides functionality to add, remove, search, and display cards.
+/**
+ * The {@code Binder} class serves as the abstract base class for different types of card binders.
+ * Each binder can contain up to 20 cards and supports basic operations like adding,
+ * removing, and searching for cards. Subclasses can enforce additional rules for
+ * card insertion based on binder type (e.g., rarity restrictions).
+ *
+ * <p>Binders are automatically sorted alphabetically by card name when a card is added.</p>
+ *
+ * @author Edriene Paingan & Franz Magbitang
+ * @version 2.0
  */
 public abstract class Binder {
 
@@ -21,15 +28,11 @@ public abstract class Binder {
 
     // Method
 
-    /*
-     * Constructs a Binder with the specified name.
+    /**
+     * Constructs a new {@code Binder} with the given name and type.
      *
-     * @param name the name of the binder
-     *
-     * Pre-condition:
-     * - Name should be a valid string.
-     * Post-condition:
-     * - A binder is initialized with an empty list of cards.
+     * @param name       the name of the binder
+     * @param binderType the {@link BinderType} representing the type of this binder
      */
     public Binder(String name, BinderType binderType) {
         //creates the space for Card objects
@@ -38,15 +41,22 @@ public abstract class Binder {
         this.name = name;
     }
 
-    /*
-     * Adds a card to the binder and sorts the binder alphabetically by card name.
+    /**
+     * Adds a card to the binder and sorts the list alphabetically by card name.
      *
-     * @param card the Card object to add
+     * @param card the {@link Card} to be added
+     * @return {@code true} if the card was added successfully
      *
-     * Pre-condition:
-     * - card is a valid Card object (not null)
-     * Post-condition:
-     * - card is added to the list and the list is sorted
+     * <p>Preconditions:</p>
+     * <ul>
+     *   <li>The card is not null</li>
+     * </ul>
+     *
+     * <p>Postconditions:</p>
+     * <ul>
+     *   <li>The card is added to the binder</li>
+     *   <li>The card list is sorted by name</li>
+     * </ul>
      */
     public boolean addCard(Card card){
         this.cards.add(card);
@@ -54,36 +64,40 @@ public abstract class Binder {
         return true;
     }
 
-    /*
+
+    /**
      * Removes the specified card from the binder.
      *
-     * @param card the Card object to remove
+     * @param card the {@link Card} to remove from the binder
      *
-     * Pre-condition:
-     * - card exists in the list
-     * Post-condition:
-     * - card is removed from the binder
+     * <p>Preconditions:</p>
+     * <ul>
+     *   <li>The card exists in the binder</li>
+     * </ul>
+     *
+     * <p>Postconditions:</p>
+     * <ul>
+     *   <li>The card is removed from the binder</li>
+     * </ul>
      */
     public void removeCard(Card card){
         this.cards.remove(card);
     }
 
-    /*
-     * Checks if the binder has reached its maximum capacity.
+    /**
+     * Checks whether the binder has reached its maximum capacity of 20 cards.
      *
-     * @return true if the binder has 20 or more cards, false otherwise
+     * @return {@code true} if the binder is full, {@code false} otherwise
      */
     public boolean isFull(){
         return this.cards.size() >= 20;
     }
 
-
-
-    /*
-     * Searches for a card in the collection by name (case-insensitive).
+    /**
+     * Searches for a card in the binder by name (case-insensitive).
      *
-     * @param name the name of the card to search
-     * @return the Card object if found, otherwise null
+     * @param name the name of the card to search for
+     * @return the {@link Card} if found; {@code null} otherwise
      */
     public Card searchCard(String name){
         return this.cards.stream() // turn the list into a stream
@@ -92,14 +106,31 @@ public abstract class Binder {
                 .orElse(null); // return it, or null if none found
     }
 
-    // GETTERS AND SETTERS
-
+    /**
+     * Returns the name of the binder.
+     *
+     * @return the binder's name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Returns the list of cards currently in the binder.
+     *
+     * @return a {@link List} of {@link Card} objects
+     */
     public List<Card> getCards() {
         return cards;
+    }
+
+    /**
+     * Returns the type of the binder as a string.
+     *
+     * @return the binder's type
+     */
+    public String getType() {
+        return type.toString();
     }
 
 }

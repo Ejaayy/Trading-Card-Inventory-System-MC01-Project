@@ -9,10 +9,18 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-/*
- * ManageBinders handles all operations related to binder management,
- * including creating, deleting, modifying binders, and managing cards inside them.
- * It interacts with the shared Collection object and supports trading cards as well.
+/**
+ * The {@code ManageBinders} class handles all logic related to the management of binders,
+ * including creation, deletion, card transfers, and selling of binders. It interacts with a shared
+ * {@link Collection} instance to ensure synchronization of card counts and binder contents.
+ *
+ * <p>Supports different {@link BinderType}s and works with various binder implementations like
+ * {@code NonCuratedBinder}, {@code RaresBinder}, {@code LuxuryBinder}, etc.</p>
+ *
+ * <p>Follows core principles of encapsulation and single responsibility.</p>
+ *
+ * @author Edriene Paingan & Franz Magbitang
+ * @version 2.0
  */
 public class ManageBinders {
 
@@ -22,28 +30,21 @@ public class ManageBinders {
 
     // Methods
 
-    /*
-     * Constructor that initializes the binders list and binds the collection reference.
+    /**
+     * Constructs a {@code ManageBinders} instance with a given collection.
      *
-     * @param collection reference to the shared Collection object
+     * @param collection the shared {@code Collection} used for card availability and updates
      */
     public ManageBinders(Collection collection){
         this.binders = new ArrayList<>();
         this.collection = collection;
     }
 
-    /*
-     * Creates a new binder and adds it to the list.
+    /**
+     * Creates a new binder of the specified type and adds it to the binder list.
      *
-     * @param name the name of the new binder
-     *
-     * Notes:
-     * Binder Constructors:
-     * Non-curated Binder: NonCuratedBinder()
-     * Pauper Binder:      PauperBinder()
-     * Rares Binder:       RaresBinder()
-     * Luxury Binder:      LuxuryBinder()
-     * Collector Binder:   CollectorBinder()
+     * @param name the name of the binder
+     * @param binderType the type of binder to create
      */
     public void createBinder(String name, BinderType binderType){
         Binder binder = null;
@@ -58,11 +59,11 @@ public class ManageBinders {
         this.binders.add(binder);
     }
 
-    /*
-     * Deletes an existing binder and restores all its card counts back to the collection.
+    /**
+     * Deletes an existing binder by name and returns all its cards back to the collection.
      *
-     * @param binderName name of the binder to delete
-     * @return true if deleted successfully, false if not found
+     * @param binderName the name of the binder to delete
+     * @return true if the binder was found and deleted; false otherwise
      */
     public boolean deleteBinder(String binderName){
         //Checks if binder exists
@@ -85,13 +86,13 @@ public class ManageBinders {
 
     }
 
-    /*
-     * Transfers a card from the collection into a binder.
-     * Decreases card count in collection.
+    /**
+     * Adds a card from the collection to a specified binder.
+     * Decreases the card count in the collection if successful.
      *
-     * @param cardName   name of the card to move
-     * @param binderName target binder name
-     * @return true if successful, false if not possible
+     * @param cardName the name of the card to add
+     * @param binderName the name of the binder to add the card into
+     * @return true if the operation was successful; false otherwise
      */
     public boolean addCardToBinder(String cardName, String binderName) {
 
@@ -120,12 +121,13 @@ public class ManageBinders {
         return false;
     }
 
-    /*
-     * Removes a card from a binder and returns it to the collection (increases count).
+    /**
+     * Removes a card from a binder and returns it to the collection.
+     * Increases the card count in the collection.
      *
-     * @param cardName   name of the card to remove
-     * @param binderName name of the binder
-     * @return true if operation was successful, false otherwise
+     * @param cardName the name of the card to remove
+     * @param binderName the name of the binder to remove the card from
+     * @return true if the card was found and removed; false otherwise
      */
     public boolean removeCardFromBinder(String cardName, String binderName) {
 
@@ -154,11 +156,11 @@ public class ManageBinders {
         return true;
     }
 
-    /*
-     * Searches for a binder in the list by name (case-insensitive).
+    /**
+     * Searches for a binder by name (case-insensitive).
      *
-     * @param name name of the binder
-     * @return the Binder object if found, null otherwise
+     * @param name the name of the binder to search for
+     * @return the {@code Binder} object if found; {@code null} otherwise
      */
     public Binder searchBinder(String name){
         //Loops through all binders
@@ -168,11 +170,12 @@ public class ManageBinders {
         return null;
     }
 
-    /*
-     * Sells the binder with the given name
+    /**
+     * Sells a binder that implements the {@code SellableBinder} interface.
+     * Adds the binder's value to the collection's monetary amount and removes it from the list.
      *
-     * @param name name of the binder
-     * Preconditions: This function will not be called on non-sellable binders
+     * @param binderName the name of the binder to sell
+     * @return true if the binder was found and sold; false otherwise
      */
     public boolean sellBinder(String binderName){
         //typecast returned binder into SellableBinder
@@ -187,10 +190,21 @@ public class ManageBinders {
         }
     }
 
+    /**
+     * Gets the list of all binders currently managed.
+     *
+     * @return list of all {@code Binder} instances
+     */
     public List<Binder> getBinders(){
         return this.binders;
     }
 
+    /**
+     * Retrieves all cards contained within a specified binder.
+     *
+     * @param binderName the name of the binder
+     * @return list of {@code Card} objects in the binder; {@code null} if binder is not found
+     */
     public List<Card> getCards(String binderName){
 
         Binder binder = this.searchBinder(binderName);

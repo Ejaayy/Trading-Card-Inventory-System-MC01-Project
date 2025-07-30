@@ -1,9 +1,12 @@
 package com.tradingCardInventory.model;
 import com.tradingCardInventory.options.*;
 
-/*
+/**
  * Represents a trading card with properties like name, rarity, variant, value, and count.
- * Actual value is calculated using a multiplier based on the variant.
+ * The actual value is calculated using a multiplier based on the variant.
+ *
+ * @author Edriene Paingan & Franz Magbitang
+ * @version 2.0
  */
 public class Card {
 
@@ -16,18 +19,21 @@ public class Card {
 
     // Methods
 
-    /*
-     * Constructs a new Card with the specified properties.
+    /**
+     * Constructs a new {@code Card} with the specified name, rarity, variant, and base value.
+     * The actual value is computed by multiplying the base value by the variant's multiplier.
      *
-     * @param name the name of the card
-     * @param rarity the rarity level of the card
-     * @param variant the variant style of the card
+     * @param name      the name of the card
+     * @param rarity    the rarity level of the card
+     * @param variant   the variant style of the card
      * @param baseValue the base monetary value of the card
      *
-     * Pre-condition:
-     * - Rarity and Variant enums must be valid and have multipliers defined.
-     * Post-condition:
-     * - A card object is created with calculated actual value and count = 1.
+     * Preconditions:
+     * - {@code rarity} and {@code variant} must not be null and should have defined multipliers.
+     *
+     * Postconditions:
+     * - Initializes {@code count} to 1.
+     * - Calculates {@code actualValue} based on the variant.
      */
     public Card(String name, Rarity rarity, Variant variant, double baseValue) {
 
@@ -38,51 +44,60 @@ public class Card {
         this.count = 1;
     }
 
-    /*
-     * Increments the count of this card by the specified amount.
+    /**
+     * Increases the count of this card by the specified amount.
      *
-     * @param count number of copies to add
+     * @param count the number of additional copies to add
      */
     public void incrementCount(int count) {
         this.count += count;
     }
 
-    /*
-     * Displays the card's details in a formatted table row.
-     * Fields include: Name, Rarity, Variant, and Value (formatted as currency).
-     */
-    public void viewCardDetails(){
-        //Prints UI of card
-        System.out.printf("%-25s %-12s %-12s $%-9.2f%n",
-                this.name,
-                this.rarity,
-                this.variant,
-                this.actualValue);
-    }
-
     // Getters and Setters
 
+    /**
+     * Returns the name of the card.
+     *
+     * @return the card's name
+     */
     public String getName() {
         return this.name;
     }
 
+    /**
+     * Returns the current number of copies of this card.
+     *
+     * @return the card count
+     */
     public int getCount() {
         return this.count;
     }
 
+    /**
+     * Returns the computed actual value of the card.
+     *
+     * @return the actual value
+     */
     public double getActualValue() {
         return this.actualValue;
     }
 
-
+    /**
+     * Returns the variant type of the card.
+     *
+     * @return the card's variant
+     */
     public Variant getVariant() {
         return this.variant;
     }
 
+    /**
+     * Returns the rarity level of the card.
+     *
+     * @return the card's rarity
+     */
     public Rarity getRarity() {
         return this.rarity;
     }
-
-
 
 }

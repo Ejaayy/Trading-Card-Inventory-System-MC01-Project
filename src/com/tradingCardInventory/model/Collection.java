@@ -5,9 +5,12 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-/*
+/**
  * Represents a user's card collection. Handles operations such as
  * adding, searching, displaying, and modifying card quantities.
+ *
+ * @author Edriene Paingan & Franz Magbitang
+ * @version 2.0
  */
 public class Collection {
 
@@ -17,13 +20,19 @@ public class Collection {
 
     //Methods
 
-    /*
-     * Constructs a new, empty Collection.
+    /**
+     * Constructs a new, empty {@code Collection}.
      */
     public Collection() {
         this.collection = new ArrayList<>(); // initialize it
     }
 
+    /**
+     * Modifies the current amount by the specified value.
+     *
+     * @param amount the value to add (positive or negative)
+     * @return {@code true} if the resulting amount is non-negative; {@code false} otherwise
+     */
     public boolean changeAmount(double amount) {
         if (this.currentAmount + amount >= 0) {
             this.currentAmount += amount;
@@ -32,20 +41,26 @@ public class Collection {
         return false;
     }
 
+    /**
+     * Returns the current amount.
+     *
+     * @return the current amount
+     */
     public double getAmount() {
         return this.currentAmount;
     }
 
-    /*
-     * Adds a new Card to the collection using card details.
+    /**
+     * Adds a new card to the collection based on its details.
+     * Creates a new {@code Card} object and adds it to the list.
      *
      * @param cardName the name of the card
-     * @param rarity the rarity level of the card
-     * @param variant the variant type of the card
-     * @param value the base value of the card
+     * @param rarity   the rarity of the card
+     * @param variant  the variant of the card
+     * @param value    the base value of the card
      *
-     * Post-condition:
-     * - Adds a new Card and sorts the collection by card name.
+     * Postcondition:
+     * - The new card is added and the collection is sorted alphabetically by name.
      */
     public void addCard(String cardName, Rarity rarity, Variant variant, Double value){
 
@@ -58,24 +73,26 @@ public class Collection {
 
     }
 
-    /*
-     * Adds an existing Card object to the collection.
+    /**
+     * Adds an existing {@code Card} object to the collection.
      *
-     * @param card the Card object to add
+     * @param card the card to add
      *
-     * Post-condition:
-     * - Adds and sorts the card collection.
+     * Postcondition:
+     * - The card is added and the collection is sorted by name.
      */
     public void addCard(Card card) {
         this.collection.add(card);
         this.collection.sort(Comparator.comparing(Card::getName));
     }
 
-    /*
-     * Increments the count of a card by a specific amount.
+    /**
+     * Changes the count of a card in the collection.
+     * Increments or decrements based on the {@code count} parameter.
      *
-     * @param name the name of the card
-     * @param count the number to add
+     * @param name  the name of the card
+     * @param count the number to add or subtract (e.g., -1 to decrease by one)
+     * @return {@code true} if the change was successful; {@code false} otherwise
      */
     public boolean changeCardCount(String name, int count){
 
@@ -101,11 +118,11 @@ public class Collection {
         }
     }
 
-    /*
+    /**
      * Searches for a card in the collection by name (case-insensitive).
      *
-     * @param name the name of the card to search
-     * @return the Card object if found, otherwise null
+     * @param name the name of the card to search for
+     * @return the matching {@code Card} object if found, or {@code null} if not found
      */
     public Card searchCard(String name){
         return this.collection.stream() // turn the list into a stream
@@ -114,10 +131,10 @@ public class Collection {
                 .orElse(null); // return it, or null if none found
     }
 
-    /*
-     * Checks if the collection is logically empty (no cards with count > 0).
+    /**
+     * Checks if the collection has no cards with a positive count.
      *
-     * @return true if no card has count > 0, otherwise false
+     * @return {@code true} if all cards have a count of 0; {@code false} otherwise
      */
     public boolean isEmpty() {
         for (Card card : this.collection) {
@@ -130,11 +147,21 @@ public class Collection {
 
     //Getters and Setters
 
+    /**
+     * Returns the full list of cards in the collection.
+     *
+     * @return a list of {@code Card} objects
+     */
     public List<Card> getAllCards(){
         return this.collection;
     }
 
-
+    /**
+     * Retrieves a specific card by name (case-insensitive).
+     *
+     * @param name the name of the card
+     * @return the {@code Card} object if found; {@code null} otherwise
+     */
     public Card getCard(String name){
         return this.searchCard(name);
     }

@@ -29,9 +29,6 @@ public class MainMenuCenterPanel extends JPanel {
         add(currencyPanel);
     }
 
-    /**
-     * Call this method to refresh the displayed balance.
-     */
     public void updateBalanceDisplay() {
         currencyLabel.setText("Balance: " + collectionController.getCollection().getAmount());
         repaint(); // optional, helps visually
