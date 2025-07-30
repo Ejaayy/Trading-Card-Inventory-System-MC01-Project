@@ -1,0 +1,14 @@
+com.tradingCardInventory
+com.tradingCardInventory.controllers
+com.tradingCardInventory.manager
+com.tradingCardInventory.model
+com.tradingCardInventory.model.Binders
+com.tradingCardInventory.model.Decks
+com.tradingCardInventory.options
+com.tradingCardInventory.view
+com.tradingCardInventory.view.panels.MainMenuView
+com.tradingCardInventory.view.panels.ManageBindersView
+com.tradingCardInventory.view.panels.ManageCollectionView
+com.tradingCardInventory.view.panels.ManageDecksView
+com.tradingCardInventory.view.panels.NavigationView
+com.tradingCardInventory.view.resources
