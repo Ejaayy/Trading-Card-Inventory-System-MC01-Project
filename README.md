@@ -7,6 +7,8 @@
 - **2025-07-24**: Added Navigation Buttons & Add Card
 - **2025-07-26**: Fixed WrapLayout of Fixed WrapLayout of Display Collection + Added BG for menusFixed WrapLayout of Display Collection + Added BG for menus
 - **2025-07-28**: Implemented TradeCard + Binder & Deck Data Types
+- **2025-07-29**: Implemented Sell Binder, Sell Deck, Trade Card, UI Overhaul
+- **2025-07-30**: Bug fixes, UI changes
 
 ## 🔥 TO DO
 - Fix specific functions with GUI
