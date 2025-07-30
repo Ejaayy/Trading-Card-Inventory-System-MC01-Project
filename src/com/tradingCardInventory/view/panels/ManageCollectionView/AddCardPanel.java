@@ -6,12 +6,12 @@ import javax.swing.*;
 import java.awt.*;
 
 public class AddCardPanel extends JPanel {
-    private JTextField cardName;
-    private JComboBox<String> cardRarity;
+    private final JTextField cardName;
+    private final JComboBox<String> cardRarity;
     private JComboBox<String> cardVariant;
-    private JTextField cardValue;
-    private JButton submitButton;
-    private Image backgroundImage;
+    private final JTextField cardValue;
+    private final JButton submitButton;
+    private final Image backgroundImage;
 
     public AddCardPanel(CollectionController collectionController) {
         setLayout(new BorderLayout(20, 20)); // Set BorderLayout for main panel
@@ -42,7 +42,7 @@ public class AddCardPanel extends JPanel {
         JLabel cardRarityLabel = new JLabel("Card Rarity");
         cardRarityLabel.setForeground(Color.WHITE);
         formPanel.add(cardRarityLabel);
-        String[] rarities = { "COMMON", "UNCOMMON", "RARE", "LEGENDARY" };
+        String[] rarities = { "-- Select Rarity --", "COMMON", "UNCOMMON", "RARE", "LEGENDARY" };
         cardRarity = new JComboBox<>(rarities);
         formPanel.add(cardRarity);
 
@@ -63,7 +63,7 @@ public class AddCardPanel extends JPanel {
         JLabel cardVariantLabel = new JLabel("Card Variant");
         cardVariantLabel.setForeground(Color.WHITE);
         formPanel.add(cardVariantLabel);
-        String[] variants = { "NORMAL", "EXTENDED_ART", "FULL_ART", "ALT_ART" };
+        String[] variants = { "-- Select Variants --", "NORMAL", "EXTENDED_ART", "FULL_ART", "ALT_ART" };
         cardVariant = new JComboBox<>(variants);
         formPanel.add(cardVariant);
 
@@ -96,6 +96,11 @@ public class AddCardPanel extends JPanel {
             String rarity = (String) cardRarity.getSelectedItem();
             String variant = (String) cardVariant.getSelectedItem();
             String valueText = cardValue.getText();
+
+            if (rarity.equals("-- Select Rarity --") || variant.equals("-- Select Variant --")) {
+                JOptionPane.showMessageDialog(this, "Please select fill out required inputs.");
+                return;
+            }
 
             try {
                 double value = Double.parseDouble(valueText);
