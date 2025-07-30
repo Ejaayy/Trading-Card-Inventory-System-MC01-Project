@@ -46,40 +46,43 @@ public class DisplayCollectionPanel extends JPanel {
         cardGridPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15)); // margin
 
         for (Card card : collectionController.getCollection().getAllCards()) {
-            JPanel cardPanel = new JPanel();
-            cardPanel.setPreferredSize(new Dimension(170, 220));
-            cardPanel.setBackground(Color.WHITE);
-            cardPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-            cardPanel.setLayout(new BoxLayout(cardPanel, BoxLayout.Y_AXIS));
 
-            JLabel nameLabel = new JLabel(card.getName(), SwingConstants.CENTER);
-            nameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-            nameLabel.setFont(new Font("Arial", Font.BOLD, 14));
+            if(card.getCount() > 0){
+                JPanel cardPanel = new JPanel();
+                cardPanel.setPreferredSize(new Dimension(170, 220));
+                cardPanel.setBackground(Color.WHITE);
+                cardPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+                cardPanel.setLayout(new BoxLayout(cardPanel, BoxLayout.Y_AXIS));
 
-            JLabel rarityLabel = new JLabel("Rarity: " + card.getRarity());
-            rarityLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+                JLabel nameLabel = new JLabel(card.getName(), SwingConstants.CENTER);
+                nameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+                nameLabel.setFont(new Font("Arial", Font.BOLD, 14));
 
-            JLabel variantLabel = new JLabel("Variant: " + card.getVariant());
-            variantLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+                JLabel rarityLabel = new JLabel("Rarity: " + card.getRarity());
+                rarityLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-            JLabel valueLabel = new JLabel("Value: " + card.getActualValue());
-            valueLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+                JLabel variantLabel = new JLabel("Variant: " + card.getVariant());
+                variantLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-            JLabel countLabel = new JLabel("Count: " + card.getCount());
-            countLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+                JLabel valueLabel = new JLabel("Value: " + card.getActualValue());
+                valueLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-            cardPanel.add(Box.createVerticalStrut(10));
-            cardPanel.add(nameLabel);
-            cardPanel.add(Box.createVerticalStrut(5));
-            cardPanel.add(rarityLabel);
-            if(card.getRarity() == Rarity.RARE || card.getRarity() == Rarity.LEGENDARY) {
-                cardPanel.add(variantLabel);
+                JLabel countLabel = new JLabel("Count: " + card.getCount());
+                countLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+                cardPanel.add(Box.createVerticalStrut(10));
+                cardPanel.add(nameLabel);
+                cardPanel.add(Box.createVerticalStrut(5));
+                cardPanel.add(rarityLabel);
+                if(card.getRarity() == Rarity.RARE || card.getRarity() == Rarity.LEGENDARY) {
+                    cardPanel.add(variantLabel);
+                }
+                cardPanel.add(valueLabel);
+                cardPanel.add(countLabel);
+                cardPanel.add(Box.createVerticalGlue());
+
+                cardGridPanel.add(cardPanel);
             }
-            cardPanel.add(valueLabel);
-            cardPanel.add(countLabel);
-            cardPanel.add(Box.createVerticalGlue());
-
-            cardGridPanel.add(cardPanel);
         }
 
         // Wrap grid in scroll pane
