@@ -48,6 +48,7 @@ public class RemoveCardFromBinderPanel extends JPanel {
         cards = new JComboBox<>();
         binders.addActionListener(e -> {
             cards.removeAllItems();
+            cards.addItem("");
             if(!Objects.equals(binders.getSelectedItem(), "")) {
                 for (String cardName : bindersController.getAllBinderCardNames((String) binders.getSelectedItem())) {
                     cards.addItem(cardName);

@@ -48,6 +48,7 @@ public class RemoveCardPanel extends  JPanel {
         cards = new JComboBox<>();
         decks.addActionListener(e -> {
             cards.removeAllItems();
+            cards.addItem("");
             if(!Objects.equals(decks.getSelectedItem(), "")) {
                 for (String cardName : deckController.getAllDeckCardNames((String) decks.getSelectedItem())) {
                     cards.addItem(cardName);
