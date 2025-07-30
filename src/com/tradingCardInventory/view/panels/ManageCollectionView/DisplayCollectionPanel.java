@@ -97,7 +97,8 @@ public class DisplayCollectionPanel extends JPanel {
         searchTitle.addActionListener(e -> {
             String findCard = cardName.getText();
             Card card = collectionController.getCollection().searchCard(findCard);
-            if(card != null) {
+
+            if(card != null && card.getCount() > 0) {
                 cardGridPanel.removeAll(); //Clear all cards
 
                 //Rebuild panel with the found card
@@ -137,7 +138,7 @@ public class DisplayCollectionPanel extends JPanel {
                 cardGridPanel.revalidate(); //Update layout
                 cardGridPanel.repaint();
             }else{
-                JOptionPane.showMessageDialog(this, "Card does not exist!");
+                JOptionPane.showMessageDialog(this, "Card does not exist in collection!");
             }
 
         });

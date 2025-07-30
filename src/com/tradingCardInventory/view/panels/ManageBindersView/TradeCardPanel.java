@@ -107,14 +107,14 @@ public class TradeCardPanel extends JPanel {
 
         JLabel rarityLabel = new JLabel("Rarity:");
         rarityLabel.setForeground(Color.WHITE);
-        String[] rarities = {"COMMON", "UNCOMMON", "RARE", "LEGENDARY"};
+        String[] rarities = {"- Select Rarity -","COMMON", "UNCOMMON", "RARE", "LEGENDARY"};
         cardRarity = new JComboBox<>(rarities);
         cardRarity.setForeground(Color.WHITE);
         cardRarity.setBackground(Color.DARK_GRAY);
 
         JLabel variantLabel = new JLabel("Variant:");
         variantLabel.setForeground(Color.WHITE);
-        String[] variants = {"NORMAL", "EXTENDED_ART", "FULL_ART", "ALT_ART"};
+        String[] variants = {"- Select Variant -", "NORMAL", "EXTENDED_ART", "FULL_ART", "ALT_ART"};
         cardVariant = new JComboBox<>(variants);
         cardVariant.setForeground(Color.WHITE);
         cardVariant.setBackground(Color.DARK_GRAY);
@@ -176,6 +176,10 @@ public class TradeCardPanel extends JPanel {
         // Submit logic
         submitButton.addActionListener(e -> {
             try {
+                if ("- Select Rarity -".equals(cardRarity.getSelectedItem()) || "- Select Variant -".equals(cardVariant.getSelectedItem())){
+                    JOptionPane.showMessageDialog(this, "Please select fill out required inputs.");
+                    return;
+                }
                 boolean success = false;
                 String selectedOutgoingCard = (String) cards.getSelectedItem();
                 double outgoingValue = collectionController.getCollection().searchCard(selectedOutgoingCard).getActualValue();

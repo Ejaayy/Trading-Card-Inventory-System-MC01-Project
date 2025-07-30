@@ -37,7 +37,7 @@ public class RaresBinder extends SellableBinder {
     public boolean addCard(Card card){
         if(card.getRarity() == Rarity.RARE || card.getRarity() == Rarity.LEGENDARY) {
             super.addCard(card);
-            JOptionPane.showMessageDialog(null, "Success! Card Added", "Notification", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Success! Card Added", "Notification", JOptionPane.INFORMATION_MESSAGE);
             return true;
         }else{
             JOptionPane.showMessageDialog(null, "Invalid card type!", "Error", JOptionPane.ERROR_MESSAGE);
