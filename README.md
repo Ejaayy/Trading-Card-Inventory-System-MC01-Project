@@ -24,11 +24,13 @@ The Trading com.tradingCardInventory.model.Card Inventory System (TCIS) is a com
 - **Increase/Decrease com.tradingCardInventory.model.Card Count**: Manage the quantity of each card.
 - **View com.tradingCardInventory.model.Collection**: Display all cards sorted alphabetically.
 - **Manage Binders**:
-  - Create, delete binders
+  - Multiple binder types
+  - Create, delete, and sell binders
   - Add/remove cards
   - Perform one-for-one trades
 - **Manage Decks**:
-  - Create, delete decks
+  - Multiple deck types
+  - Create, delete, and sell decks
   - Add/remove cards (max 1 copy per deck)
 - **com.tradingCardInventory.model.Card Details**: View full details of any card.
 
@@ -46,6 +48,6 @@ The Trading com.tradingCardInventory.model.Card Inventory System (TCIS) is a com
 - Test Script (Appendix B Format)
 
 ## ⚠️ Notes
-- Program follows the CCPROG3 MCO1 specs.
+- Program follows the CCPROG3 MCO1 and MCO2 specs.
 - GUI will be developed for MCO2.
 - Trades must occur through binders, not directly from the collection.
