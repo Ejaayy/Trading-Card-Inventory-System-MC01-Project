@@ -84,7 +84,7 @@ public class AddCardPanel extends JPanel {
                     cards.addItem(cardName);
                 }
             } else {
-                JOptionPane.showMessageDialog(this, "Failed to add card. Deck or Card might not exist.");
+                JOptionPane.showMessageDialog(this, "Failed to add card. Deck or Card might not exist or Added Card might be a duplicate.");
             }
         });
     }

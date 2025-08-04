@@ -24,7 +24,7 @@ public class SellCardPanel extends JPanel {
         titlePanel.setOpaque(false);
         titlePanel.setPreferredSize(new Dimension(650, 80));
 
-        JLabel titleLabel = new JLabel("View Collection", SwingConstants.CENTER);
+        JLabel titleLabel = new JLabel("Sell Card", SwingConstants.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 20));
         titleLabel.setForeground(Color.WHITE);
         titleLabel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
@@ -49,38 +49,40 @@ public class SellCardPanel extends JPanel {
         cardGridPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15)); // margin
 
         for (Card card : collectionController.getCollection().getAllCards()) {
-            JPanel cardPanel = new JPanel();
-            cardPanel.setPreferredSize(new Dimension(170, 220));
-            cardPanel.setBackground(Color.WHITE);
-            cardPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-            cardPanel.setLayout(new BoxLayout(cardPanel, BoxLayout.Y_AXIS));
+            if(card.getCount() > 0) {
+                JPanel cardPanel = new JPanel();
+                cardPanel.setPreferredSize(new Dimension(170, 220));
+                cardPanel.setBackground(Color.WHITE);
+                cardPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+                cardPanel.setLayout(new BoxLayout(cardPanel, BoxLayout.Y_AXIS));
 
-            JLabel nameLabel = new JLabel(card.getName(), SwingConstants.CENTER);
-            nameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-            nameLabel.setFont(new Font("Arial", Font.BOLD, 14));
+                JLabel nameLabel = new JLabel(card.getName(), SwingConstants.CENTER);
+                nameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+                nameLabel.setFont(new Font("Arial", Font.BOLD, 14));
 
-            JLabel rarityLabel = new JLabel("Rarity: " + card.getRarity());
-            rarityLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+                JLabel rarityLabel = new JLabel("Rarity: " + card.getRarity());
+                rarityLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-            JLabel variantLabel = new JLabel("Variant: " + card.getVariant());
-            variantLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+                JLabel variantLabel = new JLabel("Variant: " + card.getVariant());
+                variantLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-            JLabel valueLabel = new JLabel("Value: " + card.getActualValue());
-            valueLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+                JLabel valueLabel = new JLabel("Value: " + card.getActualValue());
+                valueLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-            JLabel countLabel = new JLabel("Count: " + card.getCount());
-            countLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+                JLabel countLabel = new JLabel("Count: " + card.getCount());
+                countLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-            cardPanel.add(Box.createVerticalStrut(10));
-            cardPanel.add(nameLabel);
-            cardPanel.add(Box.createVerticalStrut(5));
-            cardPanel.add(rarityLabel);
-            cardPanel.add(variantLabel);
-            cardPanel.add(valueLabel);
-            cardPanel.add(countLabel);
-            cardPanel.add(Box.createVerticalGlue());
+                cardPanel.add(Box.createVerticalStrut(10));
+                cardPanel.add(nameLabel);
+                cardPanel.add(Box.createVerticalStrut(5));
+                cardPanel.add(rarityLabel);
+                cardPanel.add(variantLabel);
+                cardPanel.add(valueLabel);
+                cardPanel.add(countLabel);
+                cardPanel.add(Box.createVerticalGlue());
 
-            cardGridPanel.add(cardPanel);
+                cardGridPanel.add(cardPanel);
+            }
         }
 
         // Wrap grid in scroll pane
@@ -95,7 +97,7 @@ public class SellCardPanel extends JPanel {
         searchTitle.addActionListener(e -> {
             String findCard = cardName.getText();
             Card card = collectionController.getCollection().searchCard(findCard);
-            if(card != null) {
+            if(card != null && card.getCount() > 0) {
                 cardGridPanel.removeAll(); //Clear all cards
 
                 //Rebuild panel with the found card

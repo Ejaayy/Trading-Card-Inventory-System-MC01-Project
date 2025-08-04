@@ -163,7 +163,7 @@ public class SellBinderPanel extends JPanel {
                             double customValue = Double.parseDouble(priceText);
                             if (customValue <= 0) throw new NumberFormatException();
                             //Set the price from the text field
-                            boolean valid = luxuryBinder.setCustomValue(customValue);
+                            boolean valid = ((LuxuryBinder) bindersController.getManageBinder().searchBinder(selectedBinder)).setCustomValue(customValue);
                             if(!valid){
                                 JOptionPane.showMessageDialog(SellBinderPanel.this, "Failed to Sell. Set price is lower than binder's actual value.");
                                 return;
