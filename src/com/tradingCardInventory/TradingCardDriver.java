@@ -12,6 +12,7 @@ public class TradingCardDriver {
     public static void main(String[] args){
 
         /**
+         * Testing
          * Main method that starts the Trading Card Inventory System.
          *
          * @param args command-line arguments (not used)
