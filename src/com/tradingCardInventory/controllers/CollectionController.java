@@ -149,6 +149,38 @@ public class CollectionController{
         }
     }
 
+    public boolean addInputCard(String cardName, String rarityInput, String variantInput, double valueInput, String imagePath) {
+        if (cardName == null || cardName.isEmpty()) {
+            return false;
+        }
+
+        Card existing = collection.searchCard(cardName);
+        if (existing != null) {
+            int result = JOptionPane.showConfirmDialog(null,
+                    "Card already exists! Increase count?", "Duplicate Card", JOptionPane.YES_NO_OPTION);
+            if (result == JOptionPane.YES_OPTION) {
+                existing.incrementCount(1);
+                JOptionPane.showMessageDialog(null, "Card incremented!");
+            }
+            return true;
+        }
+
+        try {
+            Rarity rarity = Rarity.valueOf(rarityInput);
+            Variant variant = Variant.valueOf(variantInput.toUpperCase());
+            double value = valueInput;
+            if (value <= 0) {
+                JOptionPane.showMessageDialog(null, "Value must be greater than 0.");
+                return false;
+            }
+
+            collection.addCard(cardName, rarity, variant, value, imagePath);
+            return true;
+
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
+    }
     /**
      * Sells a card from the collection by reducing its count and increasing the user's balance.
      * Also updates the main menu's balance display.

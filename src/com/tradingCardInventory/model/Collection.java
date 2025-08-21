@@ -73,6 +73,17 @@ public class Collection {
 
     }
 
+    public void addCard(String cardName, Rarity rarity, Variant variant, Double value, String imagePath){
+
+        //Make a new card given inputs
+        Card card = new Card(cardName, rarity, variant, value, imagePath);
+        this.collection.add(card);
+
+        //Says that you're comparing Card Objects via their getName methods
+        this.collection.sort(Comparator.comparing(Card::getName)); // add reversed if you want it descending
+
+    }
+
     /**
      * Adds an existing {@code Card} object to the collection.
      *

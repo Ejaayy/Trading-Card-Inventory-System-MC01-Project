@@ -14,6 +14,7 @@ public class Card {
     private final String name;
     private final Rarity rarity;
     private final Variant variant;
+    private String imagePath;
     private final double actualValue;
     private int count;
 
@@ -42,6 +43,19 @@ public class Card {
         this.variant = variant;
         this.actualValue = baseValue * variant.getMultiplier();
         this.count = 1;
+    }
+
+    public Card(String name, Rarity rarity, Variant variant, double baseValue, String imagePath) {
+        this.imagePath = imagePath;
+        this.name = name;
+        this.rarity = rarity;
+        this.variant = variant;
+        this.actualValue = baseValue * variant.getMultiplier();
+        this.count = 1;
+    }
+
+    public String getImagePath() {
+        return imagePath;
     }
 
     /**

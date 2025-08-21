@@ -4,6 +4,7 @@ import com.tradingCardInventory.controllers.CollectionController;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 
 public class AddCardPanel extends JPanel {
     private final JTextField cardName;
@@ -28,7 +29,7 @@ public class AddCardPanel extends JPanel {
         add(titlePanel, BorderLayout.NORTH);
 
         // CENTER: Form panel
-        JPanel formPanel = new JPanel(new GridLayout(4, 2, 5, 20));
+        JPanel formPanel = new JPanel(new GridLayout(0, 2, 5, 20));
         formPanel.setForeground(Color.WHITE);
         formPanel.setOpaque(true);
         formPanel.setBorder(BorderFactory.createEmptyBorder(10, 40, 180, 40));
@@ -73,6 +74,34 @@ public class AddCardPanel extends JPanel {
         cardValue = new JTextField();
         formPanel.add(cardValue);
 
+        // Ask user to select an image file
+        JLabel cardImageLabel = new JLabel("Card Image");
+        cardImageLabel.setForeground(Color.WHITE);
+        formPanel.add(cardImageLabel);
+
+        JPanel imageChooserPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
+        JButton chooseFileButton = new JButton("Choose File");
+        JLabel chosenFileLabel = new JLabel("No file chosen");
+        chosenFileLabel.setForeground(Color.LIGHT_GRAY);
+
+        imageChooserPanel.add(chooseFileButton);
+        imageChooserPanel.add(chosenFileLabel);
+        imageChooserPanel.setOpaque(false);
+
+        formPanel.add(imageChooserPanel);
+
+        // store selected file
+        final File[] selectedImageFile = { null };
+
+        chooseFileButton.addActionListener(e -> {
+            JFileChooser fileChooser = new JFileChooser();
+            int result = fileChooser.showOpenDialog(this);
+            if (result == JFileChooser.APPROVE_OPTION) {
+                selectedImageFile[0] = fileChooser.getSelectedFile();
+                chosenFileLabel.setText(selectedImageFile[0].getName());
+            }
+        });
+
         cardName.setPreferredSize(new Dimension(200, 15));
         cardValue.setPreferredSize(new Dimension(200, 25));
         cardRarity.setPreferredSize(new Dimension(200, 25));
@@ -97,24 +126,33 @@ public class AddCardPanel extends JPanel {
             String variant = (String) cardVariant.getSelectedItem();
             String valueText = cardValue.getText();
 
-            if (rarity.equals("-- Select Rarity --") || variant.equals("-- Select Variant --")) {
-                JOptionPane.showMessageDialog(this, "Please select fill out required inputs.");
+            if (rarity.equals("-- Select Rarity --") || variant.equals("-- Select Variants --")) {
+                JOptionPane.showMessageDialog(this, "Please fill out required inputs.");
                 return;
             }
 
             try {
                 double value = Double.parseDouble(valueText);
-                boolean status = collectionController.addInputCard(name, rarity, variant, value);
-                if(status){
-                    JOptionPane.showMessageDialog(this, "Card added successfully!");
+
+                boolean status;
+                if (selectedImageFile[0] != null) {
+                    status = collectionController.addInputCard(
+                            name, rarity, variant, value, selectedImageFile[0].getAbsolutePath()
+                    );
+                } else {
+                    status = collectionController.addInputCard(name, rarity, variant, value);
                 }
-                else {
+
+                if (status) {
+                    JOptionPane.showMessageDialog(this, "Card added successfully!");
+                } else {
                     JOptionPane.showMessageDialog(this, "Add Card failed! Please enter valid inputs.");
                 }
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(this, "Please enter a valid number for card value.");
             }
         });
+
     }
 
     @Override
