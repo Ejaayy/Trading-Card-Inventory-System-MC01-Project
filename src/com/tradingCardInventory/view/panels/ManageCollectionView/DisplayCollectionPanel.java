@@ -6,6 +6,7 @@ import com.tradingCardInventory.options.Rarity;
 import com.tradingCardInventory.view.resources.*;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public class DisplayCollectionPanel extends JPanel {
@@ -48,7 +49,7 @@ public class DisplayCollectionPanel extends JPanel {
         for (Card card : collectionController.getCollection().getAllCards()) {
 
             if(card.getCount() > 0){
-                JPanel cardPanel = new JPanel();
+                JPanel cardPanel = new CardPanel("/com/tradingCardInventory/view/resources/CardTemplate.jpg");
                 cardPanel.setPreferredSize(new Dimension(170, 220));
                 cardPanel.setBackground(Color.WHITE);
                 cardPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
@@ -57,6 +58,15 @@ public class DisplayCollectionPanel extends JPanel {
                 JLabel nameLabel = new JLabel(card.getName(), SwingConstants.CENTER);
                 nameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
                 nameLabel.setFont(new Font("Arial", Font.BOLD, 14));
+
+                if (card.getImagePath() != null) {
+                    ImageIcon icon = new ImageIcon(card.getImagePath());
+                    // scale image to fit nicely
+                    Image scaled = icon.getImage().getScaledInstance(150, 100, Image.SCALE_SMOOTH);
+                    JLabel imageLabel = new JLabel(new ImageIcon(scaled));
+                    imageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+                    cardPanel.add(imageLabel);
+                }
 
                 JLabel rarityLabel = new JLabel("Rarity: " + card.getRarity());
                 rarityLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -80,6 +90,7 @@ public class DisplayCollectionPanel extends JPanel {
                 cardPanel.add(valueLabel);
                 cardPanel.add(countLabel);
                 cardPanel.add(Box.createVerticalGlue());
+                cardPanel.setBorder(new EmptyBorder(20, 10, 10, 10)); //space on top
 
                 cardGridPanel.add(cardPanel);
             }
